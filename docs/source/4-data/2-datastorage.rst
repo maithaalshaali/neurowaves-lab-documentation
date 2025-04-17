@@ -24,16 +24,16 @@ Or directly from the below widget
 If you are unable to access the datasets it means you do not have the permission to. Kindly contact us to get permission.
 
 
+
+
+
+**Update**:
+
+- The MEG data will now be stored on XNAT together with the MRI data.
+
+
+
 .. _eeg-fmri-data:
-
-
-Update:
-
-The MEG data will now be stored on XNAT together with the MRI data.
-
-
-
-
 
 EEG-fMRI Data storage
 #####################
