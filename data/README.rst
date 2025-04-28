@@ -13,7 +13,7 @@ New instructions for MEG workstation
 - From the master branch clone and follow instructions https://github.com/NrgXnat/xnat-docker-compose
 - The MEG workstation have a static IP address: 10.224.44.161
   - to allow connections from external requests you need to add a firewall rule
-    - sudo ufw allow 22/tcp for SSH
-    - sudo ufw allow 80/tcp for HTTP
-    - We might need port forwarding
+    - on windows add an inbound rule that accepts all connections to port 80
+    - netsh advfirewall firewall add rule name="XNAT Web Server Port 80" dir=in action=allow protocol=TCP localport=80
 
+ 
