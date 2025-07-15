@@ -1,6 +1,5 @@
------------------
-Pipelines Gallery
------------------
+Notebooks Gallery
+=================
 
 
 MNE-Python Pipeline Notebooks
@@ -15,6 +14,7 @@ MNE-Python Pipeline Notebooks
    notebooks/mne/closeup_forward_solutions.ipynb
    notebooks/mne/attention_experiment.ipynb
    notebooks/mne/kit2fiff
+   notebooks/mne/heal_project_resting_state.ipynb
 
 FieldTrip MATLAB Pipeline Notebooks
 -----------------------------------
@@ -29,6 +29,7 @@ FieldTrip MATLAB Pipeline Notebooks
    notebooks/fieldtrip/fieldtrip_kit_attention_task.ipynb
    notebooks/fieldtrip/fieldtrip_kit_audio_visual_motor.ipynb
    notebooks/fieldtrip/fieldtrip_general_analyse_triggers_combined.ipynb
+
 
 
 
