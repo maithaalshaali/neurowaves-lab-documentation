@@ -3,6 +3,8 @@ clearvars
 AssertOpenGL;  
 
 
+time2rest = 60*5;
+
 vpix_use = 1; % 0 if vpixx is not conected
 PsychDebugWindowConfiguration(0, 1); % 1 for running exp; 0.5 for debugging
 PsychDefaultSetup(2);
@@ -82,7 +84,7 @@ fixRadius = 30;
 fixRect = CenterRectOnPoint([0, 0, fixRadius*2, fixRadius*2], wx, wy);
 fixColor = [150 150 150];
 
-time2rest = 60*5;
+
 
 % START EXPERIMENT
 
