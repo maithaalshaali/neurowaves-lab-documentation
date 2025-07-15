@@ -1,5 +1,6 @@
-Notebooks Gallery
-=================
+-----------------
+Pipelines Gallery
+-----------------
 
 
 MNE-Python Pipeline Notebooks
@@ -29,7 +30,6 @@ FieldTrip MATLAB Pipeline Notebooks
    notebooks/fieldtrip/fieldtrip_kit_attention_task.ipynb
    notebooks/fieldtrip/fieldtrip_kit_audio_visual_motor.ipynb
    notebooks/fieldtrip/fieldtrip_general_analyse_triggers_combined.ipynb
-
 
 
 
