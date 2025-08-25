@@ -16,13 +16,13 @@ The code for the experiment can be found here: Source file link
 
 .. dropdown:: Resting state Eyes Closed task code
 
-    .. literalinclude:: ../../../../../experiments/psychtoolbox/resting_state_meg_EYES_CLOSED.m
+    .. literalinclude:: ../../../../../experiments/psychtoolbox/restingstate/resting_state_meg_EYES_CLOSED.m
       :language: matlab
 
 
 .. dropdown:: Resting state Eyes Open task code
 
-    .. literalinclude:: ../../../../../experiments/psychtoolbox/resting_state_meg_EYES_OPEN.m
+    .. literalinclude:: ../../../../../experiments/psychtoolbox/restingstate/resting_state_meg_EYES_OPEN.m
       :language: matlab
 
 Analysis results
