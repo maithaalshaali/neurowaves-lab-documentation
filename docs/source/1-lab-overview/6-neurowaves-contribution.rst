@@ -71,7 +71,71 @@ Thank you for your contribution!
 Checklist
 ^^^^^^^^^
 
-If you would like to add a checklist you can use the
 
-.. checklist::
+You can add simple task checklists to any page using the ``checklist`` directive.
+
+.. note::
+   Checklists are **clickable in HTML builds**. In PDF/LaTeX they render as
+   static boxes (``□`` / ``☒``). If your project includes the optional
+   ``checklist.js``, checkbox state is remembered per browser.
+
+Prerequisites
+"""""""""""""
+
+- The custom extension is enabled in ``conf.py`` (for example)::
+
+    extensions = [
+        # ... other extensions ...
+        'checklist',   # or '_checklist' if that’s your package name
+    ]
+
+Basic usage
+"""""""""""
+
+Write one task per line inside the directive. Use ``[ ]`` for unchecked and
+``[x]`` for checked.
+
+.. code-block:: rst
+
+   .. checklist::
+
+      - [ ] Write the introduction
+      - [x] Add figures
+      - [ ] Final proofreading
+
+Result (HTML)
+""-------------""
+
+- ☐ Write the introduction
+- ☑ Add figures
+- ☐ Final proofreading
+
+Tips
+----
+
+- Start each task with ``- [ ]`` or ``- [x]`` exactly (lowercase ``x``).
+- Each task is **plain text** (no nested markup).
+- For sub-tasks, add another checklist block under a bullet or subsection.
+
+Example with sections
+---------------------
+
+.. code-block:: rst
+
+   Project TODOs
+   --------------
+
+   **Docs**
+
+   .. checklist::
+
+      - [ ] API reference pass
+      - [x] Tutorial outline
+
+   **Release**
+
+   .. checklist::
+
+      - [ ] Changelog
+      - [ ] Tag and publish
 
