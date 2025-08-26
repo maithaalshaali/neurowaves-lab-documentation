@@ -24,65 +24,98 @@ class ChecklistDirective(SphinxDirective):
     has_content = True
 
     def run(self):
+        # inside ChecklistDirective.run(self):
         env = self.env
         root = checklist_node()
-        # stack of (indent, container_node) where container_node is a checklist_node
-        stack = [(0, root)]
-        last_item = None  # last checkitem/group at current level
+        stack = [(0, root)]  # (indent, container checklist_node)
+        last_item = None
         seq = 0
 
-        for raw in self.content:
+        i = 0
+        lines = list(self.content)
+        n = len(lines)
+
+        def indent_of(s):
+            return len(s) - len(s.lstrip(' '))
+
+        while i < n:
+            raw = lines[i]
+            i += 1
             if not raw.strip():
                 continue
 
-            indent = _leading_spaces(raw)
+            indent = indent_of(raw)
             line = raw.strip()
 
-            # Normalize optional leading "-" or "*" bullets
+            # optional leading dash/star
             if line.startswith(('- ', '* ')):
                 line = line[2:].lstrip()
 
-            # Determine type
-            is_task = line.lower().startswith('[ ] ') or line.lower().startswith('[x] ')
-            if is_task:
-                checked = line[1:2].lower() == 'x'
-                text = line[4:]
-                kind = 'task'
-            else:
-                # Treat as a label that can hold a nested checklist
-                text = line
-                kind = 'group'
-
-            # Climb up to the proper parent level
+            # climb to proper parent level
             while stack and indent < stack[-1][0]:
                 stack.pop()
             if not stack:
                 stack = [(0, root)]
-
             parent = stack[-1][1]
 
-            # If indent is deeper than current level, create a nested checklist under last item
+            # going deeper than current level -> nest under last_item
             if indent > stack[-1][0]:
-                # If we have no last_item to attach to, create an implicit group
                 if last_item is None:
                     last_item = group_node("")
                     parent += last_item
                 nested = checklist_node()
                 last_item += nested
                 stack.append((indent, nested))
-                parent = nested  # update for append below
+                parent = nested
 
-            # Create node
-            if kind == 'task':
+            # task?
+            if line.lower().startswith('[ ] ') or line.lower().startswith('[x] '):
+                checked = (line[1:2].lower() == 'x')
+                text = line[4:]
                 key = f"{env.docname}::{seq}::{text[:80]}"
                 node = checkitem_node(text, checked, key)
+                parent += node
+                last_item = node
                 seq += 1
-                last_item = node
-            else:
-                node = group_node(text)
-                last_item = node
+                continue
 
-            parent += node
+            # plain bullet sublist under the LAST item (no checkbox)
+            if line.startswith('- '):
+                # collect contiguous plain bullets at the SAME indent
+                items = [line[2:].lstrip()]
+                bullet_indent = indent
+                while i < n:
+                    peek = lines[i]
+                    if not peek.strip():
+                        i += 1
+                        continue
+                    pi = indent_of(peek);
+                    pline = peek.strip()
+                    if pi != bullet_indent or not pline.startswith('- '):
+                        break
+                    items.append(pline[2:].lstrip())
+                    i += 1
+
+                # attach them: if we’re not nested yet, create a group holder
+                holder = last_item if isinstance(last_item, (checkitem_node, group_node)) else parent
+                ul = nodes.bullet_list()
+                for it in items:
+                    li = nodes.list_item('',
+                                         nodes.paragraph(text=it))
+                    ul += li
+
+                # if holder is a checkitem/group, add ul under it; else directly under parent
+                if holder is last_item:
+                    holder += ul
+                else:
+                    parent += ul
+                # keep last_item unchanged
+                continue
+
+            # otherwise: treat as a group label
+            grp = group_node(line)
+            parent += grp
+            last_item = grp
 
         return [root]
 
