@@ -81,3 +81,5 @@
   margin-left: 1rem !important;   /* same indent as nested list */
 }
 
+
+.checklist-wrap { outline: 2px dashed lime !important; }
