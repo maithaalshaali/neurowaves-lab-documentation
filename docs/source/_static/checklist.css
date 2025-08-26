@@ -58,7 +58,7 @@
 /* Final, single source of truth for nested indent */
 .checklist-wrap .task-list .task-list,
 .checklist-wrap .task-group > .task-list {
-  margin-left: 0.75rem !important;   /* ← tweak this value only */
+  margin-left: 0 !important;  /* was 0.75rem */
   padding-left: 0 !important;
 }
 
