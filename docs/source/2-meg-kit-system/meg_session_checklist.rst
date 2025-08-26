@@ -1,8 +1,9 @@
+----------------------------------
 Step-by-step MEG Session Checklist
-==================================
+----------------------------------
 
 Scheduling A Session
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -12,7 +13,7 @@ Scheduling A Session
     - [ ] Email the participant the study requirements, consent form, and any pre-experiment surveys (if applicable).
 
 Before Participant Arrival
---------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -28,7 +29,7 @@ Before Participant Arrival
         - [ ] Set up the divider near the door.
 
 Participant Preparation
------------------------
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -52,7 +53,7 @@ Participant Preparation
     - [ ] Provide the participant with the leg pillow and blanket for comfort.
 
 MSR Preparation
----------------
+^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -64,7 +65,8 @@ MSR Preparation
     - [ ] Switch off the heater.
 
 MEG Recording
--------------
+^^^^^^^^^^^^^
+
 At the MEG Main Computer:
 
 .. checklist::
@@ -82,7 +84,7 @@ At the MEG Main Computer:
     - [ ] During the session, take note of any signal abnormalities, participant movement, or interruptions with timestamps.
 
 After MEG Session
------------------
+^^^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -96,7 +98,7 @@ After MEG Session
     - [ ] Provide the participant with compensation (if applicable).
 
 After Participant Leaves
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. checklist::
 
@@ -106,8 +108,10 @@ After Participant Leaves
     - [ ] Call security to inform them that the session is complete (if finished early).
 
 Saving The Data
----------------
+^^^^^^^^^^^^^^^
+
 Experiment Data
+"""""""""""""""
 
 .. checklist::
 
@@ -118,6 +122,7 @@ Experiment Data
         - sub-007-vcp.mat
 
 Laser Scan Data
+"""""""""""""""
 
 .. checklist::
 
@@ -131,6 +136,7 @@ Laser Scan Data
         - sub-007_stylus-points
 
 MEG Data
+""""""""
 
 .. checklist::
 
@@ -144,6 +150,7 @@ MEG Data
     - [ ] Safely eject EXTREME SSD.
 
 Uploading Data to NYU Box:
+""""""""""""""""""""""""""
 
 .. checklist::
 
