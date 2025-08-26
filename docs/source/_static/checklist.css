@@ -19,3 +19,19 @@
 }
 
 .task-list label { cursor: pointer; }
+
+
+/* tighten nested checklists */
+.task-list .task-list {
+  margin-left: 1rem;   /* adjust as needed (default browser is ~2em) */
+  padding-left: 0;
+}
+
+/* make group label look nice */
+.task-group { margin: .4rem 0; }
+.group-label {
+  font-weight: 600;
+  display: inline-block;
+  margin: 0 0 .25rem 0;
+}
+
