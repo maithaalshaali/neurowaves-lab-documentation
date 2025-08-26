@@ -61,7 +61,7 @@ extensions = [
     "sphinx_togglebutton",
     "sphinx_panels",
     "sphinxcontrib.mermaid",
-    "checklist",
+    "_checklist",
 ]
 
 
