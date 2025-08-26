@@ -3,10 +3,14 @@ Step-by-step MEG Session Checklist
 
 Scheduling A Session
 --------------------
-- [ ] Confirm the session date and time with the participant using your preferred method (e.g., Sona, Calendly), and cross-check CTPSS to avoid conflicts with other MEG sessions.
-- [ ] Create and send a Google Calendar invite to the participant.
-- [ ] Book the session on CTPSS, including a ~30-minute buffer before and after. Do not include the participant in this booking.
-- [ ] Email the participant the study requirements, consent form, and any pre-experiment surveys (if applicable).
+
+.. task-list::
+   :clickable:
+
+    * [] Confirm the session date and time with the participant using your preferred method (e.g., Sona, Calendly), and cross-check CTPSS to avoid conflicts with other MEG sessions.
+    * [] Create and send a Google Calendar invite to the participant.
+    * [] Book the session on CTPSS, including a ~30-minute buffer before and after. Do not include the participant in this booking.
+    * [] Email the participant the study requirements, consent form, and any pre-experiment surveys (if applicable).
 
 Before Participant Arrival
 --------------------------

@@ -58,6 +58,7 @@ extensions = [
     "sphinx_togglebutton",
     "sphinx_panels",
     "sphinxcontrib.mermaid",
+    "sphinx_immaterial.task_lists"
 ]
 
 exclude_patterns = ['**/template_*.ipynb']
