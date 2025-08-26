@@ -66,3 +66,12 @@ If you'd like to contribute to this documentation, please follow the heading-ado
 
 Thank you for your contribution!
 
+
+
+Checklist
+^^^^^^^^^
+
+If you would like to add a checklist you can use the
+
+.. checklist::
+
