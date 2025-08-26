@@ -35,5 +35,49 @@
   margin: 0 0 .25rem 0;
 }
 
-.task-list { outline: 2px solid red !important; }
+
+
+/* Reset theme list spacing only inside our wrapper */
+.checklist-wrap ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none; /* we render our own structure */
+}
+
+/* Base task list styling */
+.checklist-wrap .task-list { margin: .25rem 0 1rem !important; }
+
+/* Indent only our nested checklists by a small amount */
+.checklist-wrap .task-list .task-list {
+  margin-left: 1rem !important;   /* adjust to taste: 0.75rem–1.25rem */
+  padding-left: 0 !important;
+}
+
+/* Some themes add left margin to LI instead of UL — neutralize */
+.checklist-wrap .task-list li {
+  margin-left: 0 !important;
+  margin-top: .25rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+}
+
+/* Checkbox alignment & cursor */
+.checklist-wrap .task-list input[type="checkbox"] {
+  accent-color: var(--color-brand, #3f51b5);
+  transform: translateY(2px);
+}
+.checklist-wrap .task-list label { cursor: pointer; }
+
+/* Group label and nested list spacing */
+.checklist-wrap .task-group { margin: .5rem 0 .25rem 0; }
+.checklist-wrap .group-label {
+  font-weight: 600;
+  display: inline-block;
+  margin: 0 0 .25rem 0;
+}
+.checklist-wrap .task-group > .task-list {
+  margin-left: 1rem !important;   /* same indent as nested list */
+}
 
