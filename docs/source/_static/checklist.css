@@ -23,7 +23,7 @@
 
 /* tighten nested checklists */
 .task-list .task-list {
-  margin-left: 1rem;   /* adjust as needed (default browser is ~2em) */
+  margin-left: 0.5rem;   /* adjust as needed (default browser is ~2em) */
   padding-left: 0;
 }
 
@@ -34,4 +34,6 @@
   display: inline-block;
   margin: 0 0 .25rem 0;
 }
+
+.task-list { outline: 2px solid red !important; }
 
