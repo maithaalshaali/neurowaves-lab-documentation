@@ -103,8 +103,9 @@ suppress_warnings = [
 
 html_static_path = ["_static"]
 html_css_files = ["custom.css",
-                  "checklist.css",
-                  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"]
+                  "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css",
+                  "checklist.css"
+                  ]
 
 # -- Options for EPUB output
 epub_show_urls = "footnote"
