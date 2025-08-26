@@ -131,8 +131,6 @@ Laser Scan Data
     - [ ] Apply the smoothing filter: View > Basic Surface > Save as: “sub-007_basic-surface”
     - [ ] Save files to the subject folder: Export > Basic Surface > Export stylus points as well. Save as: “sub-007_stylus-points”
     - [ ] At the Laser Scan Computer, open the project folder, select and upload the following files to the hard drive:
-
-
         - sub-007_laser-project
         - sub-007_basic-surface
         - sub-007_stylus-points
@@ -145,8 +143,6 @@ MEG Data
     - [ ] Use the hard drive “EXTREME SSD” to save the data and transfer from MEG Main PC to the Laser Scan computer.
     - [ ] At the MEG Main PC, open the “sub-007.con” file and click Edit > Noise Reduction (R) > save as “sub-007_denoised.con”.
     - [ ] At the MEG Main PC, open the project folder, select and upload the following files to the hard drive:
-
-
         - YYMMDD-1.mrk
         - YYMMDD-2.mrk
         - sub-007.con
@@ -162,8 +158,6 @@ Uploading Data to NYU Box:
 .. checklist::
 
     - [ ] In the project folder on NYU Box, create 3 sub-folders, name them:
-
-
         - "derivatives" for Experiment Data
         - "laserscan" for Laser Scan Data
         - "meg" for Experiment Data
