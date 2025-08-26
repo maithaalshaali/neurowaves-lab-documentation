@@ -91,7 +91,6 @@ def html_depart_checklist_node(self, node):
     self.body.append('</ul></div>')
 
 def html_visit_checklist_node(self, node):
-    # add a wrapper that lets us fully control nested spacing
     self.body.append('<div class="checklist-wrap"><ul class="task-list">')
 
 def html_visit_group_node(self, node):
