@@ -53,6 +53,32 @@ from psychopy.hardware import keyboard
 
 
 
+# Template for trigger
+# This code will trigger according to the values in the csv
+# if frameN < 10:
+#     combined_trigger_value = (
+#             trialList[trialIndex]['trigger224w'] * trigger_channels_dictionary[224] +
+#             trialList[trialIndex]['trigger225w'] * trigger_channels_dictionary[225] +
+#             trialList[trialIndex]['trigger226w'] * trigger_channels_dictionary[226] +
+#             trialList[trialIndex]['trigger227w'] * trigger_channels_dictionary[227] +
+#             trialList[trialIndex]['trigger228w'] * trigger_channels_dictionary[228] +
+#             trialList[trialIndex]['trigger229w'] * trigger_channels_dictionary[229] +
+#             trialList[trialIndex]['trigger230w'] * trigger_channels_dictionary[230] +
+#             trialList[trialIndex]['trigger231w'] * trigger_channels_dictionary[231]
+#     )
+#     print(f"Trial {trialIndex}, Trigger: Combined Value = {combined_trigger_value}")
+#
+#     dp.DPxSetDoutValue(combined_trigger_value, 0xFFFFFF)
+#     dp.DPxUpdateRegCache()
+#     print('wordIndex', wordIndex)
+#     print('frameN', frameN)
+#
+# if frameN == 10:
+#     # Debugging log: Print the calculated combined value
+#     dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+#     dp.DPxUpdateRegCache()
+
+
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
 deviceManager = hardware.DeviceManager()
@@ -950,6 +976,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_BG.status = FINISHED
 
                         # TODO: Add trigger for 'VI_BG end'
+
+
+
                         VI_BG.setAutoDraw(False)
                 
                 # *VI_Sound* updates

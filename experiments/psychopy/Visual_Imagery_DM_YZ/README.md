@@ -27,7 +27,12 @@ recall certain image according to the description.
 
 visual\_imagery\_practice\_lastrun.py:
 
-P\_Inter(1s, a short break between each trial) -> P\_Cue(1s), P\_Sound(1.5s, language description), P\_BG(6.5s, 1s overlapped with P\_Cue, 1-2.5s overlapped with P\_Sound, 2.5-6.5s shows an empty screen for participant to imagine) -> P\_RateText, P\_IMG1-5, P\_key\_Resp2 (no time limit, giving participants reference images to rate with a value from 1 to 5) -> P\_CQ, P\_CQ\_Option, P\_CQ\_Key\_Resp (no time limit, a question with 3 options 'YES', 'NO', 'DON'T KNOW' for people to choose one as response)
+P\_Inter(1s, a short break between each trial) -> P\_Cue(1s), P\_Sound(1.5s, language description), 
+P\_BG(6.5s, 1s overlapped with P\_Cue, 1-2.5s overlapped with P\_Sound, 2.5-6.5s 
+shows an empty screen for participant to imagine) -> P\_RateText, P\_IMG1-5, P\_key\_Resp2 
+(no time limit, giving participants reference images to rate with a value from 1 to 5) -> P\_CQ, P\_CQ\_Option, 
+P\_CQ\_Key\_Resp (no time limit, a question with 3 options 'YES', 'NO', 'DON'T KNOW' for people to 
+choose one as response)
 
 
 
@@ -85,6 +90,26 @@ Channels from 224 to 231
 
 5 buttons on the left hand
 and 3 buttons for the right hand
+
+There are two stages:
+- Rating stage: the user is rating images from 1 to 5
+- Question/Response: the user picks an answer: yes, no, dont know
+
+28/08/2025: Left box has the yellow button stuck, so we can't use all five on the box for now, but we will have the new box by next week
+
+Stage 1: Rating: Required behavior:
+- listen to any button from the left box (1 to 5), get the first press and save that into the logfile
+- they can take as much time as they want to answer
+
+Stage 2: Question/Response:
+- listen to only the three buttons from the right box (1 to 3) (index, middle, ring) fingers (TODO: Add colors here), save that to the logfile
+- they can take as much time as they want to answer
+
+
+We will use `getbutton` function from `utilities.py`
+
+for Stage 1:
+- buttons = []
 
 * add more details here: are we listening to any  button press and saving the first pressed button into the logfile
 
