@@ -17,7 +17,7 @@ from pypixxlib import _libdpx as dp
 from utilities import *
 
 USE_VPIXX = True
-
+SIMULATE_RESPONSE = False
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -1762,7 +1762,8 @@ def quit(thisExp, win=None, thisSession=None):
         thisSession.stop()
     # terminate Python process
     core.quit()
-
+    if USE_VPIXX:
+        dp.DPxClose()
 
 # if running this experiment as a script...
 if __name__ == '__main__':
@@ -1780,3 +1781,5 @@ if __name__ == '__main__':
     )
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
+
+
