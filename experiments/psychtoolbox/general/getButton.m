@@ -10,7 +10,7 @@ while true
         
         resp = find(buttonBox);
         time = GetSecs;
-        if length(resp) == 2
+        if length(resp) == 1
             break;
         end
     end
