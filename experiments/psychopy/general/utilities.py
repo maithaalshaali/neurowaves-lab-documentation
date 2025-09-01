@@ -55,6 +55,7 @@ from collections import defaultdict
 
 # --- internal helpers built from the mapping ---
 # (box,color) -> listen_to code
+# Flattens the nested dictionaries
 _PAIR_TO_LISTEN = {
     (box, color): info["listen_to"]
     for box, colors in button_mapping.items()
