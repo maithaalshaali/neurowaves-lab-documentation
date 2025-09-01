@@ -15,7 +15,7 @@ If you publish work using this script the most relevant publication is:
 from pypixxlib import _libdpx as dp
 from utilities import *
 
-USE_VPIXX = True
+USE_VPIXX = False
 
 
 if USE_VPIXX:
@@ -46,6 +46,98 @@ import sys  # to get file system encoding
 
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
+import pandas as pd
+
+TRIGGER_DURATION = 10
+
+CSV_TRIGGER_INFO = pd.read_csv('VI_practice_trig.csv')
+
+P_START_SOUND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_SOUND_END_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_BG_END_TRIGGER_CODE =  (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_KEY_RESP2_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+
+
+
+
+
+#CSV_TRIGGER_INFO = data.importConditions('VI_practice_trig.csv')
 
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
@@ -109,7 +201,7 @@ def showExpInfoDlg(expInfo):
 def setupData(expInfo, dataDir=None):
     """
     Make an ExperimentHandler to handle trials and saving.
-    
+
     Parameters
     ==========
     expInfo : dict
@@ -930,7 +1022,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisExp.timestampOnFlip(win, 'P_BG.stopped')
                     # update status
                     P_BG.status = FINISHED
-                    # TODO: add trigger for 'P_BG end'
+
+
+                    # TODO: test trigger
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(P_BG_END_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter+TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+
+
                     P_BG.setAutoDraw(False)
             
             # *P_Sound* updates
