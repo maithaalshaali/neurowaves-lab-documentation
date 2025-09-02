@@ -16,7 +16,7 @@ from pypixxlib import _libdpx as dp
 from utilities import *
 
 USE_VPIXX = False
-SIMULATE_RESPONSE = True
+
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -1054,18 +1054,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 P_Sound.status = STARTED
                 # TODO: add trigger for 'P_Sound start'
-                framecounter = frameN
-
-                if USE_VPIXX:
-
-                    dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
-                    dp.DPxUpdateRegCache()
-
-                    if frameN == framecounter + TRIGGER_DURATION:
-                        # Debugging log: Print the calculated combined value
-                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                        dp.DPxUpdateRegCache()
-
                 P_Sound.play()  # start the sound (it finishes automatically)
             
             # if P_Sound is stopping this frame...
@@ -1081,18 +1069,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     P_Sound.status = FINISHED
                     # TODO: add trigger for 'P_Sound end'
-                    framecounter = frameN
-
-                    if USE_VPIXX:
-
-                        dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
-                        dp.DPxUpdateRegCache()
-
-                        if frameN == framecounter + TRIGGER_DURATION:
-                            # Debugging log: Print the calculated combined value
-                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                            dp.DPxUpdateRegCache()
-
                     P_Sound.stop()
             
             # *P_Cue* updates
@@ -1363,32 +1339,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_Key_Resp2.status == STARTED and not waitOnFlip:
                 # TODO: add button press for 'P_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                framecounter = frameN
-
-                if USE_VPIXX:
-
-                    dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
-                    dp.DPxUpdateRegCache()
-
-                    if frameN == framecounter + TRIGGER_DURATION:
-                        # Debugging log: Print the calculated combined value
-                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                        dp.DPxUpdateRegCache()
-
-                    theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
-                    _P_Key_Resp2_allKeys.extend(theseKeys)
-                    if len(_P_Key_Resp2_allKeys):
-                        P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
-                        P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
-                        P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
-                        # a response ends the routine
-                        continueRoutine = False
-
-                elif SIMULATE_RESPONSE:
-                    # directly assign simulated response
-                    P_Key_Resp2.keys = '3'
-                    P_Key_Resp2.rt = 0  # you can set a fake RT if you want
-                    P_Key_Resp2.duration = None
+                theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
+                _P_Key_Resp2_allKeys.extend(theseKeys)
+                if len(_P_Key_Resp2_allKeys):
+                    P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
+                    P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
+                    P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
+                    # a response ends the routine
                     continueRoutine = False
             
             # check for quit (typically the Esc key)
@@ -1547,32 +1504,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_CQ_Key_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_CQ_Key_Resp.status == STARTED and not waitOnFlip:
                 # TODO: Add button press for 'P_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
-                framecounter = frameN
-
-                if USE_VPIXX:
-
-                    dp.DPxSetDoutValue(P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
-                    dp.DPxUpdateRegCache()
-
-                    if frameN == framecounter + TRIGGER_DURATION:
-                        # Debugging log: Print the calculated combined value
-                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                        dp.DPxUpdateRegCache()
-
-                    theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
-                    _P_CQ_Key_Resp_allKeys.extend(theseKeys)
-                    if len(_P_CQ_Key_Resp_allKeys):
-                        P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
-                        P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
-                        P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
-                        # a response ends the routine
-                        continueRoutine = False
-
-                elif SIMULATE_RESPONSE:
-                    # directly assign simulated response
-                    P_CQ_Key_Resp.keys = 'f'
-                    P_CQ_Key_Resp.rt = 0  # fake RT if needed
-                    P_CQ_Key_Resp.duration = None
+                theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
+                _P_CQ_Key_Resp_allKeys.extend(theseKeys)
+                if len(_P_CQ_Key_Resp_allKeys):
+                    P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
+                    P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
+                    P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
+                    # a response ends the routine
                     continueRoutine = False
             
             # check for quit (typically the Esc key)
@@ -1831,5 +1769,3 @@ if __name__ == '__main__':
     )
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
-
-dp.DPxClose()
