@@ -15,8 +15,8 @@ If you publish work using this script the most relevant publication is:
 from pypixxlib import _libdpx as dp
 from utilities import *
 
-USE_VPIXX = True
-
+USE_VPIXX = False
+SIMULATE_RESPONSE = True
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -46,6 +46,98 @@ import sys  # to get file system encoding
 
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
+import pandas as pd
+
+TRIGGER_DURATION = 10
+
+CSV_TRIGGER_INFO = pd.read_csv('VI_practice_trig.csv')
+
+P_START_SOUND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_SOUND_END_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_BG_END_TRIGGER_CODE =  (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_BG end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_KEY_RESP2_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_key_Resp2 respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_CQ_Key_Resp respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+
+
+
+
+
+#CSV_TRIGGER_INFO = data.importConditions('VI_practice_trig.csv')
 
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
@@ -109,7 +201,7 @@ def showExpInfoDlg(expInfo):
 def setupData(expInfo, dataDir=None):
     """
     Make an ExperimentHandler to handle trials and saving.
-    
+
     Parameters
     ==========
     expInfo : dict
@@ -930,7 +1022,23 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     thisExp.timestampOnFlip(win, 'P_BG.stopped')
                     # update status
                     P_BG.status = FINISHED
-                    # TODO: add trigger for 'P_BG end'
+
+
+                    # TODO: test trigger
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(P_BG_END_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter+TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+
+
                     P_BG.setAutoDraw(False)
             
             # *P_Sound* updates
@@ -946,6 +1054,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 P_Sound.status = STARTED
                 # TODO: add trigger for 'P_Sound start'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
                 P_Sound.play()  # start the sound (it finishes automatically)
             
             # if P_Sound is stopping this frame...
@@ -961,6 +1081,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     P_Sound.status = FINISHED
                     # TODO: add trigger for 'P_Sound end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
                     P_Sound.stop()
             
             # *P_Cue* updates
@@ -1231,13 +1363,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_Key_Resp2.status == STARTED and not waitOnFlip:
                 # TODO: add button press for 'P_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
-                _P_Key_Resp2_allKeys.extend(theseKeys)
-                if len(_P_Key_Resp2_allKeys):
-                    P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
-                    P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
-                    P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
-                    # a response ends the routine
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                    theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
+                    _P_Key_Resp2_allKeys.extend(theseKeys)
+                    if len(_P_Key_Resp2_allKeys):
+                        P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
+                        P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
+                        P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
+                        # a response ends the routine
+                        continueRoutine = False
+
+                elif SIMULATE_RESPONSE:
+                    # directly assign simulated response
+                    P_Key_Resp2.keys = '3'
+                    P_Key_Resp2.rt = 0  # you can set a fake RT if you want
+                    P_Key_Resp2.duration = None
                     continueRoutine = False
             
             # check for quit (typically the Esc key)
@@ -1396,13 +1547,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_CQ_Key_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_CQ_Key_Resp.status == STARTED and not waitOnFlip:
                 # TODO: Add button press for 'P_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
-                theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
-                _P_CQ_Key_Resp_allKeys.extend(theseKeys)
-                if len(_P_CQ_Key_Resp_allKeys):
-                    P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
-                    P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
-                    P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
-                    # a response ends the routine
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                    theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
+                    _P_CQ_Key_Resp_allKeys.extend(theseKeys)
+                    if len(_P_CQ_Key_Resp_allKeys):
+                        P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
+                        P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
+                        P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
+                        # a response ends the routine
+                        continueRoutine = False
+
+                elif SIMULATE_RESPONSE:
+                    # directly assign simulated response
+                    P_CQ_Key_Resp.keys = 'f'
+                    P_CQ_Key_Resp.rt = 0  # fake RT if needed
+                    P_CQ_Key_Resp.duration = None
                     continueRoutine = False
             
             # check for quit (typically the Esc key)
@@ -1661,3 +1831,5 @@ if __name__ == '__main__':
     )
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
+
+dp.DPxClose()
