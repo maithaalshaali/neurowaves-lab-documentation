@@ -16,8 +16,8 @@ If you publish work using this script the most relevant publication is:
 from pypixxlib import _libdpx as dp
 from utilities import *
 
-USE_VPIXX = True
-SIMULATE_RESPONSE = False
+USE_VPIXX = False
+SIMULATE_RESPONSE = True
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -25,6 +25,7 @@ if USE_VPIXX:
     dp.DPxWriteRegCache()
     dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
     dp.DPxUpdateRegCache()
+
 
 
 # --- Import packages ---
