@@ -157,76 +157,59 @@ def _normalize_selection(selection: dict | None):
 
 
 def getbuttonColor(selection: dict | None = None):
-    """Block until a specified (box, color) button is pressed; return strings.
-
-    The API is **strings-only**. Callers group desired colors per box:
-    `{"right box": [...], "left box": [...]}`. The function hides the
-    integer wiring and returns `(box_side, color)` in lowercase.
-
-    Internals:
-      * Uses `listen_to` codes to quickly gate polling so we only proceed when a
-        watched line is high.
-      * Determines the pressed button by checking response-bit lines defined in
-        the mapping (not assumed contiguous).
-      * Supports distinct **white** buttons on each box with their own
-        `response` and `listen_to` codes.
-
-    Args:
-      selection: Optional grouped selection dict:
-        {
-          "right box": [<colors>],
-          "left box":  [<colors>]
-        }
-        - Omit a box or pass an empty list to ignore it.
-        - If None, listens to all defined buttons.
-
-    Returns:
-      tuple[str, str]: `(box_side, color)`, both lowercase strings.
-
-    Raises:
-      ValueError: If selection contains unknown boxes or colors.
-      RuntimeError: If a pressed response line maps to multiple candidates.
-                    (This would indicate overlapping wiring in your mapping.)
-
-    Example:
-      >>> # Listen to right: green, blue, yellow; left: white, blue, red
-      >>> selection = {
-      ...     "right box": ["green", "blue", "yellow"],
-      ...     "left box":  ["white", "blue", "red"],
-      ... }
-      >>> box_side, color = getbuttonColor(selection)
-      >>> print(f"Pressed {color} on {box_side}")
-      Pressed blue on right box
     """
-    listen_pairs, listen_codes = _normalize_selection(selection)
+    Poll the inputs like `getbutton`, but return (box, color).
+    Honors the mapping (including distinct whites) and an optional grouped
+    `selection` filter of the form:
+        {
+          "right box": ["green", "blue"],
+          "left box":  ["red"]
+        }
+    """
+    listen_pairs, _listen_codes = _normalize_selection(selection)  # keep selection, ignore listen codes
 
     while True:
         DPxUpdateRegCache()
         raw = DPxGetDinValue()
         bits = decimal_to_binary(raw)
 
-        # Ensure we have enough width to index up to the max bit we rely on.
+        # Ensure we can index up to the largest response bit (handles short strings)
         if len(bits) < _MAX_BIT_NEEDED:
             bits = bits.zfill(_MAX_BIT_NEEDED)
 
-        # Fast gate: continue only if any of the selected listen_to bits is high.
-        if any(bits[-code] == '1' for code in listen_codes):
-            # Check all defined response codes (sparse or non-contiguous OK).
-            pressed = [code for code in _ALL_RESPONSE_CODES if bits[-code] == '1']
+        # --- replicate getbutton logic over the full response range ---
+        # Build an array for codes 1.._MAX_BIT_NEEDED where index 0 -> code 1 (LSB)
+        button_box = [int(bits[-_MAX_BIT_NEEDED + i]) for i in range(_MAX_BIT_NEEDED)]
 
-            # Accept a single, clean press only.
-            if len(pressed) == 1:
-                resp = pressed[0]
-                # Map response -> candidates, intersect with selection.
-                candidates = [p for p in _RESP_TO_PAIRS.get(resp, []) if p in listen_pairs]
-                if len(candidates) == 1:
-                    return candidates[0]
-                if len(candidates) > 1:
-                    raise RuntimeError(
-                        "Ambiguous press: multiple (box,color) share this hardware line: "
-                        + ", ".join(f"{b}/{c}" for b, c in candidates)
-                    )
-            # else: multiple/no presses -> keep polling
+        # Only consider response codes that exist in the mapping
+        resp_codes = [i + 1 for i, state in enumerate(button_box)
+                      if state == 1 and (i + 1) in _ALL_RESPONSE_CODES]
+
+        # Return only when a single response line is high, matching getbutton semantics
+        if len(resp_codes) == 1:
+            resp = resp_codes[0]
+
+            # Map response code -> (box,color) candidates from the mapping
+            candidates = _RESP_TO_PAIRS.get(resp, [])
+
+            # If a selection was provided, intersect with it
+            if selection is not None:
+                candidates = [p for p in candidates if p in listen_pairs]
+
+            if len(candidates) == 1:
+                # Same return shape as before: (box_side, color)
+                return candidates[0]
+
+            if len(candidates) > 1:
+                # This mirrors the "single line pressed" assumption—if hardware lines are shared,
+                # the selection filter should disambiguate; otherwise we raise.
+                raise RuntimeError(
+                    "Ambiguous press: multiple (box,color) share this hardware line: "
+                    + ", ".join(f"{b}/{c}" for b, c in candidates)
+                )
+        # else: 0 or >1 responses high → keep polling
+
+
 
 
 
