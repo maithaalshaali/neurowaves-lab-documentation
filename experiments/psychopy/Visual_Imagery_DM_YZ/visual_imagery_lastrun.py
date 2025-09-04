@@ -14,12 +14,13 @@ If you publish work using this script the most relevant publication is:
 #Vpixx import
 
 from pypixxlib import _libdpx as dp
-from utilities import *
+from experiments.psychopy.general.utilities import getbuttonColor, RGB2Trigger, black, trigger_channels_dictionary
 import json
 
-USE_VPIXX = False
-
+USE_VPIXX = True
+DEBUG_MODE = True
 RESPONSE_TYPE = "simulated"
+SCREEN_INDEX = 1
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
 if USE_VPIXX:
@@ -56,19 +57,11 @@ import pandas as pd
 RESPONSES = []
 TRIGGER_DURATION = 10
 
-CSV_TRIGGER_INFO = pd.read_csv('VI_trig.csv')
+if DEBUG_MODE:
+    CSV_TRIGGER_INFO = pd.read_csv('VI_trig_debug.csv')
+else:
+    CSV_TRIGGER_INFO = pd.read_csv('VI_trig.csv')
 
-# need trigger_channels_dictionary for 'simulated' and 'keyboard' if we don't import utilities, which requires vpixx
-trigger_channels_dictionary = {
-    224: 4,
-    225: 16,
-    226: 64,
-    227: 256,
-    228: 1024,
-    229: 4096,
-    230: 16384,
-    231: 65536
-}
 
 # assign corresponding names for triggers
 VI_SOUND_START_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger224'].iloc[0] *
@@ -190,8 +183,8 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 # work out from system args whether we are running in pilot mode
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
-_fullScr = True
-_winSize = [1707, 960]
+_fullScr = False
+_winSize = [1919, 1079]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -247,7 +240,11 @@ def setupData(expInfo, dataDir=None):
     # data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
     if dataDir is None:
         dataDir = _thisDir
-    filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+    if DEBUG_MODE:
+        filename = u'data/%s_%s_%s_%s' % ('DEBUG_DATA',expInfo['participant'], expName, expInfo['date'])
+    else:
+        filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+
     # make sure filename is relative to dataDir
     if os.path.isabs(filename):
         dataDir = os.path.commonprefix([dataDir, filename])
@@ -324,7 +321,7 @@ def setupWindow(expInfo=None, win=None):
     if win is None:
         # if not given a window to setup, make one
         win = visual.Window(
-            size=_winSize, fullscr=_fullScr, screen=0,
+            size=_winSize, fullscr=_fullScr, screen=SCREEN_INDEX,
             winType='pyglet', allowGUI=True, allowStencil=False,
             monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
             backgroundImage='', backgroundFit='none',
@@ -795,17 +792,32 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     thisExp.nextEntry()
     # the Routine "B1_Start" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
-    
+
+    if not DEBUG_MODE:
     # set up handler to look after randomisation of conditions etc
-    Blocks = data.TrialHandler2(
-        name='Blocks',
-        nReps=1.0, 
-        method='random', 
-        extraInfo=expInfo, 
-        originPath=-1, 
-        trialList=data.importConditions('VI_Blocks.csv'), 
-        seed=None, 
-    )
+        Blocks = data.TrialHandler2(
+            name='Blocks',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_Blocks.csv'),
+            seed=None,
+        )
+    else:
+
+        Blocks = data.TrialHandler2(
+            name='Blocks',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_Blocks_debug.csv'),
+            seed=None,
+        )
+
+
+
     thisExp.addLoop(Blocks)  # add the loop to the experiment
     thisBlock = Blocks.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisBlock.rgb)
@@ -1064,7 +1076,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             dp.DPxSetDoutValue(VI_BG_END_TRIGGER_CODE, 0xFFFFFF)
                             dp.DPxUpdateRegCache()
 
-                            if frameN == framecounter + TRIGGER_DURATION:
+                            if frameN > framecounter + TRIGGER_DURATION:
                                 # Debugging log: Print the calculated combined value
                                 dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                                 dp.DPxUpdateRegCache()
@@ -1091,7 +1103,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(VI_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter + TRIGGER_DURATION:
+                        if frameN > framecounter + TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
@@ -1120,7 +1132,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             dp.DPxSetDoutValue(VI_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
                             dp.DPxUpdateRegCache()
 
-                            if frameN == framecounter + TRIGGER_DURATION:
+                            if frameN > framecounter + TRIGGER_DURATION:
                                 # Debugging log: Print the calculated combined value
                                 dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                                 dp.DPxUpdateRegCache()
@@ -1298,7 +1310,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(VI_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter + TRIGGER_DURATION:
+                        if frameN > framecounter + TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
@@ -1327,6 +1339,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_Key_Resp2.rt = 0  # you can set a fake RT if you want
                         VI_Key_Resp2.duration = None
                         continueRoutine = False
+
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1491,7 +1504,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter + TRIGGER_DURATION:
+                        if frameN > framecounter + TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
@@ -1877,6 +1890,10 @@ def saveData(thisExp):
     """
     filename = thisExp.dataFileName
     # these shouldn't be strictly necessary (should auto-save)
+    #TODO: Copy next line in other experiments
+    if not DEBUG_MODE:
+        thisExp.extraInfo(RESPONSES)
+
     thisExp.saveAsWideText(filename + '.csv', delim='auto')
     thisExp.saveAsPickle(filename)
 
