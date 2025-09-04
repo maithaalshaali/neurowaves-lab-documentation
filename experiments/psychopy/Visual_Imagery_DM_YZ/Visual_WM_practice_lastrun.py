@@ -204,7 +204,7 @@ WM_P_Test_Resp_respond_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigTy
 # RESPONSE_SELECTION_1 = {
 # "left box": ["green", "blue", "yellow", "red", "white"]}
 
-RESPONSE_SELECTION_2 = {
+RESPONSE_SELECTION = {
 "right box": ["red", "yellow"]}
 
 
@@ -1631,7 +1631,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = False
 
                 elif RESPONSE_TYPE == "vpixx_box":
-                    response = getbuttonColor(RESPONSE_SELECTION_2)
+                    response = getbuttonColor(RESPONSE_SELECTION)
                     RESPONSES.append(response)
 
             
