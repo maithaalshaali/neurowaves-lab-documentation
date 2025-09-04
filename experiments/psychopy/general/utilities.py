@@ -70,7 +70,7 @@ _RESP_TO_PAIRS = dict(_RESP_TO_PAIRS)
 # sets of valid codes from the mapping
 _ALL_RESPONSE_CODES = sorted(_RESP_TO_PAIRS.keys())                 # e.g. [1,2,3,4,5,6,7,8,9,10]
 _ALL_LISTEN_CODES   = sorted({_PAIR_TO_LISTEN[p] for p in _PAIR_TO_LISTEN})  # may differ from responses
-_MAX_BIT_NEEDED     = max(max(_ALL_RESPONSE_CODES), max(_ALL_LISTEN_CODES))
+_VPIXX_REGISTER_SIZE     = 24
 
 
 def _norm_box(s: str) -> str:
@@ -162,12 +162,12 @@ def getbuttonColor(selection: dict | None = None):
         bits = decimal_to_binary(raw)
 
         # Ensure we can index up to the largest response bit (handles short strings)
-        if len(bits) < _MAX_BIT_NEEDED:
-            bits = bits.zfill(_MAX_BIT_NEEDED)
+        # if len(bits) < _VPIXX_REGISTER_SIZE:
+        #     bits = bits.zfill(_VPIXX_REGISTER_SIZE)
 
         # --- replicate getbutton logic over the full response range ---
         # Build an array for codes 1.._MAX_BIT_NEEDED where index 0 -> code 1 (LSB)
-        button_box = [int(bits[-_MAX_BIT_NEEDED + i]) for i in range(_MAX_BIT_NEEDED)]
+        button_box = [int(bit) for bit in bits[-10:]]
 
         # Only consider response codes that exist in the mapping
         resp_codes = [i + 1 for i, state in enumerate(button_box)
