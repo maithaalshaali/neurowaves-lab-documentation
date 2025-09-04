@@ -14,7 +14,7 @@ If you publish work using this script the most relevant publication is:
 #Vpixx import
 
 from pypixxlib import _libdpx as dp
-from utilities import *
+from experiments.psychopy.general.utilities import *
 
 USE_VPIXX = False
 SIMULATE_RESPONSE = True
