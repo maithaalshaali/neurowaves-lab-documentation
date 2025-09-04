@@ -45,20 +45,26 @@ def decimal_to_binary(decimal_number):
 #       The example uses:
 #         - right white  -> response=5,  listen_to=5
 #         - left  white  -> response=10, listen_to=10
+#    response corresponds to the index of the corresponding bit from left to right of the register, shifted by 14
+#    (the Vpixx register is 24 bits long, we are only interested in the last 10 bits)
+
 button_mapping = {
     "right box": {
-        "red":    {"response": 9,  "listen_to": 1},
-        "green":  {"response": 7,  "listen_to": 3},
-        "blue":   {"response": 6,  "listen_to": 4},
-        "yellow": {"response": 8,  "listen_to": 2},
-        "white":  {"response": 5,  "listen_to": 5},   # <- set per your wiring
+        "white": {"response": 6, "listen_to": 5},  # <- set per your wiring
+        "red": {"response": 10, "listen_to": 1},
+        "yellow": {"response": 9, "listen_to": 2},
+        "green":  {"response": 8,  "listen_to": 3},
+        "blue":   {"response": 7,  "listen_to": 4},
+
     },
     "left box": {
-        "red":    {"response": 4,  "listen_to": 6},
-        "green":  {"response": 2,  "listen_to": 8},
-        "blue":   {"response": 1,  "listen_to": 9},
-        "yellow": {"response": 3,  "listen_to": 7},
-        "white":  {"response": 10, "listen_to": 10},  # <- set per your wiring
+        "white": {"response": 1, "listen_to": 10},  # <- set per your wiring
+        "red":   {"response": 5, "listen_to": 6},
+        "yellow": {"response": 4, "listen_to": 7},
+        "green":  {"response": 3,  "listen_to": 8},
+        "blue":   {"response": 2,  "listen_to": 9},
+
+
     }
 }
 
@@ -200,10 +206,8 @@ def getbuttonColor(selection: dict | None = None):
                 # Same return shape as before: (box_side, color)
                 return candidates[0]
 
-            if len(candidates) > 1:
-                # This mirrors the "single line pressed" assumption—if hardware lines are shared,
-                # the selection filter should disambiguate; otherwise we raise.
-                raise RuntimeError(
+            elif len(candidates) > 1:
+                print(
                     "Ambiguous press: multiple (box,color) share this hardware line: "
                     + ", ".join(f"{b}/{c}" for b, c in candidates)
                 )
