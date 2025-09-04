@@ -170,10 +170,6 @@ expInfo = {
     'psychopyVersion|hid': psychopyVersion,
 }
 
-
-
-
-
 # --- Define some variables which will change depending on pilot mode ---
 '''
 To run in pilot mode, either use the run/pilot toggle in Builder, Coder and Runner, 
@@ -1968,4 +1964,5 @@ if __name__ == '__main__':
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
 
+dp.DPxClose()
 

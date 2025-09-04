@@ -15,10 +15,10 @@ If you publish work using this script the most relevant publication is:
 # from utilities import *
 import json
 
-USE_VPIXX = False
-
-# response type, vpixx_box for MEG, simulated for fake response, keyboard for responding by person
+USE_VPIXX = True
+DEBUG_MODE = True
 RESPONSE_TYPE = "simulated"
+SCREEN_INDEX = 1
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
 if USE_VPIXX:
@@ -189,8 +189,8 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 # work out from system args whether we are running in pilot mode
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
-_fullScr = True
-_winSize = [1707, 960]
+_fullScr = False
+_winSize = [1919, 1079]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -246,7 +246,11 @@ def setupData(expInfo, dataDir=None):
     # data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
     if dataDir is None:
         dataDir = _thisDir
-    filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+    if DEBUG_MODE:
+        filename = u'data/%s_%s_%s_%s' % ('DEBUG_DATA',expInfo['participant'], expName, expInfo['date'])
+    else:
+        filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+
     # make sure filename is relative to dataDir
     if os.path.isabs(filename):
         dataDir = os.path.commonprefix([dataDir, filename])
@@ -323,7 +327,7 @@ def setupWindow(expInfo=None, win=None):
     if win is None:
         # if not given a window to setup, make one
         win = visual.Window(
-            size=_winSize, fullscr=_fullScr, screen=0,
+            size=_winSize, fullscr=_fullScr, screen=SCREEN_INDEX,
             winType='pyglet', allowGUI=True, allowStencil=False,
             monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
             backgroundImage='', backgroundFit='none',
@@ -811,17 +815,30 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     thisExp.nextEntry()
     # the Routine "P_Start" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
-    
+
+    if not DEBUG_MODE:
     # set up handler to look after randomisation of conditions etc
-    P_Trials = data.TrialHandler2(
-        name='P_Trials',
-        nReps=1.0, 
-        method='random', 
-        extraInfo=expInfo, 
-        originPath=-1, 
-        trialList=data.importConditions('VI_P_Objects.csv'), 
-        seed=None, 
-    )
+        P_Trials = data.TrialHandler2(
+            name='P_Trials',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_practice_trial_file_debug.csv'),
+            seed=None,
+        )
+
+    else:
+        P_Trials = data.TrialHandler2(
+            name='P_Trials',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_practice_trial_file.csv'),
+            seed=None,
+        )
+
     thisExp.addLoop(P_Trials)  # add the loop to the experiment
     thisP_Trial = P_Trials.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisP_Trial.rgb)
@@ -1055,7 +1072,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(P_BG_END_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter+TRIGGER_DURATION:
+                        if frameN > framecounter+TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
@@ -1082,7 +1099,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     dp.DPxSetDoutValue(P_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                     dp.DPxUpdateRegCache()
 
-                    if frameN == framecounter + TRIGGER_DURATION:
+                    if frameN > framecounter + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1109,7 +1126,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(P_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter + TRIGGER_DURATION:
+                        if frameN > framecounter + TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
@@ -1392,7 +1409,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                     dp.DPxUpdateRegCache()
 
-                    if frameN == framecounter + TRIGGER_DURATION:
+                    if frameN > framecounter + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1584,7 +1601,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     dp.DPxSetDoutValue(P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                     dp.DPxUpdateRegCache()
 
-                    if frameN == framecounter + TRIGGER_DURATION:
+                    if frameN > framecounter + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1796,6 +1813,9 @@ def saveData(thisExp):
     filename = thisExp.dataFileName
     thisExp.extraInfo['RESPONSES'] = json.dumps(RESPONSES)
     # these shouldn't be strictly necessary (should auto-save)
+    if not DEBUG_MODE:
+        thisExp.extraInfo(RESPONSES)
+
     thisExp.saveAsWideText(filename + '.csv', delim='auto')
     thisExp.saveAsPickle(filename)
 
