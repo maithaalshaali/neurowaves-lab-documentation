@@ -158,21 +158,59 @@ def _normalize_selection(selection: dict | None):
 
     # Deduplicate while preserving order and build codes.
     listen_pairs = list(dict.fromkeys(listen_pairs))
-    listen_codes = sorted({_PAIR_TO_LISTEN[p] for p in listen_pairs})
-    return listen_pairs, listen_codes
+
+    return listen_pairs
 
 
 def getbuttonColor(selection: dict | None = None):
     """
-    Poll the inputs like `getbutton`, but return (box, color).
-    Honors the mapping (including distinct whites) and an optional grouped
-    `selection` filter of the form:
-        {
-          "right box": ["green", "blue"],
-          "left box":  ["red"]
-        }
+    Polls the hardware inputs and returns the (box, color) of the pressed button.
+
+    This function replicates the behavior of `getbutton` but maps response codes
+    to semantic (box, color) pairs using the predefined `button_mapping`. It
+    continuously polls until exactly one valid response code is detected, then
+    resolves it to a unique (box, color) pair.
+
+    Args:
+        selection (dict | None, optional): A dictionary specifying which buttons
+            to listen to, grouped by box side. Each key should be "right box" or
+            "left box", with values as lists of color names. Example:
+                {
+                    "right box": ["green", "blue"],
+                    "left box":  ["red"]
+                }
+            If None, listens to all defined buttons. Defaults to None.
+
+    Returns:
+        tuple[str, str]: A tuple `(box, color)` indicating the pressed button,
+        where `box` is either "right box" or "left box", and `color` is one of
+        the defined colors.
+
+    Raises:
+        ValueError: If an invalid box or color is provided in the selection.
+        RuntimeError: If multiple (box, color) pairs map to the same hardware
+            line and cannot be disambiguated.
+
+    Notes:
+        - The function blocks until a valid button press is detected.
+        - If multiple response lines are active or no button is pressed, it
+          continues polling.
+
+    Examples:
+        Listen to all buttons:
+
+            >>> getbuttonColor()
+            ('right box', 'green')
+
+        Listen to only a subset of buttons:
+
+            >>> getbuttonColor({
+            ...     "right box": ["blue"],
+            ...     "left box":  ["white", "red"]
+            ... })
+            ('left box', 'white')
     """
-    listen_pairs, _listen_codes = _normalize_selection(selection)  # keep selection, ignore listen codes
+    listen_pairs, _ = _normalize_selection(selection)  # keep selection, ignore listen codes
 
     while True:
         DPxUpdateRegCache()
