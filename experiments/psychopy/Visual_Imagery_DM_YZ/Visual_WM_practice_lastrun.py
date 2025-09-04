@@ -14,9 +14,12 @@ If you publish work using this script the most relevant publication is:
 
 from pypixxlib import _libdpx as dp
 from utilities import *
+import json
 
-USE_VPIXX = True
+USE_VPIXX = False
 
+RESPONSE_TYPE = "simulated"
+#RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -46,6 +49,164 @@ import sys  # to get file system encoding
 
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
+import pandas as pd
+
+## set triggers
+RESPONSES = []
+TRIGGER_DURATION = 10
+
+CSV_TRIGGER_INFO = pd.read_csv('WM_practice_trig.csv')
+
+# need trigger_channels_dictionary for 'simulated' and 'keyboard' if we don't import utilities, which requires vpixx
+trigger_channels_dictionary = {
+    224: 4,
+    225: 16,
+    226: 64,
+    227: 256,
+    228: 1024,
+    229: 4096,
+    230: 16384,
+    231: 65536
+}
+
+# assign corresponding names for triggers
+WM_P_P_Image1_start_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_P_Image1_end_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image1 end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+
+WM_P_P_Image2_start_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_P_Image2_end_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_P_Image2 end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_Sound_start_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_Sound_end_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Sound end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_WM_BG_end_TRIGGER_CODE =  (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_WM_BG end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+WM_P_Test_Resp_respond_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'WM_P_Test_Resp respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+
+# Response selection
+# RESPONSE_SELECTION_1 = {
+# "left box": ["green", "blue", "yellow", "red", "white"]}
+
+RESPONSE_SELECTION_2 = {
+"right box": ["red", "yellow"]}
+
 
 # --- Setup global variables (available in all functions) ---
 # create a device manager to handle hardware (keyboards, mice, mirophones, speakers, etc.)
@@ -929,6 +1090,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 WM_P_P_Image1.status = STARTED
                 # TODO: add trigger for 'WM_P_P_Image1 start'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(WM_P_P_Image1_start_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
                 WM_P_P_Image1.setAutoDraw(True)
             
             # if WM_P_P_Image1 is active this frame...
@@ -949,6 +1122,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     WM_P_P_Image1.status = FINISHED
                     # TODO: add trigger for 'WM_P_P_Image1 end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(WM_P_P_Image1_end_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
                     WM_P_P_Image1.setAutoDraw(False)
             
             # *WM_P_P_Image2* updates
@@ -965,6 +1150,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 WM_P_P_Image2.status = STARTED
                 # TODO: add trigger for 'WM_P_P_Image2 start'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(WM_P_P_Image2_start_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
                 WM_P_P_Image2.setAutoDraw(True)
             
             # if WM_P_P_Image2 is active this frame...
@@ -985,6 +1182,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     WM_P_P_Image2.status = FINISHED
                     # TODO: add trigger for 'WM_P_P_Image2 end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(WM_P_P_Image2_end_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
                     WM_P_P_Image2.setAutoDraw(False)
             
             # *WM_P_P_BG* updates
@@ -1149,6 +1358,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     WM_P_WM_BG.status = FINISHED
                     # TODO: add trigger for 'WM_P_WM_BG end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(WM_P_WM_BG_end_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+
                     WM_P_WM_BG.setAutoDraw(False)
             
             # *WM_P_Cue* updates
@@ -1192,6 +1414,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 WM_P_Sound.status = STARTED
                 # TODO: add trigger for 'WM_P_Sound start'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(WM_P_Sound_start_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
                 WM_P_Sound.play(when=win)  # sync with win flip
             
             # if WM_P_Sound is stopping this frame...
@@ -1207,6 +1441,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     WM_P_Sound.status = FINISHED
                     # TODO: add trigger for 'WM_P_Sound end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(WM_P_Sound_end_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
                     WM_P_Sound.stop()
             
             # check for quit (typically the Esc key)
@@ -1352,15 +1598,42 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(WM_P_Test_Resp.clock.reset)  # t=0 on next screen flip
                 win.callOnFlip(WM_P_Test_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if WM_P_Test_Resp.status == STARTED and not waitOnFlip:
-                # add button press for 'WM_P_Test_Resp respond', right hand controller, index finger for 's', middle for 'd'
-                theseKeys = WM_P_Test_Resp.getKeys(keyList=['s','d'], ignoreKeys=["escape"], waitRelease=False)
-                _WM_P_Test_Resp_allKeys.extend(theseKeys)
-                if len(_WM_P_Test_Resp_allKeys):
-                    WM_P_Test_Resp.keys = _WM_P_Test_Resp_allKeys[-1].name  # just the last key pressed
-                    WM_P_Test_Resp.rt = _WM_P_Test_Resp_allKeys[-1].rt
-                    WM_P_Test_Resp.duration = _WM_P_Test_Resp_allKeys[-1].duration
-                    # a response ends the routine
+                # TODO: add button press for 'WM_P_Test_Resp respond', right hand controller, index finger for 's', middle for 'd'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(WM_P_Test_Resp_respond_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN == framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                if RESPONSE_TYPE == "keyboard":
+
+                    theseKeys = WM_P_Test_Resp.getKeys(keyList=['s', 'd'], ignoreKeys=["escape"], waitRelease=False)
+                    _WM_P_Test_Resp_allKeys.extend(theseKeys)
+                    if len(_WM_P_Test_Resp_allKeys):
+                        WM_P_Test_Resp.keys = _WM_P_Test_Resp_allKeys[-1].name  # just the last key pressed
+                        WM_P_Test_Resp.rt = _WM_P_Test_Resp_allKeys[-1].rt
+                        WM_P_Test_Resp.duration = _WM_P_Test_Resp_allKeys[-1].duration
+                        # a response ends the routine
+                        continueRoutine = False
+
+                elif RESPONSE_TYPE == "simulated":
+
+                    # directly assign simulated response
+                    WM_P_Test_Resp.keys = 's'
+                    WM_P_Test_Resp.rt = 0  # fake RT if needed
+                    WM_P_Test_Resp.duration = None
                     continueRoutine = False
+
+                elif RESPONSE_TYPE == "vpixx_box":
+                    response = getbuttonColor(RESPONSE_SELECTION_2)
+                    RESPONSES.append(response)
+
             
             # *WM_P_Test_Q* updates
             

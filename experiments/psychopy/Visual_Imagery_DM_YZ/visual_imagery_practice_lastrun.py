@@ -10,19 +10,16 @@ If you publish work using this script the most relevant publication is:
         https://doi.org/10.3758/s13428-018-01193-y
 
 """
-#Vpixx import
-
-from pypixxlib import _libdpx as dp
-from utilities import *
+# set for MEG trigger with utilities and pypixxlib
+# from pypixxlib import _libdpx as dp
+# from utilities import *
 import json
-
 
 USE_VPIXX = False
 
+# response type, vpixx_box for MEG, simulated for fake response, keyboard for responding by person
 RESPONSE_TYPE = "simulated"
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
-
-
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -54,13 +51,26 @@ import psychopy.iohub as io
 from psychopy.hardware import keyboard
 import pandas as pd
 
-
+## set triggers
 RESPONSES = []
 TRIGGER_DURATION = 10
 
 CSV_TRIGGER_INFO = pd.read_csv('VI_practice_trig.csv')
 
-P_START_SOUND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
+# need trigger_channels_dictionary for 'simulated' and 'keyboard' if we don't import utilities, which requires vpixx
+trigger_channels_dictionary = {
+    224: 4,
+    225: 16,
+    226: 64,
+    227: 256,
+    228: 1024,
+    229: 4096,
+    230: 16384,
+    231: 65536
+}
+
+# assign corresponding names for triggers
+P_SOUND_START_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
         trigger_channels_dictionary[224] +
         CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger225'].iloc[0] *
         trigger_channels_dictionary[225] +
@@ -1037,7 +1047,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     P_BG.status = FINISHED
 
-
                     # TODO: test trigger
                     framecounter = frameN
 
@@ -1050,8 +1059,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
-
-
 
                     P_BG.setAutoDraw(False)
             
@@ -1072,7 +1079,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                 if USE_VPIXX:
 
-                    dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxSetDoutValue(P_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                     dp.DPxUpdateRegCache()
 
                     if frameN == framecounter + TRIGGER_DURATION:
@@ -1099,13 +1106,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                     if USE_VPIXX:
 
-                        dp.DPxSetDoutValue(P_START_SOUND_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxSetDoutValue(P_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
                         if frameN == framecounter + TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
+
 
                     P_Sound.stop()
             

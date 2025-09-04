@@ -14,10 +14,13 @@ If you publish work using this script the most relevant publication is:
 #Vpixx import
 
 from pypixxlib import _libdpx as dp
-from experiments.psychopy.general.utilities import *
+from utilities import *
+import json
 
 USE_VPIXX = False
-SIMULATE_RESPONSE = True
+
+RESPONSE_TYPE = "simulated"
+#RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
 if USE_VPIXX:
     dp.DPxOpen()
@@ -25,8 +28,6 @@ if USE_VPIXX:
     dp.DPxWriteRegCache()
     dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
     dp.DPxUpdateRegCache()
-
-
 
 # --- Import packages ---
 from psychopy import locale_setup
@@ -49,35 +50,114 @@ import sys  # to get file system encoding
 
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
+import pandas as pd
 
-#
+## set triggers
+RESPONSES = []
+TRIGGER_DURATION = 10
 
+CSV_TRIGGER_INFO = pd.read_csv('VI_trig.csv')
 
+# need trigger_channels_dictionary for 'simulated' and 'keyboard' if we don't import utilities, which requires vpixx
+trigger_channels_dictionary = {
+    224: 4,
+    225: 16,
+    226: 64,
+    227: 256,
+    228: 1024,
+    229: 4096,
+    230: 16384,
+    231: 65536
+}
 
-# Template for trigger
-# This code will trigger according to the values in the csv
-# if frameN < 10:
-#     combined_trigger_value = (
-#             trialList[trialIndex]['trigger224w'] * trigger_channels_dictionary[224] +
-#             trialList[trialIndex]['trigger225w'] * trigger_channels_dictionary[225] +
-#             trialList[trialIndex]['trigger226w'] * trigger_channels_dictionary[226] +
-#             trialList[trialIndex]['trigger227w'] * trigger_channels_dictionary[227] +
-#             trialList[trialIndex]['trigger228w'] * trigger_channels_dictionary[228] +
-#             trialList[trialIndex]['trigger229w'] * trigger_channels_dictionary[229] +
-#             trialList[trialIndex]['trigger230w'] * trigger_channels_dictionary[230] +
-#             trialList[trialIndex]['trigger231w'] * trigger_channels_dictionary[231]
-#     )
-#     print(f"Trial {trialIndex}, Trigger: Combined Value = {combined_trigger_value}")
-#
-#     dp.DPxSetDoutValue(combined_trigger_value, 0xFFFFFF)
-#     dp.DPxUpdateRegCache()
-#     print('wordIndex', wordIndex)
-#     print('frameN', frameN)
-#
-# if frameN == 10:
-#     # Debugging log: Print the calculated combined value
-#     dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-#     dp.DPxUpdateRegCache()
+# assign corresponding names for triggers
+VI_SOUND_START_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound start']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+VI_SOUND_END_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_Sound end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+VI_BG_END_TRIGGER_CODE =  (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_BG end']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+VI_KEY_RESP2_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_key_Resp2 respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger224'].iloc[0] *
+        trigger_channels_dictionary[224] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger225'].iloc[0] *
+        trigger_channels_dictionary[225] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger226'].iloc[0] *
+        trigger_channels_dictionary[226] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger227'].iloc[0] *
+        trigger_channels_dictionary[227] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger228'].iloc[0] *
+        trigger_channels_dictionary[228] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger229'].iloc[0] *
+        trigger_channels_dictionary[229] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger230'].iloc[0] *
+        trigger_channels_dictionary[230] +
+        CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'VI_CQ_Key_Resp respond']['trigger231'].iloc[0] *
+        trigger_channels_dictionary[231] )
+
+# Response selection
+RESPONSE_SELECTION_1 = {
+"left box": ["green", "blue", "yellow", "red", "white"]}
+
+RESPONSE_SELECTION_2 = {
+"right box": ["red", "yellow", "green"]}
 
 
 # --- Setup global variables (available in all functions) ---
@@ -976,9 +1056,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # update status
                         VI_BG.status = FINISHED
 
-                        # TODO: Add trigger for 'VI_BG end'
+                        # TODO: test trigger for 'VI_BG end'
+                        framecounter = frameN
 
+                        if USE_VPIXX:
 
+                            dp.DPxSetDoutValue(VI_BG_END_TRIGGER_CODE, 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            if frameN == framecounter + TRIGGER_DURATION:
+                                # Debugging log: Print the calculated combined value
+                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                                dp.DPxUpdateRegCache()
 
                         VI_BG.setAutoDraw(False)
                 
@@ -995,6 +1084,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     VI_Sound.status = STARTED
                     # TODO: Add trigger for 'VI_Sound start'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(VI_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
                     VI_Sound.play()  # start the sound (it finishes automatically)
 
 
@@ -1012,6 +1113,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_Sound.status = FINISHED
 
                         # TODO: Add trigger for 'VI_Sound end'
+                        framecounter = frameN
+
+                        if USE_VPIXX:
+
+                            dp.DPxSetDoutValue(VI_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            if frameN == framecounter + TRIGGER_DURATION:
+                                # Debugging log: Print the calculated combined value
+                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                                dp.DPxUpdateRegCache()
+
+
                         VI_Sound.stop()
                 
                 # *VI_Cue* updates
@@ -1177,13 +1291,41 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     win.callOnFlip(VI_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
                 if VI_Key_Resp2.status == STARTED and not waitOnFlip:
                     # TODO: Add button press for 'VI_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                    theseKeys = VI_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
-                    _VI_Key_Resp2_allKeys.extend(theseKeys)
-                    if len(_VI_Key_Resp2_allKeys):
-                        VI_Key_Resp2.keys = _VI_Key_Resp2_allKeys[-1].name  # just the last key pressed
-                        VI_Key_Resp2.rt = _VI_Key_Resp2_allKeys[-1].rt
-                        VI_Key_Resp2.duration = _VI_Key_Resp2_allKeys[-1].duration
-                        # a response ends the routine
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(VI_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                    if RESPONSE_TYPE == "vpixx_box":
+
+                        # TODO: Add getbutton function
+                        response = getbuttonColor(RESPONSE_SELECTION_1)
+
+                        RESPONSES.append(response)
+
+                    elif RESPONSE_TYPE == "keyboard":
+                        theseKeys = VI_Key_Resp2.getKeys(keyList=['1', '2', '3', '4', '5'], ignoreKeys=["escape"],
+                                                        waitRelease=False)
+                        _VI_Key_Resp2_allKeys.extend(theseKeys)
+                        if len(_VI_Key_Resp2_allKeys):
+                            VI_Key_Resp2.keys = _VI_Key_Resp2_allKeys[-1].name  # just the last key pressed
+                            VI_Key_Resp2.rt = _VI_Key_Resp2_allKeys[-1].rt
+                            VI_Key_Resp2.duration = _VI_Key_Resp2_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
+
+                    elif RESPONSE_TYPE == "simulated":
+                        # directly assign simulated response
+                        VI_Key_Resp2.keys = '3'
+                        VI_Key_Resp2.rt = 0  # you can set a fake RT if you want
+                        VI_Key_Resp2.duration = None
                         continueRoutine = False
                 
                 # check for quit (typically the Esc key)
@@ -1342,14 +1484,40 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     win.callOnFlip(VI_CQ_Key_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
                 if VI_CQ_Key_Resp.status == STARTED and not waitOnFlip:
                     # TODO: Add button press for 'VI_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
-                    theseKeys = VI_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
-                    _VI_CQ_Key_Resp_allKeys.extend(theseKeys)
-                    if len(_VI_CQ_Key_Resp_allKeys):
-                        VI_CQ_Key_Resp.keys = _VI_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
-                        VI_CQ_Key_Resp.rt = _VI_CQ_Key_Resp_allKeys[-1].rt
-                        VI_CQ_Key_Resp.duration = _VI_CQ_Key_Resp_allKeys[-1].duration
-                        # a response ends the routine
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN == framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                    if RESPONSE_TYPE == "keyboard":
+
+                        theseKeys = VI_CQ_Key_Resp.getKeys(keyList=['s', 'd', 'f'], ignoreKeys=["escape"],
+                                                          waitRelease=False)
+                        _VI_CQ_Key_Resp_allKeys.extend(theseKeys)
+                        if len(_VI_CQ_Key_Resp_allKeys):
+                            VI_CQ_Key_Resp.keys = _VI_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
+                            VI_CQ_Key_Resp.rt = _VI_CQ_Key_Resp_allKeys[-1].rt
+                            VI_CQ_Key_Resp.duration = _VI_CQ_Key_Resp_allKeys[-1].duration
+                            # a response ends the routine
+                            continueRoutine = False
+                    elif RESPONSE_TYPE == "simulated":
+
+                        # directly assign simulated response
+                        VI_CQ_Key_Resp.keys = 'f'
+                        VI_CQ_Key_Resp.rt = 0  # fake RT if needed
+                        VI_CQ_Key_Resp.duration = None
                         continueRoutine = False
+
+                    elif RESPONSE_TYPE == "vpixx_box":
+                        response = getbuttonColor(RESPONSE_SELECTION_2)
+                        RESPONSES.append(response)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
