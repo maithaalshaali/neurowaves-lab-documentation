@@ -12,6 +12,17 @@ trigger_channels_dictionary = {
     231: 65536
 }
 
+
+black = [0, 0, 0]
+
+def RGB2Trigger(color):
+    # helper function determines expected trigger from a given RGB 255 colour value
+    # operates by converting individual colours into binary strings and stitching them together
+    # and interpreting the result as an integer
+
+    # return triggerVal
+    return int((color[2] << 16) + (color[1] << 8) + color[0])  # dhk
+
 def decimal_to_binary(decimal_number):
     """
     Converts a decimal number to its binary representation.
@@ -55,6 +66,7 @@ from collections import defaultdict
 
 # --- internal helpers built from the mapping ---
 # (box,color) -> listen_to code
+# Flattens the nested dictionaries
 _PAIR_TO_LISTEN = {
     (box, color): info["listen_to"]
     for box, colors in button_mapping.items()
