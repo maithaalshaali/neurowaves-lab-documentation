@@ -1,9 +1,8 @@
-------------
 Data storage
 ------------
 
 MEG Data storage
-^^^^^^^^^^^^^^^^
+################
 
 The MEG data is securely stored on NYU BOX, access is given through invitations.
 The *Data* folder is structured in the **BIDS** standardized format.
