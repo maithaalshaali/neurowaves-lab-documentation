@@ -22,7 +22,7 @@ Lab booking and schedule
 
 .. warning::
 
-   All bookings should not take place on a monday morning, as Helium refill is scheduled for monday mornings
+   All bookings should not take place on a Monday morning, as Helium refill is scheduled for Monday mornings
    and it is not possible to acquire data during this period.
 
 
@@ -34,9 +34,9 @@ The MEG lab is provided to the project owner after the following checks and test
 #. KIT system is in an operational status
     - Helium levels are sufficient to conduct an experiment
     - Quality of the data from SQUIDs sensor has been verified
-    - Empty-room data has been acquired and noise levels has been computed and asessed
+    - Empty-room data has been acquired and noise levels has been computed and assessed
         - Empty room data is recorded at 1kHz sampling rate for around 3 minutes every couple of days and made available on NYU-BOX
-        - MSR lights are put off during empty-room data recordin and brightness is set to low
+        - MSR lights are put off during empty-room data recording and brightness is set to low
         - All phones are on airplane mode
         - The dashboards show the noise levels from empty-room data and are updated automatically on a daily basis
         - If the project owner requires empty-room data on the day of his experiment run, he should make this clear to the lab scientist
@@ -49,7 +49,7 @@ The MEG lab is provided to the project owner after the following checks and test
 #. Communication system with participant are operational
     - Microphone outside the MSR, to communicate to the participant works correctly
     - Microphone inside the MSR for participant to communicate with project owner works correctly
-    - Earplugs for participant to hear the project owner outisde the MSR works correctly
+    - Earphones with disposable single use foam earplugs for participant to hear the project owner outside the MSR works correctly
     - Coming soon: Camera inside MSR for visualising the participant
 
 #. Laser scanner system is operational
@@ -57,7 +57,7 @@ The MEG lab is provided to the project owner after the following checks and test
     - Laser pointer/surface scanner is operational
 
 #. Scrubs and caps and all hygiene related materials are available
-    - earplugs are desinfected
+    - clean foam
     - caps are available
     - scrubs are available
     - clinical application tape is available for HPI coils on participant face
