@@ -6,7 +6,7 @@ Process
 -------
 
 A project owner can be trained by the MEG lab scientists to become an authorized operator.
-Over the course of a day, they will be taught about the operation protocol described above, the emergency procedures to perform, the safety rules to folow and any
+Over the course of a day, they will be taught about the operation protocol described above, the emergency procedures to perform, the safety rules to follow and any
 operation that must be done in the lab prior/post data acquisition.
 
 Once the training is performed, the following form should be submitted to the MEG lab scientists.
