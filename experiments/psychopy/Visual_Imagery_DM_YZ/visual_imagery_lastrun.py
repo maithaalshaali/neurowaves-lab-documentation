@@ -1064,26 +1064,35 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_BG.tStop = t  # not accounting for scr refresh
                         VI_BG.tStopRefresh = tThisFlipGlobal  # on global time
                         VI_BG.frameNStop = frameN  # exact frame index
+
+                        # TODO: add trigger on and off for BG end
+                        VI_BG_end_trigger_ON = False
+                        VI_BG_end_trigger_OFF = False
+
                         # add timestamp to datafile
                         thisExp.timestampOnFlip(win, 'VI_BG.stopped')
                         # update status
                         VI_BG.status = FINISHED
 
-                        # TODO: test trigger for 'VI_BG end'
-                        framecounter = frameN
-
-                        if USE_VPIXX:
-
-                            dp.DPxSetDoutValue(VI_BG_END_TRIGGER_CODE, 0xFFFFFF)
+                        # TODO: trigger on for 'VI_BG end'
+                        if USE_VPIXX and not VI_BG_end_trigger_ON:
+                            dp.DPxSetDoutValue(VI_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                             dp.DPxUpdateRegCache()
-
-                            if frameN > framecounter + TRIGGER_DURATION:
-                                # Debugging log: Print the calculated combined value
-                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                                dp.DPxUpdateRegCache()
+                            VI_BG_end_trigger_ON = True
 
                         VI_BG.setAutoDraw(False)
-                
+
+                    # TODO: trigger off for 'VI_BG end'
+                    if USE_VPIXX:
+                        if frameN > VI_BG.frameNStop + TRIGGER_DURATION and not VI_BG_end_trigger_OFF and VI_BG_end_trigger_ON:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            VI_BG_end_trigger_OFF = True
+
+
+
                 # *VI_Sound* updates
                 
                 # if VI_Sound is starting this frame...
@@ -1107,11 +1116,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     VI_Sound.status = STARTED
 
 
-                    if USE_VPIXX and not VI_Sound_begin_trigger_OFF:
+                    if USE_VPIXX and not VI_Sound_begin_trigger_ON:
 
                         dp.DPxSetDoutValue(VI_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
-                        VI_Sound_begin_trigger_OFF = True
+                        VI_Sound_begin_trigger_ON = True
 
 
 
@@ -1124,12 +1133,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # TODO: Turn off trigger for 'VI_Sound start'
 
                     if USE_VPIXX:
-                        if frameN > VI_Sound.frameNStart + TRIGGER_DURATION and not VI_Sound_begin_trigger_ON and VI_Sound_begin_trigger_OFF:
+                        if frameN > VI_Sound.frameNStart + TRIGGER_DURATION and not VI_Sound_begin_trigger_OFF and VI_Sound_begin_trigger_ON:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
 
-                            VI_Sound_begin_trigger_ON = True
+                            VI_Sound_begin_trigger_OFF = True
 
 
                     # is it time to stop? (based on global clock, using actual start)
@@ -1138,6 +1147,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_Sound.tStop = t  # not accounting for scr refresh
                         VI_Sound.tStopRefresh = tThisFlipGlobal  # on global time
                         VI_Sound.frameNStop = frameN  # exact frame index
+
                         # add timestamp to datafile
                         thisExp.addData('VI_Sound.stopped', t)
                         # update status
@@ -1312,6 +1322,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if VI_Key_Resp2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                     # keep track of start time/frame for later
                     VI_Key_Resp2.frameNStart = frameN  # exact frame index
+
+                    # trigger on and off when making response in VI_Key_Resp2
+                    VI_Key_Resp2_respond_trigger_ON = False
+                    VI_Key_Resp2_respond_trigger_OFF = False
+
                     VI_Key_Resp2.tStart = t  # local t and not account for scr refresh
                     VI_Key_Resp2.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(VI_Key_Resp2, 'tStartRefresh')  # time at next scr refresh
@@ -1324,25 +1339,27 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     win.callOnFlip(VI_Key_Resp2.clock.reset)  # t=0 on next screen flip
                     win.callOnFlip(VI_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
                 if VI_Key_Resp2.status == STARTED and not waitOnFlip:
-                    # TODO: Add button press for 'VI_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                    framecounter = frameN
-
-                    if USE_VPIXX:
-
+                    # TODO: trigger on for VI_Key_Resp2_respond, 5 buttons for the left hand controller, little finger for '1', thumb for '5'
+                    if USE_VPIXX and not VI_Key_Resp2_respond_trigger_ON:
                         dp.DPxSetDoutValue(VI_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
+                        VI_Key_Resp2_respond_trigger_ON = True
 
-                        if frameN > framecounter + TRIGGER_DURATION:
+                    # TODO: trigger off for VI_Key_Resp2_respond
+                    if USE_VPIXX:
+                        if frameN > VI_Key_Resp2.frameNStart + TRIGGER_DURATION and not VI_Key_Resp2_respond_trigger_OFF and VI_Key_Resp2_respond_trigger_ON:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
 
+                            VI_Key_Resp2_respond_trigger_OFF = True
+
                     if RESPONSE_TYPE == "vpixx_box":
 
-                        # TODO: Add getbutton function
                         response = getbuttonColor(RESPONSE_SELECTION_1)
 
                         RESPONSES.append(response)
+
 
                     elif RESPONSE_TYPE == "keyboard":
                         theseKeys = VI_Key_Resp2.getKeys(keyList=['1', '2', '3', '4', '5'], ignoreKeys=["escape"],
@@ -1506,6 +1523,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if VI_CQ_Key_Resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
                     # keep track of start time/frame for later
                     VI_CQ_Key_Resp.frameNStart = frameN  # exact frame index
+
+                    VI_CQ_Key_Resp_trigger_ON = False
+                    VI_CQ_Key_Resp_trigger_OFF = False
+
                     VI_CQ_Key_Resp.tStart = t  # local t and not account for scr refresh
                     VI_CQ_Key_Resp.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(VI_CQ_Key_Resp, 'tStartRefresh')  # time at next scr refresh
@@ -1518,18 +1539,21 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     win.callOnFlip(VI_CQ_Key_Resp.clock.reset)  # t=0 on next screen flip
                     win.callOnFlip(VI_CQ_Key_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
                 if VI_CQ_Key_Resp.status == STARTED and not waitOnFlip:
-                    # TODO: Add button press for 'VI_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
-                    framecounter = frameN
+                    # TODO: trigger on for 'VI_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
 
-                    if USE_VPIXX:
-
-                        dp.DPxSetDoutValue(VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    if USE_VPIXX and not VI_CQ_Key_Resp_trigger_ON:
+                        dp.DPxSetDoutValue(VI_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
+                        VI_CQ_Key_Resp_trigger_ON = True
 
-                        if frameN > framecounter + TRIGGER_DURATION:
+                    # TODO: trigger off for VI_Key_Resp2_respond
+                    if USE_VPIXX:
+                        if frameN > VI_CQ_Key_Resp.frameNStart + TRIGGER_DURATION and not VI_CQ_Key_Resp_trigger_OFF and VI_CQ_Key_Resp_trigger_ON:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
+
+                            VI_CQ_Key_Resp_trigger_OFF = True
 
                     if RESPONSE_TYPE == "keyboard":
 
