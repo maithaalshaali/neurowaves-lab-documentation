@@ -1893,6 +1893,7 @@ def quit(thisExp, win=None, thisSession=None):
 
 # if running this experiment as a script...
 if __name__ == '__main__':
+
     # call all functions in order
     expInfo = showExpInfoDlg(expInfo=expInfo)
     thisExp = setupData(expInfo=expInfo)
@@ -1908,4 +1909,4 @@ if __name__ == '__main__':
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
 
-dp.DPxClose()
+    dp.DPxClose()

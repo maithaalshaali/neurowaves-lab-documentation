@@ -642,6 +642,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     logging.setDefaultClock(globalClock)
     # routine timer to track time remaining of each (possibly non-slip) routine
     routineTimer = core.Clock()
+
+    # This is an empty flip
     win.flip()  # flip window to reset last flip timer
     # store the exact time the global clock started
     expInfo['expStart'] = data.getDateStr(
@@ -683,6 +685,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     
     # --- Run Routine "B1_Start" ---
     B1_Start.forceEnded = routineForceEnded = not continueRoutine
+
+    # TODO: Loop on the routine
     while continueRoutine:
         # get current time
         t = routineTimer.getTime()
@@ -964,6 +968,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         break  # at least one component has not yet finished
                 
                 # refresh the screen
+                #TODO VI_Interval flip
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
             
@@ -1085,30 +1090,48 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 if VI_Sound.status == NOT_STARTED and t >= 1.0-frameTolerance:
                     # keep track of start time/frame for later
                     VI_Sound.frameNStart = frameN  # exact frame index
+
+                    # TODO: Turn on trigger for 'VI_Sound start'
+                    # Thes two variables indicate if we had already started the trigger, or ended the trigger for this routine
+                    VI_Sound_begin_trigger_ON = False
+                    VI_Sound_begin_trigger_OFF = False
+
+                    VI_Sound_end_trigger_ON = False
+                    VI_Sound_end_trigger_OFF = False
+
                     VI_Sound.tStart = t  # local t and not account for scr refresh
                     VI_Sound.tStartRefresh = tThisFlipGlobal  # on global time
                     # add timestamp to datafile
                     thisExp.addData('VI_Sound.started', t)
                     # update status
                     VI_Sound.status = STARTED
-                    # TODO: Add trigger for 'VI_Sound start'
-                    framecounter = frameN
 
-                    if USE_VPIXX:
+
+                    if USE_VPIXX and not VI_Sound_begin_trigger_OFF:
 
                         dp.DPxSetDoutValue(VI_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
+                        VI_Sound_begin_trigger_OFF = True
 
-                        if frameN > framecounter + TRIGGER_DURATION:
-                            # Debugging log: Print the calculated combined value
-                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                            dp.DPxUpdateRegCache()
+
 
                     VI_Sound.play()  # start the sound (it finishes automatically)
 
 
                 # if VI_Sound is stopping this frame...
                 if VI_Sound.status == STARTED:
+
+                    # TODO: Turn off trigger for 'VI_Sound start'
+
+                    if USE_VPIXX:
+                        if frameN > VI_Sound.frameNStart + TRIGGER_DURATION and not VI_Sound_begin_trigger_ON and VI_Sound_begin_trigger_OFF:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            VI_Sound_begin_trigger_ON = True
+
+
                     # is it time to stop? (based on global clock, using actual start)
                     if tThisFlipGlobal > VI_Sound.tStartRefresh + 1.5-frameTolerance or VI_Sound.isFinished:
                         # keep track of stop time/frame for later
@@ -1121,21 +1144,24 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_Sound.status = FINISHED
 
                         # TODO: Add trigger for 'VI_Sound end'
-                        framecounter = frameN
 
-                        if USE_VPIXX:
+                        if USE_VPIXX and not VI_Sound_end_trigger_ON:
 
                             dp.DPxSetDoutValue(VI_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
                             dp.DPxUpdateRegCache()
-
-                            if frameN > framecounter + TRIGGER_DURATION:
-                                # Debugging log: Print the calculated combined value
-                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                                dp.DPxUpdateRegCache()
+                            VI_Sound_end_trigger_ON = True
 
 
                         VI_Sound.stop()
-                
+
+                if USE_VPIXX and not VI_Sound_end_trigger_OFF and VI_Sound_end_trigger_ON:
+
+                    if frameN > VI_Sound.frameNstop + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+                        VI_Sound_end_trigger_OFF = True
+
                 # *VI_Cue* updates
                 
                 # if VI_Cue is starting this frame...
@@ -1964,5 +1990,5 @@ if __name__ == '__main__':
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
 
-dp.DPxClose()
+    dp.DPxClose()
 

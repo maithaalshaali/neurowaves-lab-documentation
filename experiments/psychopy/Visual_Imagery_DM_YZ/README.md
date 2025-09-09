@@ -82,10 +82,6 @@ Channels from 224 to 231
 
 
 
-
-
-
-
 # Button presses
 
 5 buttons on the left hand
