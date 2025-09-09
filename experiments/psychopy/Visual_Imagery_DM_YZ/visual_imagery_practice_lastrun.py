@@ -11,17 +11,22 @@ If you publish work using this script the most relevant publication is:
 
 """
 # set for MEG trigger with utilities and pypixxlib
-# from pypixxlib import _libdpx as dp
-# from utilities import *
+
+from experiments.psychopy.general.utilities import getbuttonColor, RGB2Trigger, black, trigger_channels_dictionary
 import json
 
 USE_VPIXX = True
 DEBUG_MODE = True
-RESPONSE_TYPE = "simulated"
+RESPONSE_TYPE = "vpixx_box"
 SCREEN_INDEX = 1
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
+
+
 if USE_VPIXX:
+
+    from pypixxlib import _libdpx as dp
+
     dp.DPxOpen()
     dp.DPxDisableDoutPixelMode()
     dp.DPxWriteRegCache()
@@ -157,6 +162,7 @@ P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigTyp
 
 RESPONSE_SELECTION_1 = {
 "left box": ["green", "blue", "yellow", "red", "white"]}
+
 
 RESPONSE_SELECTION_2 = {
 "right box": ["red", "yellow", "green"]}
@@ -1402,26 +1408,9 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_Key_Resp2.status == STARTED and not waitOnFlip:
                 # TODO: add button press for 'P_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                framecounter = frameN
 
-                if USE_VPIXX:
 
-                    dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
-                    dp.DPxUpdateRegCache()
-
-                    if frameN > framecounter + TRIGGER_DURATION:
-                        # Debugging log: Print the calculated combined value
-                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                        dp.DPxUpdateRegCache()
-
-                if RESPONSE_TYPE== "vpixx_box":
-
-                    #TODO: Add getbutton function
-                    response = getbuttonColor(RESPONSE_SELECTION_1)
-
-                    RESPONSES.append(response)
-
-                elif RESPONSE_TYPE =="keyboard" :
+                if RESPONSE_TYPE =="keyboard" :
                     theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
                     _P_Key_Resp2_allKeys.extend(theseKeys)
                     if len(_P_Key_Resp2_allKeys):
@@ -1431,12 +1420,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         # a response ends the routine
                         continueRoutine = False
 
-                elif RESPONSE_TYPE=="simulated":
-                    # directly assign simulated response
-                    P_Key_Resp2.keys = '3'
-                    P_Key_Resp2.rt = 0  # you can set a fake RT if you want
-                    P_Key_Resp2.duration = None
-                    continueRoutine = False
+
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1468,7 +1452,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
+
+            framecounter = thisComponent.frameNStart
+
+            if USE_VPIXX:
+                if P_Rate.status == STARTED and thisComponent.frameNStart == frameN:
+                    dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                if frameN > framecounter + TRIGGER_DURATION:
+                    # Debugging log: Print the calculated combined value
+                    dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+
+            if P_Rate.status == STARTED and thisComponent.frameNStart == frameN:
+
+                if RESPONSE_TYPE == "vpixx_box":
+                    # TODO: Add getbutton function
+                    response = getbuttonColor(RESPONSE_SELECTION_1)
+                    # TODO: Remove later
+                    print('response', response)
+                    RESPONSES.append(response)
+
+                elif RESPONSE_TYPE == "simulated":
+                    # directly assign simulated response
+                    P_Key_Resp2.keys = '3'
+                    P_Key_Resp2.rt = 0  # you can set a fake RT if you want
+                    P_Key_Resp2.duration = None
+                    continueRoutine = False
+
         # --- Ending Routine "P_Rate" ---
         for thisComponent in P_Rate.components:
             if hasattr(thisComponent, "setAutoDraw"):
@@ -1625,8 +1639,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     continueRoutine = False
 
                 elif RESPONSE_TYPE =="vpixx_box":
-                    response = getbuttonColor(RESPONSE_SELECTION_2)
-                    RESPONSES.append(response)
+
+                    if not got_response:
+                        response = getbuttonColor(RESPONSE_SELECTION_2)
+                        got_response = True
+                        RESPONSES.append(response)
+
+
 
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):

@@ -162,7 +162,7 @@ def _normalize_selection(selection: dict | None):
     return listen_pairs
 
 
-def getbuttonColor(selection: dict | None = None):
+def getbuttonColor(selection: dict | None = None, blocking = True):
     """
     Polls the hardware inputs and returns the (box, color) of the pressed button.
 
@@ -211,8 +211,48 @@ def getbuttonColor(selection: dict | None = None):
             ('left box', 'white')
     """
     listen_pairs = _normalize_selection(selection)  # keep selection, ignore listen codes
+    if blocking:
+        while True:
+            DPxUpdateRegCache()
+            raw = DPxGetDinValue()
+            bits = decimal_to_binary(raw)
 
-    while True:
+            # Ensure we can index up to the largest response bit (handles short strings)
+            # if len(bits) < _VPIXX_REGISTER_SIZE:
+            #     bits = bits.zfill(_VPIXX_REGISTER_SIZE)
+
+            # --- replicate getbutton logic over the full response range ---
+            # Build an array for codes 1.._MAX_BIT_NEEDED where index 0 -> code 1 (LSB)
+            button_box = [int(bit) for bit in bits[-10:]]
+
+            # Only consider response codes that exist in the mapping
+            resp_codes = [i + 1 for i, state in enumerate(button_box)
+                          if state == 1 and (i + 1) in _ALL_RESPONSE_CODES]
+
+            # Return only when a single response line is high, matching getbutton semantics
+            if len(resp_codes) == 1:
+                resp = resp_codes[0]
+
+                # Map response code -> (box,color) candidates from the mapping
+                candidates = _RESP_TO_PAIRS.get(resp, [])
+
+                # If a selection was provided, intersect with it
+                if selection is not None:
+                    candidates = [p for p in candidates if p in listen_pairs]
+
+                if len(candidates) == 1:
+                    # Same return shape as before: (box_side, color)
+                    return candidates[0]
+
+                elif len(candidates) > 1:
+                    print(
+                        "Ambiguous press: multiple (box,color) share this hardware line: "
+                        + ", ".join(f"{b}/{c}" for b, c in candidates)
+                    )
+            # else: 0 or >1 responses high → keep polling
+
+    else:
+
         DPxUpdateRegCache()
         raw = DPxGetDinValue()
         bits = decimal_to_binary(raw)
@@ -250,9 +290,6 @@ def getbuttonColor(selection: dict | None = None):
                     + ", ".join(f"{b}/{c}" for b, c in candidates)
                 )
         # else: 0 or >1 responses high → keep polling
-
-
-
 
 
 
