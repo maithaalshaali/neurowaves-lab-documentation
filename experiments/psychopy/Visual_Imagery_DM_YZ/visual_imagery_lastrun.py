@@ -1640,7 +1640,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             #TODO: remove later
                             print('Response VI_CQ', response)
                             RESPONSE_VI_CQ_RECEIVED = True
-                            #RESPONSES.append(response)
+
                             Trials.addData('RESPONSE_VI_CQ', response)
                             continueRoutine = False
                 
