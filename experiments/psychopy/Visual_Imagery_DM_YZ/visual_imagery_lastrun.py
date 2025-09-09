@@ -1156,7 +1156,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                 if USE_VPIXX and not VI_Sound_end_trigger_OFF and VI_Sound_end_trigger_ON:
 
-                    if frameN > VI_Sound.frameNStop + TRIGGER_DURATION:
+                    if frameN > VI_Sound.frameNstop + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1340,7 +1340,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if RESPONSE_TYPE == "vpixx_box":
 
                         # TODO: Add getbutton function
-                        response = getbuttonColor(RESPONSE_SELECTION_1, blocking=False)
+                        response = getbuttonColor(RESPONSE_SELECTION_1)
 
                         RESPONSES.append(response)
 
@@ -1468,8 +1468,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     VI_CQ.tStart = t  # local t and not account for scr refresh
                     VI_CQ.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(VI_CQ, 'tStartRefresh')  # time at next scr refresh
-                    RESPONSE_VI_CQ_RECEIVED = False
-
                     # add timestamp to datafile
                     thisExp.timestampOnFlip(win, 'VI_CQ.started')
                     # update status
