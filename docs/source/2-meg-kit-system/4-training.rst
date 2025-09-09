@@ -32,7 +32,7 @@ Every project owner must have an IRB for his study approved before getting parti
 
 
 
-MEG Quizz
+MEG Quiz
 ---------
 
 Test your knowledge. Click the next link to start the quizz, you will need to sign-in to your email.
