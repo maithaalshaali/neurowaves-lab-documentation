@@ -1156,7 +1156,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                 if USE_VPIXX and not VI_Sound_end_trigger_OFF and VI_Sound_end_trigger_ON:
 
-                    if frameN > VI_Sound.frameNstop + TRIGGER_DURATION:
+                    if frameN > VI_Sound.frameNStop + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1340,7 +1340,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if RESPONSE_TYPE == "vpixx_box":
 
                         # TODO: Add getbutton function
-                        response = getbuttonColor(RESPONSE_SELECTION_1)
+                        response = getbuttonColor(RESPONSE_SELECTION_1, blocking=False)
 
                         RESPONSES.append(response)
 
@@ -1468,6 +1468,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     VI_CQ.tStart = t  # local t and not account for scr refresh
                     VI_CQ.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(VI_CQ, 'tStartRefresh')  # time at next scr refresh
+                    RESPONSE_VI_CQ_RECEIVED = False
+
                     # add timestamp to datafile
                     thisExp.timestampOnFlip(win, 'VI_CQ.started')
                     # update status
@@ -1550,9 +1552,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_CQ_Key_Resp.duration = None
                         continueRoutine = False
 
-                    elif RESPONSE_TYPE == "vpixx_box":
-                        response = getbuttonColor(RESPONSE_SELECTION_2)
-                        RESPONSES.append(response)
+                    elif RESPONSE_TYPE == "vpixx_box" and not RESPONSE_VI_CQ_RECEIVED:
+                        response = getbuttonColor(RESPONSE_SELECTION_2, blocking=False)
+                        if response != None:
+                            RESPONSE_VI_CQ_RECEIVED = True
+                            RESPONSES.append(response)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
