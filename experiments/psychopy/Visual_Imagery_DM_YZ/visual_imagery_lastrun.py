@@ -19,7 +19,7 @@ import json
 
 USE_VPIXX = True
 DEBUG_MODE = True
-RESPONSE_TYPE = "simulated"
+RESPONSE_TYPE = "vpixx_box"
 SCREEN_INDEX = 1
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
@@ -699,6 +699,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         # if VI_Intro is starting this frame...
         if VI_Intro.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+
+            #TODO: Check if this can be removed later
+            if USE_VPIXX:
+                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                dp.DPxUpdateRegCache()
             # keep track of start time/frame for later
             VI_Intro.frameNStart = frameN  # exact frame index
             VI_Intro.tStart = t  # local t and not account for scr refresh
@@ -720,6 +725,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         # if VI_Key_Resp1 is starting this frame...
         if VI_Key_Resp1.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            #TODO: Check if this can be removed later
+            if USE_VPIXX:
+                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                dp.DPxUpdateRegCache()
             # keep track of start time/frame for later
             VI_Key_Resp1.frameNStart = frameN  # exact frame index
             VI_Key_Resp1.tStart = t  # local t and not account for scr refresh
@@ -910,6 +919,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_Inter is starting this frame...
                 if VI_Inter.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_Inter.frameNStart = frameN  # exact frame index
                     VI_Inter.tStart = t  # local t and not account for scr refresh
@@ -1040,6 +1053,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_BG is starting this frame...
                 if VI_BG.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_BG.frameNStart = frameN  # exact frame index
                     VI_BG.tStart = t  # local t and not account for scr refresh
@@ -1082,31 +1099,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                         VI_BG.setAutoDraw(False)
 
-                    # TODO: trigger off for 'VI_BG end'
-                    if USE_VPIXX:
-                        if frameN > VI_BG.frameNStop + TRIGGER_DURATION and not VI_BG_end_trigger_OFF and VI_BG_end_trigger_ON:
-                            # Debugging log: Print the calculated combined value
-                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                            dp.DPxUpdateRegCache()
+                        # TODO: trigger off for 'VI_BG end'
+                        if USE_VPIXX:
+                            if frameN > VI_BG.frameNStop + TRIGGER_DURATION and not VI_BG_end_trigger_OFF and VI_BG_end_trigger_ON:
+                                # Debugging log: Print the calculated combined value
+                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                                dp.DPxUpdateRegCache()
 
-                            VI_BG_end_trigger_OFF = True
+                                VI_BG_end_trigger_OFF = True
 
 
 
                 # *VI_Sound* updates
-                
+
+                # TODO: Turn on trigger for 'VI_Sound start'
+                    # Thes two variables indicate if we had already started the trigger, or ended the trigger for this routine
+                VI_Sound_begin_trigger_ON = False
+                VI_Sound_begin_trigger_OFF = False
+
+                VI_Sound_end_trigger_ON = False
+                VI_Sound_end_trigger_OFF = False
+
                 # if VI_Sound is starting this frame...
                 if VI_Sound.status == NOT_STARTED and t >= 1.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_Sound.frameNStart = frameN  # exact frame index
 
-                    # TODO: Turn on trigger for 'VI_Sound start'
-                    # Thes two variables indicate if we had already started the trigger, or ended the trigger for this routine
-                    VI_Sound_begin_trigger_ON = False
-                    VI_Sound_begin_trigger_OFF = False
 
-                    VI_Sound_end_trigger_ON = False
-                    VI_Sound_end_trigger_OFF = False
 
                     VI_Sound.tStart = t  # local t and not account for scr refresh
                     VI_Sound.tStartRefresh = tThisFlipGlobal  # on global time
@@ -1166,7 +1189,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                 if USE_VPIXX and not VI_Sound_end_trigger_OFF and VI_Sound_end_trigger_ON:
 
-                    if frameN > VI_Sound.frameNstop + TRIGGER_DURATION:
+                    if frameN > VI_Sound.frameNStop + TRIGGER_DURATION:
                         # Debugging log: Print the calculated combined value
                         dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                         dp.DPxUpdateRegCache()
@@ -1176,6 +1199,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_Cue is starting this frame...
                 if VI_Cue.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_Cue.frameNStart = frameN  # exact frame index
                     VI_Cue.tStart = t  # local t and not account for scr refresh
@@ -1299,6 +1326,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_RateText is starting this frame...
                 if VI_RateText.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_RateText.frameNStart = frameN  # exact frame index
                     VI_RateText.tStart = t  # local t and not account for scr refresh
@@ -1320,8 +1351,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_Key_Resp2 is starting this frame...
                 if VI_Key_Resp2.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_Key_Resp2.frameNStart = frameN  # exact frame index
+
+                    RESPONSE_VI_KEY_RESP2_RECEIVED = False
 
                     # trigger on and off when making response in VI_Key_Resp2
                     VI_Key_Resp2_respond_trigger_ON = False
@@ -1356,9 +1393,15 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                     if RESPONSE_TYPE == "vpixx_box":
 
-                        response = getbuttonColor(RESPONSE_SELECTION_1)
+                        response = getbuttonColor(RESPONSE_SELECTION_1, blocking=False)
 
-                        RESPONSES.append(response)
+                        if response != None and not RESPONSE_VI_KEY_RESP2_RECEIVED:
+                            # TODO: Remove later
+                            print(f"Response VI_KEY_RESP2: {response}")
+                            RESPONSE_VI_KEY_RESP2_RECEIVED = True
+                            Trials.addData('RESPONSE_VI_KEY_RESP2', response)
+                            #RESPONSES.append(response)
+                            continueRoutine = False
 
 
                     elif RESPONSE_TYPE == "keyboard":
@@ -1480,6 +1523,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_CQ is starting this frame...
                 if VI_CQ.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_CQ.frameNStart = frameN  # exact frame index
                     VI_CQ.tStart = t  # local t and not account for scr refresh
@@ -1500,6 +1547,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # if VI_CQ_Option is starting this frame...
                 if VI_CQ_Option.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_CQ_Option.frameNStart = frameN  # exact frame index
                     VI_CQ_Option.tStart = t  # local t and not account for scr refresh
@@ -1518,11 +1569,20 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 
                 # *VI_CQ_Key_Resp* updates
                 waitOnFlip = False
-                
+
+
+
+
                 # if VI_CQ_Key_Resp is starting this frame...
                 if VI_CQ_Key_Resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                    # TODO: Check if this can be removed later
+                    if USE_VPIXX:
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
                     # keep track of start time/frame for later
                     VI_CQ_Key_Resp.frameNStart = frameN  # exact frame index
+
+                    RESPONSE_VI_CQ_RECEIVED = False
 
                     VI_CQ_Key_Resp_trigger_ON = False
                     VI_CQ_Key_Resp_trigger_OFF = False
@@ -1577,8 +1637,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     elif RESPONSE_TYPE == "vpixx_box" and not RESPONSE_VI_CQ_RECEIVED:
                         response = getbuttonColor(RESPONSE_SELECTION_2, blocking=False)
                         if response != None:
+                            #TODO: remove later
+                            print('Response VI_CQ', response)
                             RESPONSE_VI_CQ_RECEIVED = True
-                            RESPONSES.append(response)
+                            #RESPONSES.append(response)
+                            Trials.addData('RESPONSE_VI_CQ', response)
+                            continueRoutine = False
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1686,6 +1750,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             # if B_Break is starting this frame...
             if B_Break.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # TODO: Check if this can be removed later
+                if USE_VPIXX:
+                    dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
                 # keep track of start time/frame for later
                 B_Break.frameNStart = frameN  # exact frame index
                 B_Break.tStart = t  # local t and not account for scr refresh
@@ -1707,6 +1775,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             
             # if B_Break_Resp is starting this frame...
             if B_Break_Resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+                # TODO: Check if this can be removed later
+                if USE_VPIXX:
+                    dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
                 # keep track of start time/frame for later
                 B_Break_Resp.frameNStart = frameN  # exact frame index
                 B_Break_Resp.tStart = t  # local t and not account for scr refresh
@@ -1828,6 +1900,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         # if End_Text is starting this frame...
         if End_Text.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+
+            #TODO: Check if this can be removed later
+            if USE_VPIXX:
+                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                dp.DPxUpdateRegCache()
             # keep track of start time/frame for later
             End_Text.frameNStart = frameN  # exact frame index
             End_Text.tStart = t  # local t and not account for scr refresh
@@ -1849,6 +1926,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
         
         # if End_Key_Resp is starting this frame...
         if End_Key_Resp.status == NOT_STARTED and tThisFlip >= 0.0-frameTolerance:
+            #TODO: Check if this can be removed later
+            if USE_VPIXX:
+                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                dp.DPxUpdateRegCache()
             # keep track of start time/frame for later
             End_Key_Resp.frameNStart = frameN  # exact frame index
             End_Key_Resp.tStart = t  # local t and not account for scr refresh
