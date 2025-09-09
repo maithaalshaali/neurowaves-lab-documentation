@@ -1340,7 +1340,7 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     if RESPONSE_TYPE == "vpixx_box":
 
                         # TODO: Add getbutton function
-                        response = getbuttonColor(RESPONSE_SELECTION_1)
+                        response = getbuttonColor(RESPONSE_SELECTION_1, blocking=False)
 
                         RESPONSES.append(response)
 
@@ -1468,6 +1468,8 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     VI_CQ.tStart = t  # local t and not account for scr refresh
                     VI_CQ.tStartRefresh = tThisFlipGlobal  # on global time
                     win.timeOnFlip(VI_CQ, 'tStartRefresh')  # time at next scr refresh
+                    RESPONSE_VI_CQ_RECEIVED = False
+
                     # add timestamp to datafile
                     thisExp.timestampOnFlip(win, 'VI_CQ.started')
                     # update status
@@ -1550,9 +1552,11 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_CQ_Key_Resp.duration = None
                         continueRoutine = False
 
-                    elif RESPONSE_TYPE == "vpixx_box":
+                    elif RESPONSE_TYPE == "vpixx_box" and not RESPONSE_VI_CQ_RECEIVED:
                         response = getbuttonColor(RESPONSE_SELECTION_2)
-                        RESPONSES.append(response)
+                        if response != None:
+                            RESPONSE_VI_CQ_RECEIVED = True
+                            RESPONSES.append(response)
                 
                 # check for quit (typically the Esc key)
                 if defaultKeyboard.getKeys(keyList=["escape"]):

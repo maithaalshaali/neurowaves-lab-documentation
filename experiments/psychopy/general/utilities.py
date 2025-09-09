@@ -211,6 +211,7 @@ def getbuttonColor(selection: dict | None = None, blocking = True):
             ('left box', 'white')
     """
     listen_pairs = _normalize_selection(selection)  # keep selection, ignore listen codes
+
     if blocking:
         while True:
             DPxUpdateRegCache()
