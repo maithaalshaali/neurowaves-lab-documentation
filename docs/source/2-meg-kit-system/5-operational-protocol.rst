@@ -22,8 +22,8 @@ Lab booking and schedule
 
 .. warning::
 
-   All bookings should not take place on a Monday morning, as Helium refill is scheduled for Monday mornings
-   and it is not possible to acquire data during this period.
+   Bookings should not take place on a Monday morning, as this is when Helium refills are scheduled
+    and it is not possible to acquire data during this period.
 
 
 Lab equipment provided to the project owner
@@ -34,7 +34,7 @@ The MEG lab is provided to the project owner after the following checks and test
 #. KIT system is in an operational status
     - Helium levels are sufficient to conduct an experiment
     - Quality of the data from SQUIDs sensor has been verified
-    - Empty-room data has been acquired and noise levels has been computed and assessed
+    - Empty-room data has been acquired and noise levels have been computed and assessed
         - Empty room data is recorded at 1kHz sampling rate for around 3 minutes every couple of days and made available on NYU-BOX
         - MSR lights are put off during empty-room data recording and brightness is set to low
         - All phones are on airplane mode
@@ -44,47 +44,45 @@ The MEG lab is provided to the project owner after the following checks and test
 #. Vpixx system is operational
     - Trigger events are tested
     - Projector is in a running state
-    - Response boxes are running correctly
-
+    - Response boxes must be tested for correct button responses
 #. Communication system with participant are operational
     - Microphone outside the MSR, to communicate to the participant works correctly
     - Microphone inside the MSR for participant to communicate with project owner works correctly
     - Earphones with disposable single use foam earplugs for participant to hear the project owner outside the MSR works correctly
-    - Coming soon: Camera inside MSR for visualising the participant
+    - Camera inside MSR for visualising the participant
 
 #. Laser scanner system is operational
     - Laser scanner computer works correctly
     - Laser pointer/surface scanner is operational
 
 #. Scrubs and caps and all hygiene related materials are available
-    - clean foam
+    - clean foam earplugs placed on earphones
     - caps are available
     - scrubs are available
     - clinical application tape is available for HPI coils on participant face
+    - gloves are available
 
 
 Inventory
 ---------
 
-The lab is provided with the following items, shall you request new items please contact the team with your request.
+The lab provides the following items, should you require new items please contact the team with your request.
 
 - linen
 - scrubs
-- machine for shoe isolation
 - earplugs
 - face baby wipes
 - normal tissue paper
 - head caps
 - kitchen towels
-- stapler
 - clinical tape need to order
-- glasses for vision need to order a new pack
-- a sign to be used when the participant is Veil-wearing Woman to prevent any access to the lab during their experiment
+- glasses for vision correction -6 to +6 in 0.5 increments
+- a sign to be used when the participant is Veil-wearing woman to prevent any access to the lab during their experiment
 
 Prepare the lab equipment (prior to participant arrival) Estimated Time: 20min
 ------------------------------------------------------------------------------
 
-**Performed by the project owner** by following the order
+**Performed by the project owner** by following the order below
 
 #. Prepare MSR:
     - Make sure the MSR has no metal objects inside
@@ -104,10 +102,10 @@ Prepare the lab equipment (prior to participant arrival) Estimated Time: 20min
 #. Marker box check:
     - Ensure that the `Marker Box` found inside the MSR has enough battery
         - Power up the `Marker Box` by flipping the `Power` switch up
-        - If there is enough battery, the red led 'Low battery' should go on for a second and then back off
-        - If there is not enough battery, the red led 'Low batter' is either on all the time or never comes on for a second as previously
-            - In this case, change the batteries of the Box, recharged batteries are available under the `Eyetracker` computer
-    - Unroll the five HPI marker coils that are linked to the `Marker Box`
+        - If there is enough battery, the red led 'Low batt' should go on for a second and then back off
+        - If there is not enough battery, the red led 'Low batt' is either on all the time or never comes on for a second as previously
+            - In this case, change the batteries of the Box, recharged batteries are available under the `Stimulus` computer
+    - Uncoil the five HPI marker coils that are linked to the `Marker Box`
 #. Trigger Box preparation:
     - The `Trigger Box` is outside the MSR and pictured below
 
@@ -117,11 +115,13 @@ Prepare the lab equipment (prior to participant arrival) Estimated Time: 20min
 
         Trigger Box found above the `MEG Main PC`.
 
-    - Ensure that the `Source` button is set to `PC` which is the left side
+    - Ensure that the `Source` button is set to `LPT1` which is on the left side
 
 #. If project owner requires empty-room data prior to experiment:
     - Turn off the MSR lights and put the light brightness to low
-    - Close the MSR door without having any individual inside
+    - Close the MSR door without having any person
+
+  inside
     - After the previous steps, on the `MEG Main PC` computer, open `MEG160` software
     - Then, Menu -> Acquire -> Auto Tuning -> Ok
         - Wait for the auto-tuning to be done
