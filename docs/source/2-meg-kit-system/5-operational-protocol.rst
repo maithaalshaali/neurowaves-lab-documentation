@@ -26,25 +26,21 @@ Lab booking and schedule
     and it is not possible to acquire data during this period.
 
 
-Lab equipment provided to the project owner
--------------------------------------------
+Checks Completed by MEG Scientist Prior to Experiment
+-----------------------------------------------------
 
 The MEG lab is provided to the project owner after the following checks and tests have been made successfully:
 
-#. KIT system is in an operational status
+#. KIT system is in an operational status when
     - Helium levels are sufficient to conduct an experiment
     - Quality of the data from SQUIDs sensor has been verified
     - Empty-room data has been acquired and noise levels have been computed and assessed
-        - Empty room data is recorded at 1kHz sampling rate for around 3 minutes every couple of days and made available on NYU-BOX
-        - MSR lights are put off during empty-room data recording and brightness is set to low
-        - All phones are on airplane mode
-        - The dashboards show the noise levels from empty-room data and are updated automatically on a daily basis
-        - If the project owner requires empty-room data on the day of his experiment run, he should make this clear to the lab scientist
 
 #. Vpixx system is operational
     - Trigger events are tested
     - Projector is in a running state
     - Response boxes must be tested for correct button responses
+
 #. Communication system with participant are operational
     - Microphone outside the MSR, to communicate to the participant works correctly
     - Microphone inside the MSR for participant to communicate with project owner works correctly
@@ -55,34 +51,28 @@ The MEG lab is provided to the project owner after the following checks and test
     - Laser scanner computer works correctly
     - Laser pointer/surface scanner is operational
 
-#. Scrubs and caps and all hygiene related materials are available
-    - clean foam earplugs placed on earphones
-    - caps are available
-    - scrubs are available
-    - clinical application tape is available for HPI coils on participant face
-    - gloves are available
+#. Personal Protective Equipment/Clinical Consumables are available including:
+    - clean foam earplugs
+    - head caps
+    - scrubs
+    - clinical application tape for HPI coils on participant face
+    - gloves
+    - linen
+    - face baby wipes
+    - normal tissue paper
+    - head caps
+    - kitchen towels
+    - glasses for vision correction -6 to +6 in 0.5 increments
+    - a sign to be used if the participant is a female wearing a veil/head covering
+
+Should you require new items please contact the team with your request.
 
 
-Inventory
----------
-
-The lab provides the following items, should you require new items please contact the team with your request.
-
-- linen
-- scrubs
-- earplugs
-- face baby wipes
-- normal tissue paper
-- head caps
-- kitchen towels
-- clinical tape need to order
-- glasses for vision correction -6 to +6 in 0.5 increments
-- a sign to be used when the participant is Veil-wearing woman to prevent any access to the lab during their experiment
-
-Prepare the lab equipment (prior to participant arrival) Estimated Time: 20min
+Performed by the project owner -Prepare the lab equipment (prior to participant arrival)
 ------------------------------------------------------------------------------
 
-**Performed by the project owner** by following the order below
+The steps below should be **performed by the project owner** prior to the arrival of the participant and should be completed in the following the order.
+These procedures take an estimated time of 20 mins.
 
 #. Prepare MSR:
     - Make sure the MSR has no metal objects inside
