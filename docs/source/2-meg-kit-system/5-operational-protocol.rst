@@ -78,7 +78,7 @@ These procedures take an estimated time of 20 mins.
     - Make sure the MSR has no metal objects inside
     - Switch the heater off
 
-    .. figure:: figures/heater.png
+    .. figure:: figures/meg-operationprotocol/heater.png
         :alt: Heater Button Image
         :align: center
 
@@ -95,7 +95,13 @@ These procedures take an estimated time of 20 mins.
         - If there is enough battery, the red led 'Low batt' should go on for a second and then back off
         - If there is not enough battery, the red led 'Low batt' is either on all the time or never comes on for a second as previously
             - In this case, change the batteries of the Box, recharged batteries are available under the `Stimulus` computer
+
+    .. figure:: figures/meg-operationprotocol/Marker_box_power.png
+        :alt: Trigger Box
+        :align: center
+
     - Uncoil the five HPI marker coils that are linked to the `Marker Box`
+
 #. Trigger Box preparation:
     - The `Trigger Box` is outside the MSR and pictured below
 
