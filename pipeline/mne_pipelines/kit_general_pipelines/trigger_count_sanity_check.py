@@ -10,6 +10,14 @@ PathLike = str | Path
 
 __all__ = ["run_trigger_count", "read_expected_matrix"]
 
+
+
+# Plot parameters: Make the plot viewable in an easier way
+
+DEFAULT_MISC_CHANNELS_AMPLITUDE_SCALE = 1.5 #amplitude per division for the MISC channels
+DEFAULT_TIME_SCALE = 100  #100 seconds per window
+
+
 # ---------- I/O ----------
 
 def _read_kit_con(confile: PathLike) -> mne.io.BaseRaw:
@@ -263,7 +271,12 @@ def run_trigger_count(
 
         #RAW_DATA = mne.io.read_raw_kit(meg_data_dir, preload=False, verbose=False)
 
-        raw.plot(picks=channels, block=True)
+        raw.get_channel_types
+
+        raw.plot(picks=channels,
+                 block=True,
+                 scalings ={"misc": DEFAULT_MISC_CHANNELS_AMPLITUDE_SCALE},
+                 duration = DEFAULT_TIME_SCALE)
 
 
 
