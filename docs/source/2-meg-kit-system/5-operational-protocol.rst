@@ -29,25 +29,25 @@ Lab booking and schedule
 Checks Completed by MEG Scientist Prior to Experiment
 -----------------------------------------------------
 
-The MEG lab is provided to the project owner after the following checks and tests have been made successfully:
+The MEG lab is provided to the project owner after the following checks and tests have been made successfully.
 
-#. KIT system is in an operational status when
+#. KIT system is in an operational status when:
     - Helium levels are sufficient to conduct an experiment
     - Quality of the data from SQUIDs sensor has been verified
     - Empty-room data has been acquired and noise levels have been computed and assessed
 
-#. Vpixx system is operational
+#. Vpixx system is operational when:
     - Trigger events are tested
     - Projector is in a running state
     - Response boxes must be tested for correct button responses
 
-#. Communication system with participant are operational
+#. Communication system with participant are operational when:
     - Microphone outside the MSR, to communicate to the participant works correctly
     - Microphone inside the MSR for participant to communicate with project owner works correctly
     - Earphones with disposable single use foam earplugs for participant to hear the project owner outside the MSR works correctly
     - Camera inside MSR for visualising the participant
 
-#. Laser scanner system is operational
+#. Laser scanner system is operational when:
     - Laser scanner computer works correctly
     - Laser pointer/surface scanner is operational
 
@@ -68,8 +68,8 @@ The MEG lab is provided to the project owner after the following checks and test
 Should you require new items please contact the team with your request.
 
 
-Performed by the project owner -Prepare the lab equipment (prior to participant arrival)
-------------------------------------------------------------------------------
+Performed by the project owner - Prepare the lab equipment (prior to participant arrival)
+----------------------------------------------------------------------------------------
 
 The steps below should be **performed by the project owner** prior to the arrival of the participant and should be completed in the following the order.
 These procedures take an estimated time of 20 mins.
@@ -78,7 +78,7 @@ These procedures take an estimated time of 20 mins.
     - Make sure the MSR has no metal objects inside
     - Switch the heater off
 
-    .. figure:: figures/meg-operationprotocol/heater_button.png
+    .. figure:: figures/heater.png
         :alt: Heater Button Image
         :align: center
 
