@@ -20,7 +20,6 @@ Building your processing pipeline
 
 Do the same steps as before to fork the repository and create a new branch named as `experiment_name-analysis`
 Submit an initial notebook under `docs/source/5-pipeline/notebooks` or simply code file for your pipeline under `pipeline\experiment_name`
-The file
 
 
 
@@ -34,9 +33,12 @@ Contributions are made through pull reqests, please do the following steps:
 - Create a new branch named with the feature you are developping or change you are making
 - Make the change on that branch
 - Create a pull request from this branch  to the main brach
+- Ensure that all automated checks have passed
+    - Many times the sphinx documentation build fails due to error in the syntax of your .rst files. To access the logfile, on your Pull Request, click the failing `docs/readthedocs.org:neurowaves` check to access the logfile and correct all Warnings/Errors.
 - Wait until your pull request is approved, or commented on
 - Address all comments until the PR is approved
 - Once the PR is merged to the main branch, delete your branch
+
 
 
 Sphinx header templates
@@ -60,7 +62,6 @@ If you'd like to contribute to this documentation, please follow the heading-ado
 +---------------------+------------------------+----------------+------------+
 | Fifth-level         | N/A                    | ``++++++++``   | ``+``      |
 +---------------------+------------------------+----------------+------------+
-
 
 
 
