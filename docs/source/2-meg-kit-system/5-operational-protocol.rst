@@ -463,6 +463,7 @@ Perform the MEG Experiment (Participant is present)
     - Subject sits on the bed facing the researcher
     - Place the five Head Position Indicator (HPI) coils on the marker points
         - Each HPI coil is marked by a color that corresponds to the position of placement of the coil on the head
+        - Bring the forehead markers over the top of the head so the wires are not in the participant’s face
         - The position of the HPI coil on the participant's head should follow the following mapping:
 
     .. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.png
@@ -470,10 +471,7 @@ Perform the MEG Experiment (Participant is present)
             :align: center
             :scale: 50%
 
-          Colour coded marker placement
 
-
-        - Bring the forehead markers over the top of the head so the wires are not in the participant’s face
     - Place earphones
     - Assist the participant with the wires while they move into the helmet
     - Place the pink pillow under the participant's legs for the back support
