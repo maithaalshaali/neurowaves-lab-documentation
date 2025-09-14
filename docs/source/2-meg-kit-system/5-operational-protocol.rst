@@ -68,7 +68,7 @@ Should you require new items please contact the team with your request.
 
 
 Performed by the project owner - Prepare the lab equipment (prior to participant arrival)
-----------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------
 
 The steps below should be **performed by the project owner** prior to the arrival of the participant and should be completed in the following the order.
 These procedures take an estimated time of 20 mins.
