@@ -22,14 +22,13 @@ Lab booking and schedule
 
 .. warning::
 
-   Bookings should not take place on a Monday morning, as this is when Helium refills are scheduled
-    and it is not possible to acquire data during this period.
+   Bookings should not take place on a Monday morning, as this is when Helium refills are scheduled and it is not possible to acquire data during this period.
 
 
 Checks Completed by MEG Scientist Prior to Experiment
 -----------------------------------------------------
 
-The MEG lab is provided to the project owner after the following checks and tests have been made successfully.
+The MEG lab is provided to the project owner after the following checks and tests have been performed successfully.
 
 #. KIT system is in an operational status when:
     - Helium levels are sufficient to conduct an experiment
@@ -81,24 +80,28 @@ These procedures take an estimated time of 20 mins.
     .. figure:: figures/meg-operationprotocol/heater.png
         :alt: Heater Button Image
         :align: center
+        :scale: 40%
 
-        Heater Button.
+        Heater Button
 
     - Prepare bedsheets and pillowcases
-    - Clinical Tape is usually stored in the drawers inside the plastic furniture piece inside the MSR
+    - Clinical Tape is usually stored in the drawers inside the plastic drawers inside the MSR
         - or/also in the top right wooden drawer outside the MSR, on the right side of the `Stimulus computer`
     - Prepare 12 pieces of tape, those will be used to set the `HPI coils` on the participant's head
 
 #. Marker box check:
     - Ensure that the `Marker Box` found inside the MSR has enough battery
         - Power up the `Marker Box` by flipping the `Power` switch up
-        - If there is enough battery, the red led 'Low batt' should go on for a second and then back off
-        - If there is not enough battery, the red led 'Low batt' is either on all the time or never comes on for a second as previously
+        - If there is enough battery, the red LED 'Low batt' should go on for a second and then back off
+        - If there is not enough battery, the red LED 'Low batt' is either on all the time or never comes on for a second as previously
             - In this case, change the batteries of the Box, recharged batteries are available under the `Stimulus` computer
 
     .. figure:: figures/meg-operationprotocol/Marker_box_power.png
         :alt: Trigger Box
         :align: center
+        :scale: 60%
+
+        Marker box power indicator
 
     - Uncoil the five HPI marker coils that are linked to the `Marker Box`
 
@@ -111,27 +114,26 @@ These procedures take an estimated time of 20 mins.
 
         Trigger Box found above the `MEG Main PC`.
 
-    - Ensure that the `Source` button is set to `LPT1` which is on the left side
+    - Ensure that the `Source` button is set to `LPT1/PC` which is on the left side
 
 #. If project owner requires empty-room data prior to experiment:
     - Turn off the MSR lights and put the light brightness to low
-    - Close the MSR door without having any person
-
-  inside
+    - Close the MSR door without a particpant inside
     - After the previous steps, on the `MEG Main PC` computer, open `MEG160` software
     - Then, Menu -> Acquire -> Auto Tuning -> Ok
         - Wait for the auto-tuning to be done
-    - From Menu -> MEG Measurement -> Monitor and Acquisition window should open
-        - Ensure or set (these parameters are only to be used for empty-room data and not for a neuro-activity experiment measurement):
+    - From Menu -> Acquire -> MEG Measurement -> Monitor and Acquisition window should open
+        - In the 'Sensor Control' window ensure or set these parameters *NB are only to be used for empty-room data and not for a neuro-activity experiment measurement)*:
             - HPF to `0.1 Hz`
             - LPF to `1 KHz`
             - BEF to `THRU`
-        - Sensor Check
-        - Let the `Sensor Check` run for around 2 minutes
+        - Click on 'Sensor Check'
+        - Let the Sensor Check run for around 2 minutes
+        - Uncheck 'Sensor Check'
         - Make sure that the sensor display identical sinusoidal wave
-        - Remind that `Sensor 91` is broken and will not display a sine wave
+        - Remember that `Sensor 91` is broken and will not display a sine wave
 
-    - Under ‘Data Acquisition’
+    - In the ‘Data Acquisition’ window enter the following:
     - Patient ID: sub-emptyroom
     - Name: sub-emptyroom_<data in YYYYMMDD>
     - Foldername: C: \MEG160\Bin\emptyroom
@@ -147,57 +149,80 @@ These procedures take an estimated time of 20 mins.
 
 #. Prepare Vpixx systems:
     - Ensure that the three `Vpixx` boxes are turned on: Soundpixx, Propixx and Responsepixx
-    - Turn on the computer if it is off, boot under Windows
-    - Settings of Vpixx computer. Ensure that
-        - The Bar menu is fixed (not disappearing)
-            - Right click on the bar menu > Taskbar settings > …
+    - Turn on the computer if it is off, boot under Windows (it will default to Ubuntu)
+    - Settings of Vpixx computer.
+        Ensure that:
         - Screens are in multiple displays (not mirror display)
             - Right-click on desktop > Display settings > Extend these displays > Keep changes
-        - Volume is off (keyboard)
-    - Set up Vpixx either through bash script **VPutil** (preferred) or through **PyPixx GUI**
-        - Open `Vputil` found on the desktop
+    - Set up Vpixx either through the LabMaestro platform (preferred) or through bash script **VPutil** GUI
+        **LabMaestro**
+        - Open `LabMaestro` found on the desktop
+
+     .. figure:: figures/meg-operationprotocol/New logo LabMaestro.png
+        :alt: LabMaestro_icon
+        :align: left
+        :scale: 30%
+
+        LabMaestro icon
+
+
+        - To turn on the PROPixx screen, click on the 'Wake All PROPixx' button found on the menu on top of the LabMaestro platform
+
+     .. figure:: figures/meg-operationprotocol/Propixx_awake.png
+        :alt: LabMaestro Platform
+        :align: centre
+        :scale: 50%
+
+        LabMaestro Platform
+
+                                **OR**
+
+         **VPutil**
+        - Open ' VPutil'
         - Run `ppx a` and `Enter`,
+
         - Check if the screen inside the MSR is on, if the screen is off then:
             - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
 
     - Ensure the orientation (vertical flip) of the screen inside the MSR is correct, if not:
-        - Open `Pypixx`, press `Rear Projection`, check again
+        - Open `LabMaestro`,
+        - On the left of the platform, choose PROPixx from the menu
+        - Check `Rear Projection` box
 
-        .. figure:: figures/meg-operationprotocol/pypixx_icon.png
-            :alt: Pypixx icon
+        .. figure:: figures/meg-operationprotocol/LabMaestro_rear_projection.png
+            :alt: Incorrect screen orientation fix
             :align: center
+            :scale: 50%
 
-            Pypixx icon.
+            Incorrect screen orientation fix
 
-        - Open `Display Settings` on the top left of the GUI
-            - Unselect `Ceiling Mount`
-            - Select `Rear projection`
+#. Verify your experiment script:
+    - If using `PsychToolBox`:
+        - Open MATLAB (2022b)
+        - Access your experiment `.m` script and launch it
+        - Make sure you arrive to the `Introduction Page` mentioned in the :ref:`design_experiment` section. This is to ensure MEG data recording can be started before the experiment begins
+    - You can do a quick test run to make sure that trigger signals are appearing correctly on the `MEG160` software
 
-            .. figure:: figures/meg-operationprotocol/projection_mode.png
-                :alt: Projection Mode
-                :align: center
+.. warning::
 
-                Projection Mode.
+   For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
 
-        - Switch on the projector (if not already done via Vputil):
-            - Press 'Wake PROPIXX', (when it says 'Sleep PROPixx', it means it is awake)
-
-        - Check whether the projected image in the MSR appears correctly (use text file `PROPIXX_Test_text.txt` found on the desktop)
-    - Ensure the image on the Vpixx screen in the MSR room is displaying correctly
     - Response Device
         - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
 
-        .. figure:: figures/meg-operationprotocol/left_response_box.jpg
+        .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
             :alt: Projection Mode
             :align: center
+            :scale: 50%
 
-            Left response box.
+            Left response box
 
-        .. figure:: figures/meg-operationprotocol/right_response_box.jpg
+        .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
             :alt: Projection Mode
             :align: center
+            :scale: 50%
 
-            Right response box.
+            Right response box
 
         .. figure:: figures/meg-operationprotocol/response_plugs.jpg
             :alt: Projection Mode
@@ -205,41 +230,38 @@ These procedures take an estimated time of 20 mins.
 
             Plugging the response box: Top row is the `right` response box, bottom row is the `left response box`.
 
-        - Dial: make sure that dial is connected to Vpixx computer, and USB button is OFF
 
 #. Microphone inside MSR:
-    - Make sure the sound box is switched on, if not click on the green round button
-    - Check if you can hear the participant through the speakers, talking from inside the MSR to the microphone (on the left side of the Dewar)
-    - [IMAGE]
+    - Make sure the sound box is switched on - located under the Stimulus computer - if not click on the green round button
+    - Check if you can hear the participant through the speakers, talking from inside the MSR to the microphone attached to the dewar
+       .. figure:: figures/meg-operationprotocol/Microphone_inside.jpg
+            :alt: Participant microphone
+            :align: center
+            :scale: 50%
+
+            Participant microphone
 
 #. Earplugs
     - Check the earplugs and make sure the participant can hear you
-    - [IMAGE]
+        .. figure:: figures/meg-operationprotocol/Earplugs.jpg
+            :alt: Earphones with foam earplugs
+            :align: center
+            :scale: 50%
+
+            Earphones with foam earplugs
 
 
 #. Prepare the `FastScan` computer:
     - If the `FastScan` computer is not turned on:
         - make sure that FastScan device is off (the flat black box next to the monitor, picture below)
-        - then turn on the computer then launch `FastScanII` program
-        - then turn on the FastScan device
+        - turn on the computer then launch `FastScanII` program
+        - turn on the FastScan device
 
         .. figure:: figures/meg-operationprotocol/fast_scan_device.png
             :alt: Fast Scan device
             :align: center
 
-            FastScan device.
-
-
-#. Verify your experiment script:
-    - If using `PsychToolBox`:
-        - Open MATLAB
-        - Access your experiment `.m` script and launch it
-        - Make sure you arrive to the `Introduction Page` mentioned in the :ref:`design_experiment` section
-    - You can make a quick test run to make sure that trigger signals are appearing correctly on the `MEG160` software
-
-.. warning::
-
-   For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
+            Fast Scan device
 
 #. Turn-off the doorbell ring at the entrance of the lab by turning off the plug [IMAGE]
 
@@ -253,8 +275,8 @@ Perform the MEG Experiment (Participant is present)
 ---------------------------------------------------
 
 #. If the participant is a veil-wearing female:
-    - sign on door
-    - block door with the isolation found behind the laser scan room door
+    - place sign on door
+    - block door with the isolation screen found behind the laser scan room door
 
 #. Welcoming the participant and providing them with explanations
     - [WELCOME] Thank you for joining our study. Is this your first time in the MEG?
@@ -287,24 +309,25 @@ Perform the MEG Experiment (Participant is present)
         - [END OF EXPLANATION] Is everything clear? Do you have any questions? Do you feel comfortable? Are you ok? Please let me know, this is important for us that you understand everything.
 
 #. Fill up forms
-    - Ensure that we have the electronically signed two consents. If not, make the participant sign by hand [LINK]
-    - Fill up contact, demographic, and handness forms [LINK]
+    - Ensure that we have the electronically signed all consents and any forms needed specifically for your experiment, or allow them to fill in/sign by hand at the time of the session
 
 #. Check up MEG incompatibilities
-    - Make participant change their clothes by hospital clothing (scrubs), keeping underwear and socks (not bra)
+    - Participants **MUST** change from their street clothes into scrubs provided clothing. Underwear without any metal and socks can be kept on. Bras should be removed.
     - Make sure they have NO metallic objects in the body/eyes
-        - Surgery? Surgical clip, artificial heart valve, implanted drug pump
+    - Confirm that they do not have:
+        - Surgical clips, artificial heart valve, implanted drug pump
         - Bullet
         - Cochlear implant or hearing aid
+        - Dental Retainers or braces
         - Make-up, especially red color makeup
         - Hair pins
         - Jewelry and piercings
         - Keys
         - Phone
-    - If the subject arrives with make-up, ask him/her to completely remove it
+    - If the subject arrives with make-up, ask them to completely remove it
     - If the subject wears glasses, ask them to remove the glasses and provide them with an MR compatible glasses from the briefcase found in the lab
         - Determine their vision prescription and provide them with the closest matching pair of glasses from the briefcase.
-
+           - available lens strengths for vision correction -6 to +6 in 0.5 increments
         .. figure:: figures/meg-operationprotocol/glasses_case.png
             :alt: Glasses briefcase
             :align: center
@@ -323,24 +346,24 @@ Perform the MEG Experiment (Participant is present)
 
 #. Perform the FastScan laser head scan
     - Capping the participant
-        - Put the 'pink' swimming cap on the head of the person
+        - Put a swimming cap on the head of the participant
         - Make sure the cap is as smooth as possible on the participant's head
-        - People with long hair, can keep most part of their hair outside the cap behind their ears and onto the back
+        - Participants with long hair, can keep most part of their hair outside the cap behind their ears and onto the back
         - The ears must be clear of hair
         - The cap must cover all the hair that can be seen at the anterior, left and right parts of the head
         - Smoothen the hair under the cap as much as possible, excess long hair can be drawn to outside the cap at the cerebellum level
         - The goal is that the cap takes the shape of the skull at best
-    - Mark the fiducials
+    - Mark the fiducials - there are a total of 8
         - Use the “T” template, with the line aligning the participant’s nasion as in the below picture
 
-        .. figure:: figures/meg-operationprotocol/template_nasion.png
+        .. figure:: figures/meg-operationprotocol/Marker_guide_template.png
             :alt: Template and Nasion
             :align: center
 
-            "T" template on the right and nasion/pre(auricular) positions on the left.
+            "T" template on the left and nasion/pre(auricular) positions on the right
 
         - Mark the nasion using a pen (fiducial 1)
-        - Adjust the "T" template to the participants nasion
+        - Adjust the fold in the "T" template to the participants nasion
         - Using a pen marker, mark fiducials 6, 7 and 8 by using the three holes in the "T" template
 
         .. figure:: figures/meg-operationprotocol/fiducials.png
@@ -349,7 +372,7 @@ Perform the MEG Experiment (Participant is present)
 
             Fiducials numbered by the order they should be laser scanned with.
 
-        - Mark the left and right pre-auriculars (1cm anterior to the tragi) and the right and left auriculars
+        - Mark the left and right pre-auriculars (1cm anterior to the tragi) and the right and left tragi (2, 3, 4,and 5)
         - Put on the neck brace
             - Place a tissue over the area closest to the mouth on the neck brace for sanitary purposes - see picture
 
@@ -357,27 +380,27 @@ Perform the MEG Experiment (Participant is present)
             :alt: Neck brace with tissue for sanitary purposes
             :align: center
 
-            Neck brace with tissue for sanitary purposes.
+            Neck brace with tissue for sanitary purposes
 
     - Perform laser scan
         - Once FastScan is finished initializing (indicated at the bottom of the software UI):
-            - Ask the participant to close their eyes and avoid any movements until scan is finished
             - Open `FastScan II` software on the computer
             - Press 'New'
             - Ensure the scanner is in Sweep mode (add [IMAGE])
-            - Point the laser gun at the `laser scanner reference point` (the box on the ring you place around the neck, see below) with a half-click, followed by a full click.
+            - Ask the participant to close their eyes and avoid any movements until scan is finished
+            - Point the laser gun at the `laser scanner reference receiver` (the box on the ring you place around the neck, see below) with a half-click, followed by a full click.
 
             .. figure:: figures/meg-operationprotocol/reference_point.png
                 :alt: Reference point
                 :align: center
 
-                Laser scanner reference point.
+                Laser scanner reference receiver
 
             .. figure:: figures/meg-operationprotocol/neck_brace.png
                 :alt: Neck brace with tissue for sanitary purposes
                 :align: center
 
-                Neckbrace with laser scanner reference point on the bottom left.
+                Neckbrace with laser scanner reference point on the bottom left
 
             .. warning::
 
@@ -385,18 +408,18 @@ Perform the MEG Experiment (Participant is present)
                 If the following error message appear, this means that the laser scan device lost the reference point.
 
                 .. figure:: figures/meg-operationprotocol/error_laser_scanner.png
-                    :alt: Neck brace with tissue for sanitary purposes
+                    :alt: LaserScan error when device is de-referenced
                     :align: center
 
-                    LaserScan error when device is dereferenced.
+                    LaserScan error when device is de-referenced
 
-                In such situation, do not press the `Cancel` on the message, but point the laser scanner to the reference point with a half click first to point at it then a full click.
+               Do not press `Cancel` on the message - point the laser scanner to the reference receiver, first with a half click to point and then a full click.
 
             - Scan head shape (sweeps) with full click. Tips:
-                - All cap surface + surfaces with fiducial points
+                - Include ALL cap surfaces + surfaces with fiducial points
                 - Avoid overlapping sweeps
-                - Making sweeps for head and face separately.
-                - Keep a consistent distance between the head and scanner.
+                - Making sweeps for head and face separately
+                - Keep a consistent distance between the head and scanner throughout the scan
 
                 .. hint::
 
@@ -404,15 +427,16 @@ Perform the MEG Experiment (Participant is present)
                     This feature allows you to quickly identify areas that are not covered well by the current laser scan.
 
         - After sweeps, switch to Laser Points and click on Stylus List for points options, ensure that Stylus > Properties > Capture Points (NOT capture lines)
-            - Close the flap down on the laser gun and start registering the fiducial points following this order - see picture.
-            - Nasion - between eye-brows (not marked)
-            - (Participant's) left tragus - cartilage of left ear (not marked)
-            - Right tragus - cartilage of right ear (not marked)
-            - Left marker - marked left ear
-            - Right marker - marked right ear
-            - Center forehead - marked center forehead point
-            - Left forehead - marked left forehead point
-            - Right forehead - marked right forehead point
+            - Start registering the fiducial points following this order - see picture.
+                -The 8 points are as follows:
+            - 1. Nasion - between eye-brows
+            - 2.(Participant's) left tragus - cartilage of left ear (not marked)
+            - 3. Right tragus - cartilage of right ear (not marked)
+            - 4. Left marker - pre-auricular marking left ear
+            - 5. Right marker - pre-auricular marking right ear
+            - 6. Center forehead - center forehead marking
+            - 7. Left forehead - left forehead marking
+            - 8. Right forehead -  right forehead marking
         - Ensure that you have only 8 points selected on the Stylus List
         - Tell participant they can move back again
     - Return the scanner and box to the foam holder on the table, and make sure none of the cords are on the floor
@@ -422,10 +446,10 @@ Perform the MEG Experiment (Participant is present)
         :alt: Fast Scanner Box
         :align: center
 
-        FastScan divide MUST be always like this: laser on foam, cables on table (not floor).
+        FastScan should ALWAYS be placed like this: laser on foam, cables on table (not floor).
 
     - Remove the cap from the participant's head and toss into the washing bin
-    - Put off the neck brace and make participant stand up
+    - Remove the neck brace
     - Save as (this is the .fsn files)
     - Create folder: FastScan Files/<Lab_Name>/<Study CODE>/sub_<subjectID>/ sess_<session_number>
     - [e.g. sub_12/sess_01]
@@ -435,39 +459,27 @@ Perform the MEG Experiment (Participant is present)
     - Press `Yes` to export stylus points aswell name the file as `sub-<subjectID>_laserpoints.txt`
 
 
-#. Marker Box check
-    - Switch on the marker box (inside of MSR) - see picture
-
-    .. figure:: figures/meg-operationprotocol/marker_box.png
-        :alt: Marker Box
-        :align: center
-
-        Marker box.
-
-    - When the marker box is switched on with the power button, there is a light on for a brief moment. If there is no light, batteries run out of energy and should be changed (see below picture of rechargeable battery device).
-        - The marker box requires 4 rechargeable AA batteries
-        - The recharged batteries are available below the `Eye-tracker computer`
-
-        .. figure:: figures/meg-operationprotocol/batteries.png
-            :alt: Batteries
-            :align: center
-
-            Rechargeable batteries.
-
 #. Participant goes into the MSR
-    - Subject wears off the shoes
-    - Subject sits on the bed (looking at the small table)
-    - Place the five Head Position Indicator (HPI) coils on the marker points - see picture below [IMAGE]
-        - Each HPI coil is marked by a color that correspond to the position of placement of the coil on the head
-        - The position of the HPI coil on the participant's head should follow the following mapping
+    - Participant should remove shoes
+    - Subject sits on the bed facing the researcher
+    - Place the five Head Position Indicator (HPI) coils on the marker points
+        - Each HPI coil is marked by a color that corresponds to the position of placement of the coil on the head
+        - The position of the HPI coil on the participant's head should follow the following mapping:
+
+.. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.jpg
+            :alt: Colour coded marker placement
+            :align: center
+            :scale: 50%
+
+          Colour coded marker placement
+
+
         - Bring the forehead markers over the top of the head so the wires are not in the participant’s face
-        - Do not loop the ear markers behind the ears
-    - Place earphones [IMAGE]
-    - Assist the participant with the wires while they move into the helmet [IMAGE]
-    - Place the bubble wrap burritos on the sides of the participant’s head as shown in the photo. This will help to keep their head still as well as keeping the ear marker coils against the head if the tape fails. You may also want to put tissues around the foam for sanitary purposes.
-    - Place the pillow on the legs for the back rest
-    - [Optional] if the experiment requires it, place the `Vpixx Response Box` or the `Dial` to their right/or left hand (depending on their convenience)
-        - Tape the box to the mattress, to avoid making the box fall from the mattress
+    - Place earphones
+    - Assist the participant with the wires while they move into the helmet
+    - Place the pink pillow under the participant's legs for the back support
+    - If the experiment requires it, place the `Vpixx Response Box` or the `Dial` in their right/or left hand depending on experimental design
+        - Optionally tape the box to the mattress, to avoid the box falling
     - Tape any loose wires for the markers and the button boxes
     - **Ensure  that the participant is comfortable**
     - Close and lock the MSR door
@@ -479,16 +491,16 @@ Perform the MEG Experiment (Participant is present)
         HPI Coils placement on head.
 
 
-    - Communicate with participant
-        - Turn on the microphone [IMAGE]
+    - Communicate with the participant
+        - Turn on the microphone
         - Talk to the participant through the Vpixx microphone
         - Make sure the participant is replying back and that the voice quality is good
         - Tell them that the experiment is about to start and that they should refrain from any movement
-        - Tell them that if they need to speak to you for any urgent issue, they can freely do this at any time
-        - Turn off the microphone [IMAGE]
+        - Tell them that if they need to speak to you for any urgent issue, they can do this freely at any time
+        - Turn off the microphone
 
 #. Run experiment and recording
-    - Run your script until it lands on the `Introduction Page` of your script as explaind in the :ref:`design_experiment` section.
+    - Run your script until it lands on the `Introduction Page` of your script as explained in the :ref:`design_experiment` section.
     - Prepare MEG recording
 #. Prepare MEG recording
     - On ‘MEG MAIN PC’ computer, open MEG Lab (on desktop), aka MEG160
