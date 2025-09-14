@@ -158,7 +158,7 @@ These procedures take an estimated time of 20 mins.
         **LabMaestro**
         - Open `LabMaestro` found on the desktop
 
-     .. figure:: figures/meg-operationprotocol/New logo LabMaestro.png
+     .. figure:: figures/meg-operationprotocol/LabMaestro_icon.png
         :alt: LabMaestro_icon
         :align: left
         :scale: 30%
@@ -170,7 +170,7 @@ These procedures take an estimated time of 20 mins.
 
      .. figure:: figures/meg-operationprotocol/Propixx_awake.png
         :alt: LabMaestro Platform
-        :align: centre
+        :align: center
         :scale: 50%
 
         LabMaestro Platform
@@ -180,7 +180,6 @@ These procedures take an estimated time of 20 mins.
          **VPutil**
         - Open ' VPutil'
         - Run `ppx a` and `Enter`,
-
         - Check if the screen inside the MSR is on, if the screen is off then:
             - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
 
@@ -466,7 +465,7 @@ Perform the MEG Experiment (Participant is present)
         - Each HPI coil is marked by a color that corresponds to the position of placement of the coil on the head
         - The position of the HPI coil on the participant's head should follow the following mapping:
 
-.. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.jpg
+    .. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.png
             :alt: Colour coded marker placement
             :align: center
             :scale: 50%
