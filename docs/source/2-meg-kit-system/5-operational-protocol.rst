@@ -150,11 +150,11 @@ These procedures take an estimated time of 20 mins.
 #. Prepare Vpixx systems:
     - Ensure that the three `Vpixx` boxes are turned on: Soundpixx, Propixx and Responsepixx
     - Turn on the computer if it is off, boot under Windows (it will default to Ubuntu)
-    - Settings of Vpixx computer.
-        Ensure that:
+    - Settings of Vpixx computer. Ensure that:
         - Screens are in multiple displays (not mirror display)
             - Right-click on desktop > Display settings > Extend these displays > Keep changes
     - Set up Vpixx either through the LabMaestro platform (preferred) or through bash script **VPutil** GUI
+
         **LabMaestro**
         - Open `LabMaestro` found on the desktop
 
@@ -175,10 +175,9 @@ These procedures take an estimated time of 20 mins.
 
         LabMaestro Platform
 
-                                **OR**
 
          **VPutil**
-        - Open ' VPutil'
+        - Open 'VPutil'
         - Run `ppx a` and `Enter`,
         - Check if the screen inside the MSR is on, if the screen is off then:
             - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
@@ -327,6 +326,7 @@ Perform the MEG Experiment (Participant is present)
     - If the subject wears glasses, ask them to remove the glasses and provide them with an MR compatible glasses from the briefcase found in the lab
         - Determine their vision prescription and provide them with the closest matching pair of glasses from the briefcase.
            - available lens strengths for vision correction -6 to +6 in 0.5 increments
+
         .. figure:: figures/meg-operationprotocol/glasses_case.png
             :alt: Glasses briefcase
             :align: center
