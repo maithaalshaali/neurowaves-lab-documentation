@@ -173,16 +173,16 @@ These procedures take an estimated time of 20 mins.
 
                 LabMaestro Platform
 
-    - **VPutil**
+    - Or use  **VPutil**
         - Open 'VPutil'
         - Run `ppx a` and `Enter`,
         - Check if the screen inside the MSR is on, if the screen is off then:
-        - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
+            - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
 
         - Ensure the orientation (vertical flip) of the screen inside the MSR is correct, if not:
-        - Open `LabMaestro`,
-        - On the left of the platform, choose PROPixx from the menu
-        - Check `Rear Projection` box
+            - Open `LabMaestro`,
+            - On the left of the platform, choose PROPixx from the menu
+            - Check `Rear Projection` box
 
             .. figure:: figures/meg-operationprotocol/LabMaestro_rear_projection.png
                 :alt: Incorrect screen orientation fix
