@@ -198,36 +198,35 @@ These procedures take an estimated time of 20 mins.
         - Make sure you arrive to the `Introduction Page` mentioned in the :ref:`design_experiment` section. This is to ensure MEG data recording can be started before the experiment begins
     - You can do a quick test run to make sure that trigger signals are appearing correctly on the `MEG160` software
 
-.. warning::
+    .. warning::
 
-   For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
+       For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
 
-    - Response Device
-        - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
+#. Response Device
+    - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
 
-        .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
-            :scale: 50%
-            :alt: Left Button Box
-            :align: center
-
-
-            Left response box
-
-        .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
-            :scale: 50%
-            :alt: Projection Mode
-            :align: center
+    .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
+        :scale: 50%
+        :alt: Left Button Box
+        :align: center
 
 
-            Right response box
+        Left response box
 
-        .. figure:: figures/meg-operationprotocol/response_plugs.jpg
-            :scale: 30%
-            :alt: Projection Mode
-            :align: center
+    .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
+        :scale: 50%
+        :alt: Projection Mode
+        :align: center
 
-            Plugging the response box: Top row is the `right` response box, bottom row is the `left response box`.
 
+        Right response box
+
+    .. figure:: figures/meg-operationprotocol/response_plugs.jpg
+        :scale: 30%
+        :alt: Projection Mode
+        :align: center
+
+        Plugging the response box: Top row is the `right` response box, bottom row is the `left response box`.
 
 #. Microphone inside MSR:
     - Make sure the sound box is switched on - located under the Stimulus computer - if not click on the green round button
