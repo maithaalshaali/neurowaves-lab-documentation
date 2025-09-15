@@ -206,13 +206,15 @@ These procedures take an estimated time of 20 mins.
         - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
 
         .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
-            :alt: Projection Mode
+            :scale: 50%
+            :alt: Left Button Box
             :align: center
 
 
             Left response box
 
         .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
+            :scale: 50%
             :alt: Projection Mode
             :align: center
 
@@ -220,6 +222,7 @@ These procedures take an estimated time of 20 mins.
             Right response box
 
         .. figure:: figures/meg-operationprotocol/response_plugs.jpg
+            :scale: 50%
             :alt: Projection Mode
             :align: center
 
