@@ -511,9 +511,9 @@ Perform the MEG Experiment (Participant is present)
         - From the menu  “Acquire (Q)”, select “Auto Tuning (A)” > OK On “Monitor and Acquisition” window > Sensor Control
         - From the menu “Acquire (Q)”, select “MEG Measurement (Q)”
         - On “Monitor and Acquisition” window > ‘Data Acquisition’
-            - Patient ID: <projectname>_<subjectID>
-            - Patient Name: <projectname>_sub<subjectID>_sess<session_number>_<data in ddmmyyyy> [e.g., CODE_sub001_sess01_10032023]
-            - Foldername: D:\MEGDATA\<Lab_name>\CODE\sub<subjectID>
+            - Patient ID: sub-<subjectID> [e.g., sub-001]
+            - Patient Name: sub-<subjectID>_ses-<session-number>_task-<projectname> [e.g., sub-001_ses-01_task-resting-state]
+            - Foldername: D:\MEGDATA\<Lab_name>\STUDY_CODE\sub-<subjectID>
         - “Lock” [only if MSR door is CLOSED]
         - Wait until MEG sensors are stable i.e. no upward or downards trend
     - Perform marker measurement
