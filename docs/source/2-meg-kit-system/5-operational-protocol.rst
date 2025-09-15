@@ -431,14 +431,14 @@ Perform the MEG Experiment (Participant is present)
         - After sweeps, switch to Laser Points and click on Stylus List for points options, ensure that Stylus > Properties > Capture Points (NOT capture lines)
             - Start registering the fiducial points following this order - see picture.
                 -The 8 points are as follows:
-            - 1. Nasion - between eye-brows at the nasal bridge
-            - 2.(Participant's) left tragus - cartilage of left ear (not marked)
-            - 3. Right tragus - cartilage of right ear (not marked)
-            - 4. Left marker - pre-auricular marking left ear
-            - 5. Right marker - pre-auricular marking right ear
-            - 6. Center forehead - center forehead marking
-            - 7. Left forehead - left forehead marking
-            - 8. Right forehead -  right forehead marking
+                    1. Nasion - between eye-brows at the nasal bridge
+                    2. Left tragus - cartilage of left ear (not marked)
+                    3. Right tragus - cartilage of right ear (not marked)
+                    4. Left marker - pre-auricular marking left ear
+                    5. Right marker - pre-auricular marking right ear
+                    6. Center forehead - center forehead marking
+                    7. Left forehead - left forehead marking
+                    8. Right forehead -  right forehead marking
         - Ensure that you have only 8 points selected on the Stylus List
         - Tell participant they can move back again
     - Return the scanner and box to the foam holder on the table, and make sure none of the cords are on the floor
