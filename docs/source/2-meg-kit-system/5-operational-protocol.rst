@@ -412,6 +412,7 @@ Perform the MEG Experiment (Participant is present)
                 .. figure:: figures/meg-operationprotocol/error_laser_scanner.png
                     :alt: LaserScan error when device is de-referenced
                     :align: center
+                    :scale: 50%
 
                     LaserScan error when device is de-referenced
 
@@ -472,10 +473,9 @@ Perform the MEG Experiment (Participant is present)
     .. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.png
         :alt: Colour coded marker placement
         :align: center
-        :scale: 40%
+        :scale: 30%
 
         Position of Marker Coils also called Head Position Indicator (HPI) coils
-
 
 
     - Place earphones
