@@ -508,7 +508,7 @@ Perform the MEG Experiment (Participant is present)
 #. Prepare MEG recording
     - On ‘MEG MAIN PC’ computer, open MEG Lab (on desktop), aka MEG160
     - When the participant is in the MSR, and door is CLOSED
-        - From the menu  “Acquire (Q)”, select “Auto Tuning (A)” > OK On “Monitor and Acquisition” window > Sensor Control
+        - PerformOn “Monitor and Acquisition” window > Sensor Control > Sensor
         - From the menu “Acquire (Q)”, select “MEG Measurement (Q)”
         - On “Monitor and Acquisition” window > ‘Data Acquisition’
             - Patient ID: <projectname>_<subjectID>
