@@ -128,7 +128,7 @@ These procedures take an estimated time of 20 mins.
             - LPF to `1 KHz`
             - BEF to `THRU`
         - Click on 'Sensor Check'
-        - Let the Sensor Check run for around 2 minutes
+        - Let the Sensor Check run for around 30 seconds
         - Uncheck 'Sensor Check'
         - Make sure that the sensor display identical sinusoidal wave
         - Remember that `Sensor 91` is broken and will not display a sine wave
@@ -431,7 +431,7 @@ Perform the MEG Experiment (Participant is present)
         - After sweeps, switch to Laser Points and click on Stylus List for points options, ensure that Stylus > Properties > Capture Points (NOT capture lines)
             - Start registering the fiducial points following this order - see picture.
                 -The 8 points are as follows:
-            - 1. Nasion - between eye-brows
+            - 1. Nasion - between eye-brows at the nasal bridge
             - 2.(Participant's) left tragus - cartilage of left ear (not marked)
             - 3. Right tragus - cartilage of right ear (not marked)
             - 4. Left marker - pre-auricular marking left ear
@@ -507,21 +507,36 @@ Perform the MEG Experiment (Participant is present)
     - Prepare MEG recording
 #. Prepare MEG recording
     - On ‘MEG MAIN PC’ computer, open MEG Lab (on desktop), aka MEG160
-    - When the participant is in the MSR, and door is CLOSED
-        - PerformOn “Monitor and Acquisition” window > Sensor Control > Sensor
+    - The participant is now in the MSR, door is CLOSED, the lights have been switched off and the Brightness dial has been turned to the minimum
+    - If empty room data has not been acquired prior to the current experiment, Auto Tuning should be performed
+        -Menu -> Acquire -> Auto Tuning -> Ok
+        - Wait for the auto-tuning to be done
+    - This should be followed by a Sensor Check
+    - From Menu -> Acquire -> MEG Measurement -> Monitor and Acquisition window should open
+        - In the 'Sensor Control' window ensure or set these parameters
+            - HPF to `0.1 Hz`
+            - LPF to `500 Hz`
+            - BEF to `THRU`
+        - Click on 'Sensor Check'
+        - Let the Sensor Check run for around 30 seconds
+        - Uncheck 'Sensor Check'
+        - Make sure that the sensor display identical sinusoidal wave
+        - Remember that `Sensor 91` is broken and will not display a sine wave
+    - File storage location and naming convention
         - From the menu “Acquire (Q)”, select “MEG Measurement (Q)”
         - On “Monitor and Acquisition” window > ‘Data Acquisition’
             - Patient ID: <projectname>_<subjectID>
             - Patient Name: <projectname>_sub<subjectID>_sess<session_number>_<data in ddmmyyyy> [e.g., CODE_sub001_sess01_10032023]
-            - Foldername: D:\MEGDATA\<Lab_name>\CODE\sub<subjectID>
+            - Foldername: D:\MEGDATA\<Lab_name>\<\sub<subjectID>
         - “Lock” [only if MSR door is CLOSED]
-        - Wait until MEG sensors are stable i.e. no upward or downards trend
+        - Wait until MEG sensors are stable i.e. no upward or downward trend
     - Perform marker measurement
-        - Switch off microphone [IMAGE]
+        - Switch off microphone
         - On “Monitor and Acquisition” window:
         - Marker measurement > Start > OK - see picture
         - When done, column ‘GOF%’ should be around 99%
-        - If not, at least one of the head coils is misplaced (proceed unless there are fewer than 3 head coils in place)
+        - If not, at least one of the head coils is misplaced
+        - If at least 3 head marker coils are in place - PROCEED
         - Click OK
 
         .. figure:: figures/meg-operationprotocol/daq_measurement.png
@@ -541,27 +556,10 @@ Perform the MEG Experiment (Participant is present)
         - Sampling rate: 1000 (default)
         - Time: 4000 [66 minutes] (this is the maximum possible time in the MEG160 software)
         - Start Acquisition
-        - You can now safely start your experiment from the `Stimulus computer`
-    - If your experiment is lengthy i.e. 2 hours long, we recommend that you perform a marker measurement in between, i.e., after 1 hour is elapsed
-    - [While end-of-task text is prompted] Perform marker measurement again as in the step above
-    - Main task - block 1 (see points 8-10)
-        - Start recording
-        - Talk with subject
-        - Switch ON USB dial
-        - Start task
-    - [While end-of-task text is prompted] Marker measurement (see point 7)
-    - Main task - block 2 (see points 8-10)
-        - Start recording
-        - Talk with subject
-        - Start task
-    - [While end-of-task text is prompted] Marker measurement (see point 7)
-    - Main task - block 3 (see points 8-10)
-        - Start recording
-        - Talk with subject
-        - Start task
-    - [While end-of-task text is prompted] Perform another Marker measurement (see point 7)
-    - Finish up MEG session (see point 11)
-        - Talk with subject
+        - At this point, you can safely start your experiment from the `Stimulus computer`
+    - If your experiment is lengthy, we recommend that you perform a marker measurement in between runs
+    - A marker measurement must be performed at the end of an experiment
+
 #. Stop continuous recording (when task finishes, or if the experiment spans for more than 4000 seconds and needs a new recording)
     - On “Monitor and Acquisition” window - see picture 14:
         - Continuous Mode > Abort
@@ -573,7 +571,6 @@ Perform the MEG Experiment (Participant is present)
     - [ONLY WHEN SENSORS ARE UNLOCK!] Open the MSR door
     - When removing the head-position indicator coils and earphones, do the removal yourself. The coils in particular are very fragile and expensive. Remove with care.
     - Ask participant to change clothes back and put the scrubs in the wash bin (in the laser scan room)
-    - Pay the participant and make her sign the receipt.
 
 
 After the MEG session
@@ -582,11 +579,11 @@ After the MEG session
 #. Settings MEG
    - Do not shut down any of the computers. They can all be locked or logged off.
    - Turn on the heater cable [THIS IS VERY IMPORTANT] - see picture above
-   - Switch off the dial through the USB board.
    - Turn off the MSR lights.
-   - Double-check that you turned the heater cable back on.
+   - Double-check that you turned the heater back on.
 #. Clean room
-   - Clean the helmet, head-position indicator coils, and button box with alcohol wipes.
+   - Remove linen and place in bin
+   - Clean the helmet, head-position indicator coils, and button box with wipes.
    - Wipe down the FastScan neck brace and any other surfaces the participant came in contact with
 #. Postprocessing
     - Apply Noise Reduction filter using the reference magnetometers
@@ -617,13 +614,6 @@ After the MEG session
     - Refer to the uploading data section to upload your data
 
 
-Perspectives for KIT Operational Protocol
------------------------------------------
-
-- Automate the `Noise Reduction` filter for multi-subjects in `MEG160`
-- Automatic savings of the `.con` files was enabled before but is no longer the case, it would be ideal to go back to automatic saving
-
-
 Appendix. A: Stylus location and markers
 ----------------------------------------
 
@@ -639,13 +629,13 @@ Appendix. A: Stylus location and markers
 The following table is a summary of the position of each registered stylus location and whether or not a KIT coil will be placed on that position.
 
 +-------+-----------------+--------------------------------------+
-| Index | Body Part       | Marker Coil Information              |
+| Index | Body Part         | Marker Coil Information              |
 +=======+=================+======================================+
 | 1     | Nasion          | KIT: NO, OPM:                        |
 +-------+-----------------+--------------------------------------+
-| 2     | Left Traps      | KIT: NO, OPM:                        |
+| 2     | Left Tragus     | KIT: NO, OPM:                        |
 +-------+-----------------+--------------------------------------+
-| 3     | Right Traps     | KIT: NO, OPM:                        |
+| 3     | Right Tragus    | KIT: NO, OPM:                        |
 +-------+-----------------+--------------------------------------+
 | 4     | Left Ear        | KIT: YES, OPM:                       |
 +-------+-----------------+--------------------------------------+
