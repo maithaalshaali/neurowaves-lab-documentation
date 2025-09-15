@@ -19,7 +19,7 @@ import json
 
 USE_VPIXX = True
 DEBUG_MODE = True
-RESPONSE_TYPE = "vpixx_box"
+RESPONSE_TYPE = "simulated"
 SCREEN_INDEX = 1
 #RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
 
@@ -1420,9 +1420,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                     elif RESPONSE_TYPE == "simulated":
                         # directly assign simulated response
+
+
+
                         VI_Key_Resp2.keys = '3'
                         VI_Key_Resp2.rt = 0  # you can set a fake RT if you want
                         VI_Key_Resp2.duration = None
+
+                        if USE_VPIXX and not VI_Key_Resp2_respond_trigger_ON:
+                            dp.DPxSetDoutValue(VI_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+                            VI_Key_Resp2_respond_trigger_ON = True
+
+
                         continueRoutine = False
 
                     # TODO: trigger off for VI_Key_Resp2_respond
@@ -1634,6 +1644,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         VI_CQ_Key_Resp.keys = 'f'
                         VI_CQ_Key_Resp.rt = 0  # fake RT if needed
                         VI_CQ_Key_Resp.duration = None
+
+                        if USE_VPIXX and not VI_CQ_Key_Resp_trigger_ON:
+                            dp.DPxSetDoutValue(VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+                            VI_CQ_Key_Resp_trigger_ON = True
+
+
                         continueRoutine = False
 
                     elif RESPONSE_TYPE == "vpixx_box" and not RESPONSE_VI_CQ_RECEIVED:
