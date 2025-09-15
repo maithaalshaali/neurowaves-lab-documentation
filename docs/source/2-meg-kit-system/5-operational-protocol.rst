@@ -628,7 +628,7 @@ Appendix. A: Stylus location and markers
 The following table is a summary of the position of each registered stylus location and whether or not a KIT coil will be placed on that position.
 
 +-------+-----------------+--------------------------------------+
-| Index | Body Part         | Marker Coil Information              |
+| Index | Body Part       | Marker Coil Information              |
 +=======+=================+======================================+
 | 1     | Nasion          | KIT: NO, OPM:                        |
 +-------+-----------------+--------------------------------------+
