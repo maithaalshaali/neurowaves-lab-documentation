@@ -1432,6 +1432,13 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             dp.DPxUpdateRegCache()
                             VI_Key_Resp2_respond_trigger_ON = True
 
+                            core.Wait(0.008)
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            VI_Key_Resp2_respond_trigger_OFF = True
+
+
 
                         continueRoutine = False
 
@@ -1649,6 +1656,12 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                             dp.DPxSetDoutValue(VI_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
                             dp.DPxUpdateRegCache()
                             VI_CQ_Key_Resp_trigger_ON = True
+
+                            core.Wait(0.008)
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+                            VI_CQ_Key_Resp_trigger_OFF = True
 
 
                         continueRoutine = False
