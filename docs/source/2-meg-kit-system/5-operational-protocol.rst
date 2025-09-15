@@ -222,7 +222,7 @@ These procedures take an estimated time of 20 mins.
             Right response box
 
         .. figure:: figures/meg-operationprotocol/response_plugs.jpg
-            :scale: 50%
+            :scale: 30%
             :alt: Projection Mode
             :align: center
 
@@ -244,7 +244,7 @@ These procedures take an estimated time of 20 mins.
         .. figure:: figures/meg-operationprotocol/Earplugs.jpg
             :alt: Earphones with foam earplugs
             :align: center
-            :scale: 50%
+            :scale: 20%
 
             Earphones with foam earplugs
 
@@ -266,6 +266,7 @@ These procedures take an estimated time of 20 mins.
 .. figure:: figures/meg-operationprotocol/doorbell.png
     :alt: Doorbell
     :align: center
+    :scale: 40%
 
     Deactivate the doorbell by pressing the plug button.
 
@@ -340,6 +341,7 @@ Perform the MEG Experiment (Participant is present)
     .. figure:: figures/meg-operationprotocol/phone.png
         :alt: Phone
         :align: center
+        :scale: 50%
 
         Phone in MEG lab with a label of security guard office.
 
@@ -392,6 +394,7 @@ Perform the MEG Experiment (Participant is present)
             .. figure:: figures/meg-operationprotocol/reference_point.png
                 :alt: Reference point
                 :align: center
+                :scale: 50%
 
                 Laser scanner reference receiver
 
@@ -467,9 +470,12 @@ Perform the MEG Experiment (Participant is present)
         - The position of the HPI coil on the participant's head should follow the following mapping:
 
     .. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.png
-            :alt: Colour coded marker placement
-            :align: center
-            :scale: 50%
+        :alt: Colour coded marker placement
+        :align: center
+        :scale: 40%
+
+        Position of Marker Coils also called Head Position Indicator (HPI) coils
+
 
 
     - Place earphones
