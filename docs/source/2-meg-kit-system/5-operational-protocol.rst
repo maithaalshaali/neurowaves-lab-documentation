@@ -154,45 +154,42 @@ These procedures take an estimated time of 20 mins.
         - Screens are in multiple displays (not mirror display)
             - Right-click on desktop > Display settings > Extend these displays > Keep changes
     - Set up Vpixx either through the LabMaestro platform (preferred) or through bash script **VPutil** GUI
-
-        **LabMaestro**
+    - **LabMaestro**
         - Open `LabMaestro` found on the desktop
 
-     .. figure:: figures/meg-operationprotocol/LabMaestro_icon.png
-        :alt: LabMaestro_icon
-        :align: left
-        :scale: 30%
+            .. figure:: figures/meg-operationprotocol/LabMaestro_icon.png
+                :alt: LabMaestro_icon
+                :align: left
+                :scale: 30%
 
-        LabMaestro icon
-
+                LabMaestro icon
 
         - To turn on the PROPixx screen, click on the 'Wake All PROPixx' button found on the menu on top of the LabMaestro platform
 
-     .. figure:: figures/meg-operationprotocol/Propixx_awake.png
-        :alt: LabMaestro Platform
-        :align: center
-        :scale: 50%
+            .. figure:: figures/meg-operationprotocol/Propixx_awake.png
+                :alt: LabMaestro Platform
+                :align: center
+                :scale: 50%
 
-        LabMaestro Platform
+                LabMaestro Platform
 
-
-         **VPutil**
+    - **VPutil**
         - Open 'VPutil'
         - Run `ppx a` and `Enter`,
         - Check if the screen inside the MSR is on, if the screen is off then:
-            - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
+        - run `ppx s`, then run `reset`, then wait for a minute, run `ppx a`
 
-    - Ensure the orientation (vertical flip) of the screen inside the MSR is correct, if not:
+        - Ensure the orientation (vertical flip) of the screen inside the MSR is correct, if not:
         - Open `LabMaestro`,
         - On the left of the platform, choose PROPixx from the menu
         - Check `Rear Projection` box
 
-        .. figure:: figures/meg-operationprotocol/LabMaestro_rear_projection.png
-            :alt: Incorrect screen orientation fix
-            :align: center
-            :scale: 50%
+            .. figure:: figures/meg-operationprotocol/LabMaestro_rear_projection.png
+                :alt: Incorrect screen orientation fix
+                :align: center
+                :scale: 50%
 
-            Incorrect screen orientation fix
+                Incorrect screen orientation fix
 
 #. Verify your experiment script:
     - If using `PsychToolBox`:
@@ -211,14 +208,14 @@ These procedures take an estimated time of 20 mins.
         .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
             :alt: Projection Mode
             :align: center
-            :scale: 50%
+
 
             Left response box
 
         .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
             :alt: Projection Mode
             :align: center
-            :scale: 50%
+
 
             Right response box
 
