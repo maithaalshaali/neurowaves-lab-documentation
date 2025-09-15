@@ -512,7 +512,7 @@ Perform the MEG Experiment (Participant is present)
         - On “Monitor and Acquisition” window > ‘Data Acquisition’
             - Patient ID: sub-<subjectID> [e.g., sub-001]
             - Patient Name: sub-<subjectID>_ses-<session-number>_task-<projectname> [e.g., sub-001_ses-01_task-resting-state]
-            - Foldername: D:\MEGDATA\<Lab_name>\STUDY_CODE\sub-<subjectID>
+            - Foldername: D:\\MEGDATA\\<Lab_name>\\STUDY_CODE\\sub-<subjectID>
         - “Lock” [only if MSR door is CLOSED]
         - Wait until MEG sensors are stable i.e. no upward or downards trend
     - Perform marker measurement
