@@ -1112,14 +1112,14 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
 
                         VI_BG.setAutoDraw(False)
 
-                        # TODO: trigger off for 'VI_BG end'
-                        if USE_VPIXX:
-                            if frameN >= VI_BG.frameNStop + TRIGGER_DURATION and not VI_BG_end_trigger_OFF and VI_BG_end_trigger_ON:
-                                # Debugging log: Print the calculated combined value
-                                dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
-                                dp.DPxUpdateRegCache()
+                # TODO: trigger off for 'VI_BG end'
+                if USE_VPIXX:
+                    if frameN >= VI_BG.frameNStop + TRIGGER_DURATION and not VI_BG_end_trigger_OFF and VI_BG_end_trigger_ON:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
 
-                                VI_BG_end_trigger_OFF = True
+                        VI_BG_end_trigger_OFF = True
 
 
 
