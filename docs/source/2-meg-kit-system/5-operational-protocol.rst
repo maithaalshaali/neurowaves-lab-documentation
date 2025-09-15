@@ -198,36 +198,35 @@ These procedures take an estimated time of 20 mins.
         - Make sure you arrive to the `Introduction Page` mentioned in the :ref:`design_experiment` section. This is to ensure MEG data recording can be started before the experiment begins
     - You can do a quick test run to make sure that trigger signals are appearing correctly on the `MEG160` software
 
-.. warning::
+    .. warning::
 
-   For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
+       For a real participant, make sure to turn off the Wifi on the `Stimulus Computer` so that the experiment is not interrupted by an update or other notification from the internet.
 
-    - Response Device
-        - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
+#. Response Device
+    - Button box: make sure all the optical cables form the button boxes are plugged in correctly as shown in the picture
 
-        .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
-            :scale: 50%
-            :alt: Left Button Box
-            :align: center
-
-
-            Left response box
-
-        .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
-            :scale: 50%
-            :alt: Projection Mode
-            :align: center
+    .. figure:: figures/meg-operationprotocol/Left_Response_Button_Box.jpeg
+        :scale: 50%
+        :alt: Left Button Box
+        :align: center
 
 
-            Right response box
+        Left response box
 
-        .. figure:: figures/meg-operationprotocol/response_plugs.jpg
-            :scale: 30%
-            :alt: Projection Mode
-            :align: center
+    .. figure:: figures/meg-operationprotocol/Right_Response_Button_Box.jpeg
+        :scale: 50%
+        :alt: Projection Mode
+        :align: center
 
-            Plugging the response box: Top row is the `right` response box, bottom row is the `left response box`.
 
+        Right response box
+
+    .. figure:: figures/meg-operationprotocol/response_plugs.jpg
+        :scale: 30%
+        :alt: Projection Mode
+        :align: center
+
+        Plugging the response box: Top row is the `right` response box, bottom row is the `left response box`.
 
 #. Microphone inside MSR:
     - Make sure the sound box is switched on - located under the Stimulus computer - if not click on the green round button
@@ -412,6 +411,7 @@ Perform the MEG Experiment (Participant is present)
                 .. figure:: figures/meg-operationprotocol/error_laser_scanner.png
                     :alt: LaserScan error when device is de-referenced
                     :align: center
+                    :scale: 50%
 
                     LaserScan error when device is de-referenced
 
@@ -472,10 +472,9 @@ Perform the MEG Experiment (Participant is present)
     .. figure:: figures/meg-operationprotocol/Colour_coded_marker_placement.png
         :alt: Colour coded marker placement
         :align: center
-        :scale: 40%
+        :scale: 30%
 
         Position of Marker Coils also called Head Position Indicator (HPI) coils
-
 
 
     - Place earphones
@@ -525,9 +524,9 @@ Perform the MEG Experiment (Participant is present)
     - File storage location and naming convention
         - From the menu “Acquire (Q)”, select “MEG Measurement (Q)”
         - On “Monitor and Acquisition” window > ‘Data Acquisition’
-            - Patient ID: <projectname>_<subjectID>
-            - Patient Name: <projectname>_sub<subjectID>_sess<session_number>_<data in ddmmyyyy> [e.g., CODE_sub001_sess01_10032023]
-            - Foldername: D:\MEGDATA\<Lab_name>\<\sub<subjectID>
+            - Patient ID: sub-<subjectID> [e.g., sub-001]
+            - Patient Name: sub-<subjectID>_ses-<session-number>_task-<projectname> [e.g., sub-001_ses-01_task-resting-state]
+            - Foldername: D:\\MEGDATA\\<Lab_name>\\STUDY_CODE\\sub-<subjectID>
         - “Lock” [only if MSR door is CLOSED]
         - Wait until MEG sensors are stable i.e. no upward or downward trend
     - Perform marker measurement
