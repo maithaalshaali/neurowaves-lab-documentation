@@ -103,8 +103,8 @@ Referencing Jupyter notebooks already rendered by sphinx
 If you want to reference the notebook's code that is the .ipynb file on the repository, use the above syntax
 but if you want to reference the published page of the notebook, then use the below:
 
-- Syntax: ``:doc:`Example Notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline>``
-- Rendered: :doc:`Example Notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline>`
+- Syntax: ``Resting state: Access link to Analysis Notebook <../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_restingstate.ipynb>`_``
+- Rendered: `Resting state: Access link to Analysis Notebook <../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_restingstate.ipynb>`_
 
 Thank you for your contribution!
 

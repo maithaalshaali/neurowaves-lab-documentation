@@ -21,4 +21,4 @@ Author: Hadi Zaatiti <hadi.zaatiti@nyu.edu>
 
 :github-file:`Auditory vs Visual vs Motor Processing Pipeline Code <pipeline/field_trip_pipelines/audio-visual-motor>`
 
-:doc:`Auditory vs Visual vs Motor Processing Pipeline Notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_audio_visual_motor>`
+`Auditory vs Visual vs Motor Pipeline Notebook <../../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_audio_visual_motor.ipynb>`_
