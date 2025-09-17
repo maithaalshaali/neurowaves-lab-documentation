@@ -28,7 +28,7 @@ Agenda 85min
 
 .. dropdown:: Two demonstrations: Resting state and Auditory vs Visual `20min`
 
-    - Experiment 1: `Resting state: Access link to code and description <../../3-experimentdesign/experiments/1-exp-resting-state.rst>`_ `5min`
+    - Experiment 1: `Resting state: Access link to code and description :github-file:`docs/source/4-meg-experiments-gallery/psychtoolbox/resting-state.rst` `5min`
         - Two blocks: a block of 10min eyes open and a second block of 10min eyes closed
     - Experiment 2: `Auditory vs Visual vs Motor: Access link to code and description <../../3-experimentdesign/experiments/9-auditory-vs-visual.rst>`_ `15min`
         - A random sequence of 150 trials with three types of stimulus (conditions): auditory 200 Hz stimulus, visual (white flash), motor (button press)

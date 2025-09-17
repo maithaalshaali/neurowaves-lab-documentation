@@ -83,5 +83,9 @@ For a file:
 - Syntax: ``github-file:`experiments/psychtoolbox/attention-experiment.rst````
 - Rendered: :github-file:`experiments/psychtoolbox/attention-experiment.rst`
 
+Masking link with text:
+- Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>````
+- Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
+
 Thank you for your contribution!
 
