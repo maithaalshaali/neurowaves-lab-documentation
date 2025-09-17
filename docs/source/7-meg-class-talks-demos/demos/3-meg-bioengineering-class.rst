@@ -1,7 +1,7 @@
 Bioengineering class MEG demonstration
 ======================================
 
-Place and time: MEG lab in A2-008 at the `Tuesday 7th of October 2025`, from 3:30 to 5:30 pm.
+Place and time: MEG lab in A2-008 at the `Tuesday 7th of October 2025`, from 3:30 to 5:00 pm.
 
 Agenda 85min
 ------------
@@ -9,8 +9,9 @@ Agenda 85min
 .. dropdown:: Lab tour and general equipment presentation `10min`
 
     - MEG overview
-    - Explain the dewar, SQUIDs sensors, liquid Helium system
-    - Explain the MSR (Magnetically Shielded Room)
+    - Present the KIT-SQUIDs system and OPM-MEG system
+    - Present the liquid Helium system
+    - Provide explanation on the MSR (Magnetically Shielded Room)
     - Show the computers layout and the different capabilities of the lab (eyetracker, vpixx triggers, response box, audio stimulus)
     - Present what experiments we will run on this day and the outline of the demonstration
 
@@ -33,8 +34,7 @@ Agenda 85min
     - Experiment 2: Auditory vs Visual vs Motor: Access link to code and description :ref:`Auditory vs Visual vs Motor<auditory-vs-visual-vs-motor>`  `15min`
         - A random sequence of 150 trials with three types of stimulus (conditions): auditory 200 Hz stimulus, visual (white flash), motor (button press)
 
-
-.. dropdown:: Show and discuss analysis results `20min`
+.. dropdown:: Show and discuss analysis results `30min`
 
     - Recap SQUID sensor operation, forward and inverse models, source reconstruction algorithms
     - Experiment 1 analysis: `Resting state: Access link to Analysis Notebook <../../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_restingstate.ipynb>`_
@@ -44,3 +44,4 @@ Agenda 85min
         - Show auditory trials activating the auditory cortex
         - Show visual trials activating the visual cortex
         - Show motor trials activating the motor cortex
+    - Open discussion and questions from students `10min`
