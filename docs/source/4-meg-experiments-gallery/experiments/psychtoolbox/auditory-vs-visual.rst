@@ -33,3 +33,4 @@ Analysis results
 ^^^^^^^^^^^^^^^^
 
 `Auditory vs Visual vs Motor Pipeline Notebook <../../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_audio_visual_motor.ipynb>`_
+
