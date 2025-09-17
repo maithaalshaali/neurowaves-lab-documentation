@@ -23,8 +23,8 @@ Submit an initial notebook under `docs/source/5-pipeline/notebooks` or simply co
 
 
 
-Contributing to this repository
-===============================
+Contributing to this repository Overview
+========================================
 
 Your contribution, mistake correction, code contributions are very welcome.
 Contributions are made through pull reqests, please do the following steps:
@@ -40,6 +40,11 @@ Contributions are made through pull reqests, please do the following steps:
 - Once the PR is merged to the main branch, delete your branch
 
 
+
+Contributing to the documentation
+=================================
+
+Use the Sphinx-documentation cheat-sheet below to correctly syntax, explore and use capabilities of Sphinx-documentation.
 
 Sphinx header templates
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -64,6 +69,19 @@ If you'd like to contribute to this documentation, please follow the heading-ado
 +---------------------+------------------------+----------------+------------+
 
 
+
+Reference links from within the repository
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here is the raw syntax:
+For a directory:
+- Syntax: ``:github-file:`experiments/psychtoolbox/general````
+- Rendered: :github-file:`experiments/psychtoolbox/general`
+
+For a file:
+
+- Syntax: ``github-file:`experiments/psychtoolbox/attention-experiment.rst````
+- Rendered: :github-file:`experiments/psychtoolbox/attention-experiment.rst`
 
 Thank you for your contribution!
 
