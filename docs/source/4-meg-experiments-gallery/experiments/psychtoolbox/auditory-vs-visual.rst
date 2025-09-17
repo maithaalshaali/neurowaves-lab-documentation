@@ -19,7 +19,6 @@ Author: Hadi Zaatiti <hadi.zaatiti@nyu.edu>
 :github-file:`Auditory vs Visual vs Motor Experiment Code <experiments/psychtoolbox/auditory-vs-visual>`
 
 
-:github-file:`Auditory vs Visual vs Motor Processing Pipeline Code <pipeline/psychtoolbox>`
+:github-file:`Auditory vs Visual vs Motor Processing Pipeline Code <pipeline/field_trip_pipelines/audio-visual-motor>`
 
-:github-file:`Auditory vs Visual vs Motor Processing Pipeline Notebook <pipeline>`
-
+:doc:`My analysis notebook <5-pipeline/notebooks/my_analysis>`

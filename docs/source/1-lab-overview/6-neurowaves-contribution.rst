@@ -73,6 +73,9 @@ If you'd like to contribute to this documentation, please follow the heading-ado
 Reference links from within the repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Referencing code files and directories on Github repository
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 For a directory:
 
 - Syntax: ``:github-file:`experiments/psychtoolbox/general``
@@ -93,6 +96,12 @@ Masking link with text, directory:
 - Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>``
 - Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
 
+
+Referencing Jupyter notebooks already rendered by sphinx (Not the .ipynb file)
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+- Syntax: ``:doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline.ipynb>``
+- Rendered: :doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline.ipynb>`
 
 Thank you for your contribution!
 
