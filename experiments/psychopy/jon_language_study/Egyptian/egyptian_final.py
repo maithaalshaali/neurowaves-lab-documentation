@@ -216,19 +216,27 @@ for trialIndex in range(startItem - 1, totalTrials):
                                         font=instructionsFont, languageStyle='Arabic', units=breakUnits, color=breakColor, height=0.8, alignText= 'center', wrapWidth= 30)
             totalCorrectResponses = 0
             print('congratulations window')
+
+            stim.setPos((0, 0))
+            stim.draw()
+            win.flip()
+            print('listening to button')
+            core.wait(TIME_WAIT_BREAK)
+            # Pause until response
+            event.waitKeys(keyList=['space', 'enter'])
         else:
             stim = visual.TextStim(win, text = 'انت جوبت على %i من %i سؤال صح من الاستراحة الأخيرة.\n\nانت كملت %i جملة، وباقي %i جملة كمان.\n\nلما تكون جاهز للجملة اللي جية اتجنب الحركة، وقف ترمش ، واضغط على مفتاح "نعم".' %
                                         (recentCorrectResponses, trialsSinceLastBreak, completedTrials, remainingTrials),
                                         font=instructionsFont, languageStyle='Arabic', units=breakUnits, color=breakColor, height=0.8, alignText= 'center', wrapWidth= 30)
             print('break window')
 
-        stim.setPos((0, 0))
-        stim.draw()
-        win.flip()
-        print('listening to button')
-        core.wait(TIME_WAIT_BREAK)
-        # Pause until response
-        listenbutton(9)
+            stim.setPos((0, 0))
+            stim.draw()
+            win.flip()
+            print('listening to button')
+            core.wait(TIME_WAIT_BREAK)
+            # Pause until response
+            listenbutton(9)
         # response = getbutton()  # listen to a button
         # responses.append(response)
 

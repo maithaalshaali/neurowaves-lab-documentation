@@ -5,7 +5,7 @@ from psychopy import core, visual, event, parallel, data, monitors, gui
 from pypixxlib import _libdpx as dp
 
 
-from utilities import *
+from experiments.psychopy.general.utilities import *
 
 # Setup the connection with the Vpixx systems and disable Pixel Mode
 
