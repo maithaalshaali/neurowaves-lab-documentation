@@ -97,11 +97,14 @@ Masking link with text, directory:
 - Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
 
 
-Referencing Jupyter notebooks already rendered by sphinx (Not the .ipynb file)
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Referencing Jupyter notebooks already rendered by sphinx
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-- Syntax: ``:doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline.ipynb>``
-- Rendered: :doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline.ipynb>`
+If you want to reference the notebook's code that is the .ipynb file on the repository, use the above syntax
+but if you want to reference the published page of the notebook, then use the below:
+
+- Syntax: ``:doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline>``
+- Rendered: :doc:`My analysis notebook <6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_oddball_KIT_pipeline>`
 
 Thank you for your contribution!
 
