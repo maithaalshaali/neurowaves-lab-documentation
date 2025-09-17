@@ -6,7 +6,7 @@
 
 
 
-
+Press S to start the experiment.
 
 visual\_imagery\_practice\_lastrun.py and visual\_imagery\_lastrun.py are code file for practice and 
 official experiment of visual imagery. 
@@ -77,10 +77,6 @@ Channels from 224 to 231
 
 
 * Binary Code (8 bits) x Trigger type name
-
-
-
-
 
 
 

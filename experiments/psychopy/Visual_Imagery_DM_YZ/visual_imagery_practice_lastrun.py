@@ -10,15 +10,23 @@ If you publish work using this script the most relevant publication is:
         https://doi.org/10.3758/s13428-018-01193-y
 
 """
-#Vpixx import
+# set for MEG trigger with utilities and pypixxlib
 
-from pypixxlib import _libdpx as dp
-from utilities import *
+from experiments.psychopy.general.utilities import getbuttonColor, RGB2Trigger, black, trigger_channels_dictionary
+import json
 
-USE_VPIXX = False
+USE_VPIXX = True
+DEBUG_MODE = True
+RESPONSE_TYPE = "vpixx_box"
+SCREEN_INDEX = 1
+#RESPONSE_TYPE = ["keyboard", "simulated", "vpixx_box"]
+
 
 
 if USE_VPIXX:
+
+    from pypixxlib import _libdpx as dp
+
     dp.DPxOpen()
     dp.DPxDisableDoutPixelMode()
     dp.DPxWriteRegCache()
@@ -48,11 +56,26 @@ import psychopy.iohub as io
 from psychopy.hardware import keyboard
 import pandas as pd
 
+## set triggers
+RESPONSES = []
 TRIGGER_DURATION = 10
 
 CSV_TRIGGER_INFO = pd.read_csv('VI_practice_trig.csv')
 
-P_START_SOUND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
+# need trigger_channels_dictionary for 'simulated' and 'keyboard' if we don't import utilities, which requires vpixx
+trigger_channels_dictionary = {
+    224: 4,
+    225: 16,
+    226: 64,
+    227: 256,
+    228: 1024,
+    229: 4096,
+    230: 16384,
+    231: 65536
+}
+
+# assign corresponding names for triggers
+P_SOUND_START_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger224'].iloc[0] *
         trigger_channels_dictionary[224] +
         CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigType"] == 'P_Sound start']['trigger225'].iloc[0] *
         trigger_channels_dictionary[225] +
@@ -135,7 +158,14 @@ P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE = (CSV_TRIGGER_INFO[CSV_TRIGGER_INFO["TrigTyp
 
 
 
+# Response selection
 
+RESPONSE_SELECTION_1 = {
+"left box": ["green", "blue", "yellow", "red", "white"]}
+
+
+RESPONSE_SELECTION_2 = {
+"right box": ["red", "yellow", "green"]}
 
 #CSV_TRIGGER_INFO = data.importConditions('VI_practice_trig.csv')
 
@@ -165,8 +195,8 @@ or run the experiment with `--pilot` as an argument. To change what pilot
 # work out from system args whether we are running in pilot mode
 PILOTING = core.setPilotModeFromArgs()
 # start off with values from experiment settings
-_fullScr = True
-_winSize = [1707, 960]
+_fullScr = False
+_winSize = [1919, 1079]
 # if in pilot mode, apply overrides according to preferences
 if PILOTING:
     # force windowed mode
@@ -222,7 +252,11 @@ def setupData(expInfo, dataDir=None):
     # data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
     if dataDir is None:
         dataDir = _thisDir
-    filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+    if DEBUG_MODE:
+        filename = u'data/%s_%s_%s_%s' % ('DEBUG_DATA',expInfo['participant'], expName, expInfo['date'])
+    else:
+        filename = u'data/%s_%s_%s' % (expInfo['participant'], expName, expInfo['date'])
+
     # make sure filename is relative to dataDir
     if os.path.isabs(filename):
         dataDir = os.path.commonprefix([dataDir, filename])
@@ -299,7 +333,7 @@ def setupWindow(expInfo=None, win=None):
     if win is None:
         # if not given a window to setup, make one
         win = visual.Window(
-            size=_winSize, fullscr=_fullScr, screen=0,
+            size=_winSize, fullscr=_fullScr, screen=SCREEN_INDEX,
             winType='pyglet', allowGUI=True, allowStencil=False,
             monitor='testMonitor', color=[0,0,0], colorSpace='rgb',
             backgroundImage='', backgroundFit='none',
@@ -787,17 +821,30 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
     thisExp.nextEntry()
     # the Routine "P_Start" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
-    
+
+    if not DEBUG_MODE:
     # set up handler to look after randomisation of conditions etc
-    P_Trials = data.TrialHandler2(
-        name='P_Trials',
-        nReps=1.0, 
-        method='random', 
-        extraInfo=expInfo, 
-        originPath=-1, 
-        trialList=data.importConditions('VI_P_Objects.csv'), 
-        seed=None, 
-    )
+        P_Trials = data.TrialHandler2(
+            name='P_Trials',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_practice_trial_file_debug.csv'),
+            seed=None,
+        )
+
+    else:
+        P_Trials = data.TrialHandler2(
+            name='P_Trials',
+            nReps=1.0,
+            method='random',
+            extraInfo=expInfo,
+            originPath=-1,
+            trialList=data.importConditions('VI_practice_trial_file.csv'),
+            seed=None,
+        )
+
     thisExp.addLoop(P_Trials)  # add the loop to the experiment
     thisP_Trial = P_Trials.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisP_Trial.rgb)
@@ -1023,7 +1070,6 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     P_BG.status = FINISHED
 
-
                     # TODO: test trigger
                     framecounter = frameN
 
@@ -1032,12 +1078,10 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                         dp.DPxSetDoutValue(P_BG_END_TRIGGER_CODE, 0xFFFFFF)
                         dp.DPxUpdateRegCache()
 
-                        if frameN == framecounter+TRIGGER_DURATION:
+                        if frameN > framecounter+TRIGGER_DURATION:
                             # Debugging log: Print the calculated combined value
                             dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
                             dp.DPxUpdateRegCache()
-
-
 
                     P_BG.setAutoDraw(False)
             
@@ -1054,6 +1098,18 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 # update status
                 P_Sound.status = STARTED
                 # TODO: add trigger for 'P_Sound start'
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(P_SOUND_START_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN > framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
                 P_Sound.play()  # start the sound (it finishes automatically)
             
             # if P_Sound is stopping this frame...
@@ -1069,6 +1125,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                     # update status
                     P_Sound.status = FINISHED
                     # TODO: add trigger for 'P_Sound end'
+                    framecounter = frameN
+
+                    if USE_VPIXX:
+
+                        dp.DPxSetDoutValue(P_SOUND_END_TRIGGER_CODE, 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                        if frameN > framecounter + TRIGGER_DURATION:
+                            # Debugging log: Print the calculated combined value
+                            dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                            dp.DPxUpdateRegCache()
+
+
                     P_Sound.stop()
             
             # *P_Cue* updates
@@ -1339,14 +1408,19 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_Key_Resp2.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_Key_Resp2.status == STARTED and not waitOnFlip:
                 # TODO: add button press for 'P_key_Resp2 respond', 5 buttons for the left hand controller, little finger for '1', thumb for '5'
-                theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
-                _P_Key_Resp2_allKeys.extend(theseKeys)
-                if len(_P_Key_Resp2_allKeys):
-                    P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
-                    P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
-                    P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
-                    # a response ends the routine
-                    continueRoutine = False
+
+
+                if RESPONSE_TYPE =="keyboard" :
+                    theseKeys = P_Key_Resp2.getKeys(keyList=['1','2','3','4','5'], ignoreKeys=["escape"], waitRelease=False)
+                    _P_Key_Resp2_allKeys.extend(theseKeys)
+                    if len(_P_Key_Resp2_allKeys):
+                        P_Key_Resp2.keys = _P_Key_Resp2_allKeys[-1].name  # just the last key pressed
+                        P_Key_Resp2.rt = _P_Key_Resp2_allKeys[-1].rt
+                        P_Key_Resp2.duration = _P_Key_Resp2_allKeys[-1].duration
+                        # a response ends the routine
+                        continueRoutine = False
+
+
             
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
@@ -1378,7 +1452,37 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
+
+            framecounter = thisComponent.frameNStart
+
+            if USE_VPIXX:
+                if P_Rate.status == STARTED and thisComponent.frameNStart == frameN:
+                    dp.DPxSetDoutValue(P_KEY_RESP2_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                if frameN > framecounter + TRIGGER_DURATION:
+                    # Debugging log: Print the calculated combined value
+                    dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+
+            if P_Rate.status == STARTED and thisComponent.frameNStart == frameN:
+
+                if RESPONSE_TYPE == "vpixx_box":
+                    # TODO: Add getbutton function
+                    response = getbuttonColor(RESPONSE_SELECTION_1)
+                    # TODO: Remove later
+                    print('response', response)
+                    RESPONSES.append(response)
+
+                elif RESPONSE_TYPE == "simulated":
+                    # directly assign simulated response
+                    P_Key_Resp2.keys = '3'
+                    P_Key_Resp2.rt = 0  # you can set a fake RT if you want
+                    P_Key_Resp2.duration = None
+                    continueRoutine = False
+
         # --- Ending Routine "P_Rate" ---
         for thisComponent in P_Rate.components:
             if hasattr(thisComponent, "setAutoDraw"):
@@ -1504,15 +1608,45 @@ def run(expInfo, thisExp, win, globalClock=None, thisSession=None):
                 win.callOnFlip(P_CQ_Key_Resp.clearEvents, eventType='keyboard')  # clear events on next screen flip
             if P_CQ_Key_Resp.status == STARTED and not waitOnFlip:
                 # TODO: Add button press for 'P_CQ_Key_Resp respond', 3 buttons for right hand controller, index finger for 's', middle for 'd', ring for 'f'
-                theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
-                _P_CQ_Key_Resp_allKeys.extend(theseKeys)
-                if len(_P_CQ_Key_Resp_allKeys):
-                    P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
-                    P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
-                    P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
-                    # a response ends the routine
+                framecounter = frameN
+
+                if USE_VPIXX:
+
+                    dp.DPxSetDoutValue(P_CQ_KEY_RESP_RESPOND_TRIGGER_CODE, 0xFFFFFF)
+                    dp.DPxUpdateRegCache()
+
+                    if frameN > framecounter + TRIGGER_DURATION:
+                        # Debugging log: Print the calculated combined value
+                        dp.DPxSetDoutValue(RGB2Trigger(black), 0xFFFFFF)
+                        dp.DPxUpdateRegCache()
+
+                if RESPONSE_TYPE == "keyboard":
+
+                    theseKeys = P_CQ_Key_Resp.getKeys(keyList=['s','d','f'], ignoreKeys=["escape"], waitRelease=False)
+                    _P_CQ_Key_Resp_allKeys.extend(theseKeys)
+                    if len(_P_CQ_Key_Resp_allKeys):
+                        P_CQ_Key_Resp.keys = _P_CQ_Key_Resp_allKeys[-1].name  # just the last key pressed
+                        P_CQ_Key_Resp.rt = _P_CQ_Key_Resp_allKeys[-1].rt
+                        P_CQ_Key_Resp.duration = _P_CQ_Key_Resp_allKeys[-1].duration
+                        # a response ends the routine
+                        continueRoutine = False
+                elif RESPONSE_TYPE=="simulated":
+
+                    # directly assign simulated response
+                    P_CQ_Key_Resp.keys = 'f'
+                    P_CQ_Key_Resp.rt = 0  # fake RT if needed
+                    P_CQ_Key_Resp.duration = None
                     continueRoutine = False
-            
+
+                elif RESPONSE_TYPE =="vpixx_box":
+
+                    if not got_response:
+                        response = getbuttonColor(RESPONSE_SELECTION_2)
+                        got_response = True
+                        RESPONSES.append(response)
+
+
+
             # check for quit (typically the Esc key)
             if defaultKeyboard.getKeys(keyList=["escape"]):
                 thisExp.status = FINISHED
@@ -1696,7 +1830,11 @@ def saveData(thisExp):
         where to save it to.
     """
     filename = thisExp.dataFileName
+    thisExp.extraInfo['RESPONSES'] = json.dumps(RESPONSES)
     # these shouldn't be strictly necessary (should auto-save)
+    if not DEBUG_MODE:
+        thisExp.extraInfo(RESPONSES)
+
     thisExp.saveAsWideText(filename + '.csv', delim='auto')
     thisExp.saveAsPickle(filename)
 
@@ -1755,6 +1893,7 @@ def quit(thisExp, win=None, thisSession=None):
 
 # if running this experiment as a script...
 if __name__ == '__main__':
+
     # call all functions in order
     expInfo = showExpInfoDlg(expInfo=expInfo)
     thisExp = setupData(expInfo=expInfo)
@@ -1769,3 +1908,5 @@ if __name__ == '__main__':
     )
     saveData(thisExp=thisExp)
     quit(thisExp=thisExp, win=win)
+
+    dp.DPxClose()

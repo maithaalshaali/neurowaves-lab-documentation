@@ -12,6 +12,17 @@ trigger_channels_dictionary = {
     231: 65536
 }
 
+
+black = [0, 0, 0]
+
+def RGB2Trigger(color):
+    # helper function determines expected trigger from a given RGB 255 colour value
+    # operates by converting individual colours into binary strings and stitching them together
+    # and interpreting the result as an integer
+
+    # return triggerVal
+    return int((color[2] << 16) + (color[1] << 8) + color[0])  # dhk
+
 def decimal_to_binary(decimal_number):
     """
     Converts a decimal number to its binary representation.
@@ -34,20 +45,26 @@ def decimal_to_binary(decimal_number):
 #       The example uses:
 #         - right white  -> response=5,  listen_to=5
 #         - left  white  -> response=10, listen_to=10
+#    response corresponds to the index of the corresponding bit from left to right of the register, shifted by 14
+#    (the Vpixx register is 24 bits long, we are only interested in the last 10 bits)
+
 button_mapping = {
     "right box": {
-        "red":    {"response": 9,  "listen_to": 1},
-        "green":  {"response": 7,  "listen_to": 3},
-        "blue":   {"response": 6,  "listen_to": 4},
-        "yellow": {"response": 8,  "listen_to": 2},
-        "white":  {"response": 5,  "listen_to": 5},   # <- set per your wiring
+        "white": {"response": 6, "listen_to": 5},  # <- set per your wiring
+        "red": {"response": 10, "listen_to": 1},
+        "yellow": {"response": 9, "listen_to": 2},
+        "green":  {"response": 8,  "listen_to": 3},
+        "blue":   {"response": 7,  "listen_to": 4},
+
     },
     "left box": {
-        "red":    {"response": 4,  "listen_to": 6},
-        "green":  {"response": 2,  "listen_to": 8},
-        "blue":   {"response": 1,  "listen_to": 9},
-        "yellow": {"response": 3,  "listen_to": 7},
-        "white":  {"response": 10, "listen_to": 10},  # <- set per your wiring
+        "white": {"response": 1, "listen_to": 10},  # <- set per your wiring
+        "red":   {"response": 5, "listen_to": 6},
+        "yellow": {"response": 4, "listen_to": 7},
+        "green":  {"response": 3,  "listen_to": 8},
+        "blue":   {"response": 2,  "listen_to": 9},
+
+
     }
 }
 
@@ -55,6 +72,7 @@ from collections import defaultdict
 
 # --- internal helpers built from the mapping ---
 # (box,color) -> listen_to code
+# Flattens the nested dictionaries
 _PAIR_TO_LISTEN = {
     (box, color): info["listen_to"]
     for box, colors in button_mapping.items()
@@ -70,7 +88,7 @@ _RESP_TO_PAIRS = dict(_RESP_TO_PAIRS)
 # sets of valid codes from the mapping
 _ALL_RESPONSE_CODES = sorted(_RESP_TO_PAIRS.keys())                 # e.g. [1,2,3,4,5,6,7,8,9,10]
 _ALL_LISTEN_CODES   = sorted({_PAIR_TO_LISTEN[p] for p in _PAIR_TO_LISTEN})  # may differ from responses
-_MAX_BIT_NEEDED     = max(max(_ALL_RESPONSE_CODES), max(_ALL_LISTEN_CODES))
+_VPIXX_REGISTER_SIZE     = 24
 
 
 def _norm_box(s: str) -> str:
@@ -140,34 +158,113 @@ def _normalize_selection(selection: dict | None):
 
     # Deduplicate while preserving order and build codes.
     listen_pairs = list(dict.fromkeys(listen_pairs))
-    listen_codes = sorted({_PAIR_TO_LISTEN[p] for p in listen_pairs})
-    return listen_pairs, listen_codes
+
+    return listen_pairs
 
 
-def getbuttonColor(selection: dict | None = None):
+def getbuttonColor(selection: dict | None = None, blocking = True):
     """
-    Poll the inputs like `getbutton`, but return (box, color).
-    Honors the mapping (including distinct whites) and an optional grouped
-    `selection` filter of the form:
-        {
-          "right box": ["green", "blue"],
-          "left box":  ["red"]
-        }
-    """
-    listen_pairs, _listen_codes = _normalize_selection(selection)  # keep selection, ignore listen codes
+    Polls the hardware inputs and returns the (box, color) of the pressed button.
 
-    while True:
+    This function replicates the behavior of `getbutton` but maps response codes
+    to semantic (box, color) pairs using the predefined `button_mapping`. It
+    continuously polls until exactly one valid response code is detected, then
+    resolves it to a unique (box, color) pair.
+
+    Args:
+        selection (dict | None, optional): A dictionary specifying which buttons
+            to listen to, grouped by box side. Each key should be "right box" or
+            "left box", with values as lists of color names. Example:
+                {
+                    "right box": ["green", "blue"],
+                    "left box":  ["red"]
+                }
+            If None, listens to all defined buttons. Defaults to None.
+
+    Returns:
+        tuple[str, str]: A tuple `(box, color)` indicating the pressed button,
+        where `box` is either "right box" or "left box", and `color` is one of
+        the defined colors.
+
+    Raises:
+        ValueError: If an invalid box or color is provided in the selection.
+        RuntimeError: If multiple (box, color) pairs map to the same hardware
+            line and cannot be disambiguated.
+
+    Notes:
+        - The function blocks until a valid button press is detected.
+        - If multiple response lines are active or no button is pressed, it
+          continues polling.
+
+    Examples:
+        Listen to all buttons:
+
+            >>> getbuttonColor()
+            ('right box', 'green')
+
+        Listen to only a subset of buttons:
+
+            >>> getbuttonColor({
+            ...     "right box": ["blue"],
+            ...     "left box":  ["white", "red"]
+            ... })
+            ('left box', 'white')
+    """
+    listen_pairs = _normalize_selection(selection)  # keep selection, ignore listen codes
+
+    if blocking:
+        while True:
+            DPxUpdateRegCache()
+            raw = DPxGetDinValue()
+            bits = decimal_to_binary(raw)
+
+            # Ensure we can index up to the largest response bit (handles short strings)
+            # if len(bits) < _VPIXX_REGISTER_SIZE:
+            #     bits = bits.zfill(_VPIXX_REGISTER_SIZE)
+
+            # --- replicate getbutton logic over the full response range ---
+            # Build an array for codes 1.._MAX_BIT_NEEDED where index 0 -> code 1 (LSB)
+            button_box = [int(bit) for bit in bits[-10:]]
+
+            # Only consider response codes that exist in the mapping
+            resp_codes = [i + 1 for i, state in enumerate(button_box)
+                          if state == 1 and (i + 1) in _ALL_RESPONSE_CODES]
+
+            # Return only when a single response line is high, matching getbutton semantics
+            if len(resp_codes) == 1:
+                resp = resp_codes[0]
+
+                # Map response code -> (box,color) candidates from the mapping
+                candidates = _RESP_TO_PAIRS.get(resp, [])
+
+                # If a selection was provided, intersect with it
+                if selection is not None:
+                    candidates = [p for p in candidates if p in listen_pairs]
+
+                if len(candidates) == 1:
+                    # Same return shape as before: (box_side, color)
+                    return candidates[0]
+
+                elif len(candidates) > 1:
+                    print(
+                        "Ambiguous press: multiple (box,color) share this hardware line: "
+                        + ", ".join(f"{b}/{c}" for b, c in candidates)
+                    )
+            # else: 0 or >1 responses high → keep polling
+
+    else:
+
         DPxUpdateRegCache()
         raw = DPxGetDinValue()
         bits = decimal_to_binary(raw)
 
         # Ensure we can index up to the largest response bit (handles short strings)
-        if len(bits) < _MAX_BIT_NEEDED:
-            bits = bits.zfill(_MAX_BIT_NEEDED)
+        # if len(bits) < _VPIXX_REGISTER_SIZE:
+        #     bits = bits.zfill(_VPIXX_REGISTER_SIZE)
 
         # --- replicate getbutton logic over the full response range ---
         # Build an array for codes 1.._MAX_BIT_NEEDED where index 0 -> code 1 (LSB)
-        button_box = [int(bits[-_MAX_BIT_NEEDED + i]) for i in range(_MAX_BIT_NEEDED)]
+        button_box = [int(bit) for bit in bits[-10:]]
 
         # Only consider response codes that exist in the mapping
         resp_codes = [i + 1 for i, state in enumerate(button_box)
@@ -188,17 +285,12 @@ def getbuttonColor(selection: dict | None = None):
                 # Same return shape as before: (box_side, color)
                 return candidates[0]
 
-            if len(candidates) > 1:
-                # This mirrors the "single line pressed" assumption—if hardware lines are shared,
-                # the selection filter should disambiguate; otherwise we raise.
-                raise RuntimeError(
+            elif len(candidates) > 1:
+                print(
                     "Ambiguous press: multiple (box,color) share this hardware line: "
                     + ", ".join(f"{b}/{c}" for b, c in candidates)
                 )
         # else: 0 or >1 responses high → keep polling
-
-
-
 
 
 
