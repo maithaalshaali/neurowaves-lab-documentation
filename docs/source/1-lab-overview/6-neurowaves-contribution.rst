@@ -74,14 +74,17 @@ Reference links from within the repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For a directory:
+
 - Syntax: ``:github-file:`experiments/psychtoolbox/general``
 - Rendered: :github-file:`experiments/psychtoolbox/general`
 
 For a file:
+
 - Syntax: ``:github-file:`experiments/psychtoolbox/attention-experiment.rst``
 - Rendered: :github-file:`experiments/psychtoolbox/attention-experiment.rst`
 
 Masking link with text:
+
 - Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>``
 - Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
 
