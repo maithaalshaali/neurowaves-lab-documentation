@@ -73,18 +73,16 @@ If you'd like to contribute to this documentation, please follow the heading-ado
 Reference links from within the repository
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here is the raw syntax:
 For a directory:
-- Syntax: ``:github-file:`experiments/psychtoolbox/general````
+- Syntax: ``:github-file:`experiments/psychtoolbox/general``
 - Rendered: :github-file:`experiments/psychtoolbox/general`
 
 For a file:
-
-- Syntax: ``github-file:`experiments/psychtoolbox/attention-experiment.rst````
+- Syntax: ``:github-file:`experiments/psychtoolbox/attention-experiment.rst``
 - Rendered: :github-file:`experiments/psychtoolbox/attention-experiment.rst`
 
 Masking link with text:
-- Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>````
+- Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>``
 - Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
 
 Thank you for your contribution!
