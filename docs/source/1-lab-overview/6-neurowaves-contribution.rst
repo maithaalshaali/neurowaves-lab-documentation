@@ -80,13 +80,19 @@ For a directory:
 
 For a file:
 
-- Syntax: ``:github-file:`experiments/psychtoolbox/attention-experiment.rst``
-- Rendered: :github-file:`experiments/psychtoolbox/attention-experiment.rst`
+- Syntax: ``:github-file:`docs/source/4-meg-experiments-gallery/experiments/psychtoolbox/attention-experiment.rst`
+- Rendered: :github-file:`docs/source/4-meg-experiments-gallery/experiments/psychtoolbox/attention-experiment.rst`
 
-Masking link with text:
+Masking link with text, file:
 
 - Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>``
 - Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
+
+Masking link with text, directory:
+
+- Syntax: ``:github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>``
+- Rendered: :github-file:`Psychtoolbox Scripts <experiments/psychtoolbox/general>`
+
 
 Thank you for your contribution!
 
