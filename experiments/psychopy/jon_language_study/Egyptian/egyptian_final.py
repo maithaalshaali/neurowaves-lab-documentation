@@ -41,7 +41,7 @@ dp.DPxUpdateRegCache()
 responses = [] # Add this at the beginning of your script
 #Copy/Paste these two lines everytime the participant should input a button
 #response = getbutton() #listen to a button
-#responses.append(response) #everytime we get a response we add it to the table
+
 
 # Save the responses in a variable responses = [] then responses.append(response) then save it to your .csv
 
@@ -424,11 +424,20 @@ for trialIndex in range(startItem - 1, totalTrials):
             win.close()
             core.quit()
 
-        if responses[-1] == trialList[trialIndex]['correctAnswer']:
+        #if responses[-1] == trialList[trialIndex]['correctAnswer']:
+
+        if trialList[trialIndex]['correctAnswer'] == 9 and responses[-1]==('right box', 'red'):
+
+            recentCorrectResponses += 1
+            totalCorrectResponses += 1
+            answer = 1
+        elif trialList[trialIndex]['correctAnswer'] == 7 and responses[-1]==('right box', 'yellow'):
+
             recentCorrectResponses += 1
             totalCorrectResponses += 1
             answer = 1
         else:
+
             answer = 0
 
         # Wait a little longer before moving on
@@ -452,7 +461,7 @@ for trialIndex in range(startItem - 1, totalTrials):
 
     if isinstance(trialList[trialIndex]['taskQuestion'], str) and len(trialList[trialIndex]['taskQuestion']) >= 4:
         results.loc[trialIndex, 'expectedAnswer'] = trialList[trialIndex]['correctAnswer']
-        results.loc[trialIndex, 'participantAnswer'] = responses[-1]
+        results.loc[trialIndex, 'participantAnswer'] = responses[-1][1]
         results.loc[trialIndex, 'answer'] = answer
     else:
         results.loc[trialIndex, 'expectedAnswer'] = ''
