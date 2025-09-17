@@ -5,7 +5,7 @@ from psychopy import core, visual, event, parallel, data, monitors, gui
 from pypixxlib import _libdpx as dp
 
 
-from utilities import *
+from experiments.psychopy.general.utilities import *
 
 # Setup the connection with the Vpixx systems and disable Pixel Mode
 
@@ -15,6 +15,10 @@ TIME_WAIT_BREAK = 0.5
 trigger = [[4, 0, 0], [16, 0, 0], [64, 0, 0], [0, 1, 0], [0, 4, 0], [0, 16, 0], [0, 64, 0], [0, 0, 1]]
 channel_names  = ['224', '225', '226', '227', '228', '229', '230', '231']
 black = [0, 0, 0]
+
+RESPONSE_SELECTION = {
+    "right box": ["red", "yellow"],
+}
 
 def RGB2Trigger(color):
     # helper function determines expected trigger from a given RGB 255 colour value
@@ -401,7 +405,7 @@ for trialIndex in range(startItem - 1, totalTrials):
         win.flip()
 
         # Wait until button press to proceed to next trial
-        response = getbutton()  # listen to a button
+        response = getbuttonColor(RESPONSE_SELECTION)  # listen to a button
 
         responses.append(response)
 
