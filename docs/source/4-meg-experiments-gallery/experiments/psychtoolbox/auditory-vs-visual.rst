@@ -1,3 +1,5 @@
+.. _auditory-vs-visual-vs-motor:
+
 Experiment example 9: Auditory vs Visual vs Motor stimulus
 ----------------------------------------------------------
 
@@ -14,10 +16,10 @@ Acquired datasets are stored safely in NYU Box under `audio-visual-motor` file.
 Author: Hadi Zaatiti <hadi.zaatiti@nyu.edu>
 
 
-Download code from: https://github.com/Hzaatiti/meg-pipeline/tree/main/experiments/psychtoolbox/auditory-vs-visual
+:github-file:`Auditory vs Visual vs Motor Experiment Code <experiments/psychtoolbox/auditory-vs-visual>`
 
-.. dropdown:: Audio vs Visual vs Motor experiment
 
-    .. literalinclude:: ../../../../../experiments/psychtoolbox/auditory-vs-visual/auditory_vs_visual.m
-      :language: matlab
+:github-file:`Auditory vs Visual vs Motor Processing Pipeline Code <pipeline/psychtoolbox>`
+
+:github-file:`Auditory vs Visual vs Motor Processing Pipeline Notebook <pipeline>`
 

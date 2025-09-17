@@ -80,7 +80,7 @@ For a directory:
 
 For a file:
 
-- Syntax: ``:github-file:`docs/source/4-meg-experiments-gallery/experiments/psychtoolbox/attention-experiment.rst`
+- Syntax: ``:github-file:`docs/source/4-meg-experiments-gallery/experiments/psychtoolbox/attention-experiment.rst``
 - Rendered: :github-file:`docs/source/4-meg-experiments-gallery/experiments/psychtoolbox/attention-experiment.rst`
 
 Masking link with text, file:
