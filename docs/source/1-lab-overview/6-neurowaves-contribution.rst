@@ -76,15 +76,6 @@ Reference links from within the repository
 Referencing code files and directories on Github repository
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-Whole document reference:
-
-- Syntax: ``:doc:`2-meg-kit-system/5-operational-protocol-meg-session-checklist````
-- Rendered: :doc:`2-meg-kit-system/5-operational-protocol-meg-session-checklist`
-
-Document with custom link text:
-
-- Syntax: ``:doc:`MEG session checklist <2-meg-kit-system/5-operational-protocol-meg-session-checklist>``
-- Rendered: :doc:`MEG session checklist <2-meg-kit-system/5-operational-protocol-meg-session-checklist>`
 
 For a directory:
 
