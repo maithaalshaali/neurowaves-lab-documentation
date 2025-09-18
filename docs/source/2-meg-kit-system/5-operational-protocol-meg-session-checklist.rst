@@ -4,9 +4,9 @@
 MEG Session Checklist
 ---------------------
 
-** Step by step MEG Session checklist **
+**Step by step MEG Session checklist**
 
-Author: Maitha Al Shaali `ma6895@nyu.edu <ma6895@nyu.edu>`_
+`Author:` Maitha Al Shaali `ma6895@nyu.edu <ma6895@nyu.edu>`_
 
 Scheduling A Session
 ^^^^^^^^^^^^^^^^^^^^
