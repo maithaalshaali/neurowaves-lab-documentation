@@ -76,6 +76,16 @@ Reference links from within the repository
 Referencing code files and directories on Github repository
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+Whole document reference
+
+- Syntax: ``:doc:`2-meg-kit-system/5-operational-protocol-meg-session-checklist.rst````
+- Rendered: :doc:`2-meg-kit-system/5-operational-protocol-meg-session-checklist.rst`
+
+Document with custom link text
+
+- Syntax: ``:doc:`MEG session checklist <2-meg-kit-system/5-operational-protocol-meg-session-checklist.rst>``
+- Rendered: :doc:`MEG session checklist <2-meg-kit-system/5-operational-protocol-meg-session-checklist>`
+
 For a directory:
 
 - Syntax: ``:github-file:`experiments/psychtoolbox/general``
@@ -106,12 +116,10 @@ but if you want to reference the published page of the notebook, then use the be
 - Syntax: ``Resting state: Access link to Analysis Notebook <../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_restingstate.ipynb>`_``
 - Rendered: `Resting state: Access link to Analysis Notebook <../6-meg-pipeline-gallery/notebooks/fieldtrip/fieldtrip_kit_restingstate.ipynb>`_
 
-Thank you for your contribution!
 
 
-
-Checklist
-^^^^^^^^^
+Making a Checklist
+^^^^^^^^^^^^^^^^^^
 
 
 You can add simple task checklists to any page using the ``checklist`` directive.
@@ -181,3 +189,4 @@ Example with sections
       - [ ] Changelog
       - [ ] Tag and publish
 
+Thank you for your contribution!

@@ -1,4 +1,4 @@
-..
+.. _checklist:
 
 ---------------------
 MEG Session Checklist
